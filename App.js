@@ -3,6 +3,8 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
+  console.log(process.env.APP_MANIFEST.extra.googleMapsAPIKey);
+  console.log(process.env.APP_MANIFEST.extra.ticketmasterAPIKey);
   return (
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>
