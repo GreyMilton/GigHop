@@ -1,15 +1,30 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import MainPage from './components/MainPage';
+import EventPage from './components/EventPage';
+
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  console.log(process.env.APP_MANIFEST.extra.googleMapsAPIKey);
-  console.log(process.env.APP_MANIFEST.extra.ticketmasterAPIKey);
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="MainPage"
+          component={MainPage}
+          options={{ title: 'Welcome' }}
+        />
+        <Stack.Screen name="EventPage" component={EventPage} />
+      </Stack.Navigator>
+      {/* // <View style={styles.container}>
+      //   <Text>Open up App.js to start working on your app!</Text>
+      //   <StatusBar style="auto" />
+      // </View> */}
+    </NavigationContainer>
   );
 }
 
