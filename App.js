@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MainPage from './components/MainPage';
 import EventPage from './components/EventPage';
 import LogInPage from './components/LogInPage';
@@ -11,23 +12,24 @@ import EditEventPage from './components/EditEventPage';
 import UsersEventsPage from './components/UsersEventsPage';
 import BottomNav from './components/BottomNav'
 
-const Stack = createNativeStackNavigator();
+// const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
+      <Tab.Navigator>
+        <Tab.Screen
           name="MainPage"
           component={MainPage}
           options={{ title: 'Welcome' }}
         />
-        <Stack.Screen name="EventPage" component={EventPage} />
-        <Stack.Screen name="LogInPage" component={LogInPage} />
-        <Stack.Screen name="NewEventPage" component={NewEventPage} />
-        <Stack.Screen name="EditEventPage" component={EditEventPage} />
-        <Stack.Screen name="UsersEventsPage" component={UsersEventsPage} />
-      </Stack.Navigator>
+        <Tab.Screen name="EventPage" component={EventPage} />
+        <Tab.Screen name="LogInPage" component={LogInPage} />
+        <Tab.Screen name="NewEventPage" component={NewEventPage} />
+        <Tab.Screen name="EditEventPage" component={EditEventPage} />
+        <Tab.Screen name="UsersEventsPage" component={UsersEventsPage} />
+      </Tab.Navigator>
       {/* // <View style={styles.container}>
       //   <Text>Open up App.js to start working on your app!</Text>
       //   <StatusBar style="auto" />
