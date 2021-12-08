@@ -1,10 +1,24 @@
-import React from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Dimensions, TimePickerAndroid } from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from "react-native-maps";
 // import { mapStyle } from '../style-documents/map-style';
 import EventSummaryCard from './EventSummaryCard';
 
-export default function MapDisplay({ navigation }) {
+export default function MapDisplay() {
+
+  const [cardIsDisplaying, setCardIsDisplaying] = useState(false);
+
+  const setCardDisplayFalse = () => {
+    setCardIsDisplaying(prevState => {
+      if (prevState) return false;
+    })
+  }
+
+  const setCardDisplayTrue = () => {
+    setCardIsDisplaying(prevState => {
+      if (!prevState) return true;
+    })
+  }
 
   const venueArr = [
     {
@@ -35,10 +49,11 @@ export default function MapDisplay({ navigation }) {
 
 
   return (
-    <View>
+    <View style={styles.container}>
       <MapView provider={PROVIDER_GOOGLE}
           customMapStyle={mapStyle}
           style={styles.map}
+          onPress={setCardDisplayFalse}
           initialRegion={{
             latitude: 50.376289,
             longitude: -4.143841,
@@ -56,12 +71,14 @@ export default function MapDisplay({ navigation }) {
                 pinColor={venue.pinColor}
                 title={venue.venue}
                 description={venue.description}
+                onPress={setCardDisplayTrue}
               />
             );
           })}
-          <Marker coordinate={{ latitude: 50.376289, longitude: -4.143841 }}/>
       </MapView>
-      <EventSummaryCard />
+      {cardIsDisplaying ? <View style={styles.card}>
+        <EventSummaryCard/>
+      </View> : null}
     </View>
   );
 }
@@ -74,11 +91,26 @@ const styles = StyleSheet.create({
   //   alignItems: 'center',
   //   justifyContent: 'center',
   // },
+  container: {
+    width: Dimensions.get('window').width,
+    alignItems: 'center',
+  },
+  card: {
+    width: 390,
+    height: 60,
+    position: 'absolute',
+    top: 170,
+    elevation: 10,
+    backgroundColor: 'white',
+    borderRadius: 4,
+    padding: 4,
+  },
   map: {
     // flex: 70,
     width: Dimensions.get('window').width,
     // height: Dimensions.get('window').height,
-    height: 150,
+    height: 240,
+    position: 'relative',
   },
   // container2: {
   //   flex: 4,
