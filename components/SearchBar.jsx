@@ -11,7 +11,7 @@ export default function SearchBar({ navigation }) {
       <Text>SearchBar</Text>
       <LocationInput />
       <TimeAndDateInput />
-      <FilterSelect />
+      {/* <FilterSelect /> */}
       <SortSelect />
     </View>
   );
