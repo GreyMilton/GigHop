@@ -18,6 +18,7 @@ export default function UserScreen({ route, navigation }) {
       <Button
         title="Log Out"
         onPress={() => {
+            setCurrentUser();
             navigation.navigate('Find gigs');
             }}
       />

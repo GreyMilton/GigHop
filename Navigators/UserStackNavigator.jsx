@@ -12,7 +12,6 @@ export default function UserStackNavigator({ navigation }) {
       <Stack.Screen
         name="UserScreen"
         component={UserScreen}
-        initialParams={{ blurCount: blurCount }}
       />
       <Stack.Screen name="EditEventScreen" component={EditEventScreen} />
       <Stack.Screen name="UsersEventsScreen" component={UsersEventsScreen} />
