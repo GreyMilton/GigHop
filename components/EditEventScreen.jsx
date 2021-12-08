@@ -1,10 +1,10 @@
 import React from 'react';
 import { Text, View} from 'react-native';
 
-export default function NewEventPage({ navigation }) {
+export default function EditEventScreen({ navigation }) {
   return (
     <View>
-      <Text>NewEventPage</Text>
+      <Text>EditEventScreen</Text>
     </View>
   );
 }

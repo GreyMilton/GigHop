@@ -1,41 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
+import { useState } from 'react';
+import { UserContext } from './contexts/UserContext';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MainPage from './components/MainPage';
-import EventPage from './components/EventPage';
-import LogInPage from './components/LogInPage';
-import NewEventPage from './components/NewEventPage';
-import EditEventPage from './components/EditEventPage';
-import UsersEventsPage from './components/UsersEventsPage';
-import BottomNav from './components/BottomNav'
+import MainTabNavigator from './Navigators/MainTabNavigator';
 
-// const Stack = createNativeStackNavigator();
+import 'react-native-gesture-handler';
+
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+  const [currentUser, setCurrentUser] = useState({username: "Billy.B.Bob"});
+
   return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen
-          name="MainPage"
-          component={MainPage}
-          options={{ title: 'Welcome' }}
-        />
-        <Tab.Screen name="EventPage" component={EventPage} />
-        <Tab.Screen name="LogInPage" component={LogInPage} />
-        <Tab.Screen name="NewEventPage" component={NewEventPage} />
-        <Tab.Screen name="EditEventPage" component={EditEventPage} />
-        <Tab.Screen name="UsersEventsPage" component={UsersEventsPage} />
-      </Tab.Navigator>
-      {/* // <View style={styles.container}>
-      //   <Text>Open up App.js to start working on your app!</Text>
-      //   <StatusBar style="auto" />
-      // </View> */}
-      <BottomNav />
-    </NavigationContainer>
+    <UserContext.Provider value={{ currentUser, setCurrentUser}}>
+      <NavigationContainer>
+        <MainTabNavigator />
+      </NavigationContainer>
+    </UserContext.Provider>
   );
 }
 

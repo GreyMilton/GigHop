@@ -1,10 +1,10 @@
 import React from 'react';
 import { Text, View} from 'react-native';
 
-export default function LogInPage({ navigation }) {
+export default function NewEventScreen({ navigation }) {
   return (
     <View>
-      <Text>LogInPage</Text>
+      <Text>NewEventScreen</Text>
     </View>
   );
 }
