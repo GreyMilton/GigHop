@@ -5,11 +5,6 @@ import { UserContext } from '../contexts/UserContext';
 
 export default function UserScreen({ route, navigation }) {
   const { currentUser, setCurrentUser } = useContext(UserContext);
-  const { blurCount } = route.params;
-
-  useEffect(() => {
-    console.log(blurCount);
-  }, [blurCount])
 
   return (
     <View>
