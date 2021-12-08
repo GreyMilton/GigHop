@@ -9,7 +9,7 @@ import NewEventScreen from './components/NewEventScreen';
 import LogInScreen from './components/LogInScreen';
 import BottomNav from './components/BottomNav';
 import FindGigsStackNavigator from './Navigators/FindGigsStackNavigator';
-import UserDrawerNavigator from './Navigators/UserDrawerNavigator';
+import UserStackNavigator from './Navigators/UserStackNavigator';
 import FavesScreen from './components/FavesScreen';
 
 import 'react-native-gesture-handler';
@@ -19,13 +19,6 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   const [currentUser, setCurrentUser] = useState({username: "Billy.B.Bob"});
 
-  const printMessage = () => {
-    console.log("hello!");
-  }
-
-  const CreatePlaceholder = () => (
-    <View style={{ flex: 1, backgroundColor: 'blue' }} />
-  );
   return (
     <UserContext.Provider value={{ currentUser, setCurrentUser}}>
       <NavigationContainer>
@@ -37,10 +30,9 @@ export default function App() {
             name="Find gigs"
             component={FindGigsStackNavigator}
           />
-          <Tab.Screen name="TestPlaceHolder" component={CreatePlaceholder}/>
           <Tab.Screen name="Add gig" component={NewEventScreen} />
           <Tab.Screen name="Faves" component={FavesScreen} />
-          {currentUser ? <Tab.Screen name={currentUser.username} component={UserDrawerNavigator} onPress={printMessage} /> : <Tab.Screen name="Log in" component={LogInScreen} />}
+          {currentUser ? <Tab.Screen name={currentUser.username} component={UserStackNavigator} /> : <Tab.Screen name="Log in" component={LogInScreen} />}
         </Tab.Navigator>
         {/* // <View style={styles.container}>
         //   <Text>Open up App.js to start working on your app!</Text>
