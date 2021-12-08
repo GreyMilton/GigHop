@@ -17,7 +17,8 @@ export default function UserScreen({ navigation }) {
       <Button
         title="Log Out"
         onPress={() =>
-          navigation.navigate('Log In')
+          // navigation.popToTop();
+          navigation.navigate('Find gigs')
         }
       />
     </View>

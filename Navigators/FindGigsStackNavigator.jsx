@@ -1,11 +1,11 @@
 import React from 'react';
 import { Text, View} from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import MainScreen from '../components/MainScreen';
 import EventScreen from '../components/EventScreen';
 
 export default function FindGigsStackNavigator({ navigation }) {
-  const Stack = createNativeStackNavigator();
+  const Stack = createStackNavigator();
 
   return (
     <Stack.Navigator>

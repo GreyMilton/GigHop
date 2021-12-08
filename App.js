@@ -5,12 +5,7 @@ import { UserContext } from './contexts/UserContext';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import NewEventScreen from './components/NewEventScreen';
-import LogInScreen from './components/LogInScreen';
-import BottomNav from './components/BottomNav';
-import FindGigsStackNavigator from './Navigators/FindGigsStackNavigator';
-import UserStackNavigator from './Navigators/UserStackNavigator';
-import FavesScreen from './components/FavesScreen';
+import MainTabNavigator from './Navigators/MainTabNavigator';
 
 import 'react-native-gesture-handler';
 
@@ -22,23 +17,7 @@ export default function App() {
   return (
     <UserContext.Provider value={{ currentUser, setCurrentUser}}>
       <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={{
-            headerShown: true
-          }}>
-          <Tab.Screen
-            name="Find gigs"
-            component={FindGigsStackNavigator}
-          />
-          <Tab.Screen name="Add gig" component={NewEventScreen} />
-          <Tab.Screen name="Faves" component={FavesScreen} />
-          {currentUser ? <Tab.Screen name={currentUser.username} component={UserStackNavigator} /> : <Tab.Screen name="Log in" component={LogInScreen} />}
-        </Tab.Navigator>
-        {/* // <View style={styles.container}>
-        //   <Text>Open up App.js to start working on your app!</Text>
-        //   <StatusBar style="auto" />
-        // </View> */}
-        {/* <BottomNav /> */}
+        <MainTabNavigator />
       </NavigationContainer>
     </UserContext.Provider>
   );
