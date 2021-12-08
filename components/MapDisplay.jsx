@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from "react-native-maps";
 // import { mapStyle } from '../style-documents/map-style';
-import DisplaySwitch from './DisplaySwitch';
 import EventSummaryCard from './EventSummaryCard';
 
 export default function MapDisplay({ navigation }) {
@@ -37,7 +36,6 @@ export default function MapDisplay({ navigation }) {
 
   return (
     <View>
-      <Text>MapDisplay</Text>
       <MapView provider={PROVIDER_GOOGLE}
           customMapStyle={mapStyle}
           style={styles.map}
@@ -63,7 +61,6 @@ export default function MapDisplay({ navigation }) {
           })}
           <Marker coordinate={{ latitude: 50.376289, longitude: -4.143841 }}/>
       </MapView>
-      <DisplaySwitch />
       <EventSummaryCard />
     </View>
   );
