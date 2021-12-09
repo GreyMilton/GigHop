@@ -36,21 +36,18 @@ export default function MainScreen({ navigation }) {
   const [venuesInCurrentViewWithGigs, setVenuesInCurrentViewWithGigs] = useState(venueArr);
 
   const switchDisplay = () => {
-    setCount(prevCount => prevCount + 1);
     setMapIsDisplaying((prevState) => {
       if (prevState) return false;
       else return true;
     })
   }
 
-  const [count, setCount] = useState(0);
-
   return (
     <View>
       <SearchBar />
       <Text>Current view: { mapIsDisplaying ? "Map" : "List" }</Text>
       <Button title={ `switch to ${mapIsDisplaying ? "List" : "Map"} view` } onPress={switchDisplay}/>
-      {mapIsDisplaying ? <MapDisplay venuesInCurrentViewWithGigs={venuesInCurrentViewWithGigs} count={count} setCount={setCount} /> : <EventListDisplay count={count} /> }
+      {mapIsDisplaying ? <MapDisplay venuesInCurrentViewWithGigs={venuesInCurrentViewWithGigs} /> : <EventListDisplay /> }
       <Button
         title="Go to event screen"
         onPress={() =>

@@ -4,7 +4,7 @@ import MapView, {Marker, PROVIDER_GOOGLE} from "react-native-maps";
 // import { mapStyle } from '../style-documents/map-style';
 import EventSummaryCard from './EventSummaryCard';
 
-export default function MapDisplay({ venuesInCurrentViewWithGigs, count, setCount }) {
+export default function MapDisplay({ venuesInCurrentViewWithGigs }) {
 
   const [cardIsDisplaying, setCardIsDisplaying] = useState(false);
 
@@ -20,14 +20,8 @@ export default function MapDisplay({ venuesInCurrentViewWithGigs, count, setCoun
     })
   }
 
-  const resetCount = () => {
-    setCount(0)
-  }
-
   return (
     <View style={styles.container}>
-      <Text>{count}</Text>
-      <Button title='reset the count' onPress={resetCount}/>
       <MapView provider={PROVIDER_GOOGLE}
           customMapStyle={mapStyle}
           style={styles.map}
@@ -55,7 +49,7 @@ export default function MapDisplay({ venuesInCurrentViewWithGigs, count, setCoun
           })}
       </MapView>
       {cardIsDisplaying ? <View style={styles.card}>
-        <EventSummaryCard count={count} />
+        <EventSummaryCard />
       </View> : null}
     </View>
   );
