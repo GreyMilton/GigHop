@@ -14,7 +14,9 @@ export default function MainScreen({ navigation }) {
       <Button
         title="Go to event screen"
         onPress={() =>
-          navigation.navigate('EventScreen')
+          navigation.navigate('EventScreen', {
+            eventId: '61ae26cb8d70b95db023dbe6'
+          })
         }
       />
     </View>
