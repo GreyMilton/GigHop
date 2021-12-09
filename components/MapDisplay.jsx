@@ -4,7 +4,7 @@ import MapView, {Marker, PROVIDER_GOOGLE} from "react-native-maps";
 // import { mapStyle } from '../style-documents/map-style';
 import EventSummaryCard from './EventSummaryCard';
 
-export default function MapDisplay({ count, setCount }) {
+export default function MapDisplay({ venuesInCurrentViewWithGigs, count, setCount }) {
 
   const [cardIsDisplaying, setCardIsDisplaying] = useState(false);
 
@@ -19,33 +19,6 @@ export default function MapDisplay({ count, setCount }) {
       if (!prevState) return true;
     })
   }
-
-  const venueArr = [
-    {
-      venue: "The Ship",
-      coordinate: { latitude: 50.3678, longitude: -4.13566 },
-      description: "pub with live music",
-      pinColor: "yellow"
-    },
-    {
-      venue: "The Three Crowns",
-      coordinate: { latitude: 50.36835, longitude: -4.13577 },
-      description: "pub with live music",
-      pinColor: "cyan"
-    },
-    {
-      venue: "Cap'n Jaspers",
-      coordinate: { latitude: 50.36766, longitude: -4.13418 },
-      description: "pub with live music",
-      pinColor: "pink"
-    },
-    {
-      venue: "Bar Rakuda",
-      coordinate: { latitude: 50.36763, longitude: -4.13511 },
-      description: "pub with live music",
-      pinColor: "green"
-    }
-  ];
 
   const resetCount = () => {
     setCount(0)
@@ -65,7 +38,7 @@ export default function MapDisplay({ count, setCount }) {
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421
           }}>
-          {venueArr.map(venue => {
+          {venuesInCurrentViewWithGigs.map(venue => {
             return (
               <Marker
                 key={venue.venue} 
