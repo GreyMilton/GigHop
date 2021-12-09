@@ -1,23 +1,27 @@
-import React from 'react';
+import axios from 'axios'
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Image} from 'react-native';
 
-export default function EventScreen() {
+export default function EventScreen(props) {
+  const eventId = props.route.params.eventId;
 
-  const DATA = [
-    {
-      "_id": {"$oid":"61ae26cb8d70b95db023dbe6"},
-      "entry_price":{"$numberDouble":"4.99"},
-      "description":"test",
-      "venue_id":"61ae068dcff5425db378629e",
-      "user_id":"61ae0411e399a088552170ba",
-      "artists_ids":[{"artist_id":"61ae0411e399a088552170ba"}],
-      "authorised":{"artist":true,"venue":true},
-      "time_end":{"$date":{"$numberLong":"1639177200000"}},
-      "time_start":{"$date":{"$numberLong":"1639161000000"}},
-      "picture":"https://upload.wikimedia.org/wikipedia/commons/e/ef/The_Wiggles_live_in_Sydney_2018.jpg",
-      "event_name":"Grey and the Wiggles","artist_id":["testing","testing"]
-    }
-  ]
+  const baseUrl = 'https://gig-hop.herokuapp.com/api/'
+
+  const [data, setData] = useState();
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url: `${baseUrl}/events/${eventId}`
+    }).then((response) => {
+      setData(response.data)
+      setIsLoading(false)
+    });
+  }, []);
+
+  const dataArray = [data]
+
 
   const Item = ({ title, entryPrice, description, picture}) => (
     <View style={styles.item}>
@@ -58,14 +62,14 @@ export default function EventScreen() {
     </View>
   )
 
+  if (isLoading) return <Text>LOADING</Text>
   return (
     <SafeAreaView style={styles.container}>
       <Text>CHOSEN EVENT SCREEN</Text>
       <FlatList
-        data={DATA}
+        data={dataArray}
         keyExtractor={(item) => item._id}
         renderItem={({item}) => {
-          console.log(item)
           return <Item 
             title={item.event_name}
             entryPrice={item.entry_price}
@@ -76,7 +80,7 @@ export default function EventScreen() {
       />
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
