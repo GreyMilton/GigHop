@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Dimensions, TimePickerAndroid } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Button } from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE} from "react-native-maps";
 // import { mapStyle } from '../style-documents/map-style';
 import EventSummaryCard from './EventSummaryCard';
 
-export default function MapDisplay() {
+export default function MapDisplay({ count, setCount }) {
 
   const [cardIsDisplaying, setCardIsDisplaying] = useState(false);
 
@@ -47,9 +47,14 @@ export default function MapDisplay() {
     }
   ];
 
+  const resetCount = () => {
+    setCount(0)
+  }
 
   return (
     <View style={styles.container}>
+      <Text>{count}</Text>
+      <Button title='reset the count' onPress={resetCount}/>
       <MapView provider={PROVIDER_GOOGLE}
           customMapStyle={mapStyle}
           style={styles.map}
@@ -77,7 +82,7 @@ export default function MapDisplay() {
           })}
       </MapView>
       {cardIsDisplaying ? <View style={styles.card}>
-        <EventSummaryCard/>
+        <EventSummaryCard count={count} />
       </View> : null}
     </View>
   );

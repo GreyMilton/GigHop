@@ -1,10 +1,10 @@
 import React from 'react';
-import { Text, View} from 'react-native';
+import { Button, Text, View} from 'react-native';
 
-export default function EventSummaryCard({ navigation }) {
+export default function EventSummaryCard({ count }) {
   return (
     <View>
-      <Text>EventSummaryCard</Text>
+      <Text>EventSummaryCard {count}</Text>
     </View>
   );
 }
