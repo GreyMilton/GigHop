@@ -1,12 +1,11 @@
 import React from 'react';
 import { Button, Text, View} from 'react-native';
-
-export default function EventSummaryCard({ venue }) {
+export default function EventSummaryCallout({ venue }) {
   return (
     <View>
       { venue ? <>
-      <Text>{venue.venue}</Text>
-      <Text>{venue.description}</Text>
+      <Text>Venue name: {venue.venue}</Text>
+      <Text>Venue description: {venue.description}</Text>
       </>
       : <Text>No venue information found</Text> }
     </View>
