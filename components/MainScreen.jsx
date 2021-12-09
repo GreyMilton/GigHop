@@ -47,13 +47,7 @@ export default function MainScreen({ navigation }) {
       <SearchBar />
       <Text>Current view: { mapIsDisplaying ? "Map" : "List" }</Text>
       <Button title={ `switch to ${mapIsDisplaying ? "List" : "Map"} view` } onPress={switchDisplay}/>
-      {mapIsDisplaying ? <MapDisplay venuesInCurrentViewWithGigs={venuesInCurrentViewWithGigs} /> : <EventListDisplay /> }
-      <Button
-        title="Go to event screen"
-        onPress={() =>
-          navigation.navigate('EventScreen')
-        }
-      />
+      {mapIsDisplaying ? <MapDisplay navigation={navigation} venuesInCurrentViewWithGigs={venuesInCurrentViewWithGigs} /> : <EventListDisplay navigation={navigation} venuesInCurrentViewWithGigs={venuesInCurrentViewWithGigs} /> }
     </View>
   );
 }

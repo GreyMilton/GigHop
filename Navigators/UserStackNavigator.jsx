@@ -5,7 +5,7 @@ import UserScreen from '../components/UserScreen';
 import EditEventScreen from '../components/EditEventScreen';
 import UsersEventsScreen from '../components/UsersEventsScreen';
 
-export default function UserStackNavigator({ navigation }) {
+export default function UserStackNavigator() {
   const Stack = createStackNavigator();
   return (
     <Stack.Navigator>

@@ -1,31 +1,16 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Dimensions, Button } from 'react-native';
-import MapView, {Marker, PROVIDER_GOOGLE} from "react-native-maps";
+import MapView, {Marker, Callout, PROVIDER_GOOGLE} from "react-native-maps";
 // import { mapStyle } from '../style-documents/map-style';
-import EventSummaryCard from './EventSummaryCard';
+import EventSummaryCallout from './EventSummaryCallout';
 
-export default function MapDisplay({ venuesInCurrentViewWithGigs }) {
-
-  const [cardIsDisplaying, setCardIsDisplaying] = useState(false);
-
-  const setCardDisplayFalse = () => {
-    setCardIsDisplaying(prevState => {
-      if (prevState) return false;
-    })
-  }
-
-  const setCardDisplayTrue = () => {
-    setCardIsDisplaying(prevState => {
-      if (!prevState) return true;
-    })
-  }
+export default function MapDisplay({ venuesInCurrentViewWithGigs, navigation }) {
 
   return (
     <View style={styles.container}>
       <MapView provider={PROVIDER_GOOGLE}
           customMapStyle={mapStyle}
           style={styles.map}
-          onPress={setCardDisplayFalse}
           initialRegion={{
             latitude: 50.376289,
             longitude: -4.143841,
@@ -35,6 +20,7 @@ export default function MapDisplay({ venuesInCurrentViewWithGigs }) {
           {venuesInCurrentViewWithGigs.map(venue => {
             return (
               <Marker
+                identifier={venue.venue}
                 key={venue.venue} 
                 coordinate={{
                   latitude: venue.coordinate.latitude,
@@ -43,18 +29,17 @@ export default function MapDisplay({ venuesInCurrentViewWithGigs }) {
                 pinColor={venue.pinColor}
                 title={venue.venue}
                 description={venue.description}
-                onPress={setCardDisplayTrue}
-              />
+              >
+                <Callout onPress={() => navigation.navigate('EventScreen')}>
+                    <EventSummaryCallout venue={venue} />
+                </Callout>
+              </Marker>
             );
           })}
       </MapView>
-      {cardIsDisplaying ? <View style={styles.card}>
-        <EventSummaryCard />
-      </View> : null}
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   // container1: {
@@ -67,7 +52,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
     alignItems: 'center',
   },
-  card: {
+  callout: {
     width: 390,
     height: 60,
     position: 'absolute',

@@ -9,7 +9,7 @@ import FavesScreen from '../components/FavesScreen';
 import { UserContext } from '../contexts/UserContext';
 import { useContext } from 'react';
 
-export default function MainTabNavigator({ navigation }) {
+export default function MainTabNavigator() {
   const Tab = createBottomTabNavigator();
 
   const { currentUser, setCurrentUser } = useContext(UserContext);
