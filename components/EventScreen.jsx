@@ -20,23 +20,22 @@ export default function EventScreen(props) {
     });
   }, []);
 
-  const dataArray = [data]
-  console.log(dataArray)
-
   if (isLoading) return <Text>LOADING</Text>
   return (
-    <View>
-      {dataArray.map((item) => {
+    <View style={styles.container}>
+      {data.map((item) => {
+        console.log(item)
         return (
-          <View key={item._id}>
-          <Text>{item.event_name}</Text>
-          <Text>Entry Price: £{item.entry_price}</Text>
-          <Text>description={item.description}</Text>
+          <View style={styles.item} key={item._id}>
+          <Text style={styles.text}>{item.event_name}</Text>
+          <Text style={styles.text}>Entry Price: £{item.entry_price}</Text>
+          <Text style={styles.text}>Event info: {item.description}</Text>
           <Image 
           style={{    
             flex: 1,
             aspectRatio: 1.5, 
             resizeMode: 'contain',
+            height: 200
           }}
           source={{
             uri: item.picture
@@ -114,20 +113,32 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: StatusBar.currentHeight,
-    marginHorizontal: 16,
+    margin: 16,
+    backgroundColor: "#AFD2E9",
+    alignItems: 'center',
+    justifyContent: 'center',
+
+  },
+  text: {
+    backgroundColor: '#7cb48f',
+    borderColor: 'black',
+    borderWidth: 1,
+    margin: 5,
+    width: '100%'
   },
   item: {
-    backgroundColor: "#AFD2E9",
+    backgroundColor: "#C9F299",
     padding: 20,
     marginVertical: 8,
+    width: '90%'
   },
-  header: {
-    fontSize: 32,
-    backgroundColor: "#D2FF96"
-  },
-  title: {
-    fontSize: 24,
-    color: 'black'
-  }
+  // header: {
+  //   fontSize: 32,
+  //   backgroundColor: "#D2FF96"
+  // },
+  // title: {
+  //   fontSize: 24,
+  //   color: 'black'
+  // }
 });
 
