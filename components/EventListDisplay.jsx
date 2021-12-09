@@ -1,14 +1,24 @@
 import React from 'react';
-import { Text, View} from 'react-native';
-import DisplaySwitch from './DisplaySwitch';
+import { Button, Text, View} from 'react-native';
 import EventSummaryCard from './EventSummaryCard';
 
-export default function EventListDisplay({ navigation }) {
+export default function EventListDisplay({ venuesInCurrentViewWithGigs, navigation }) {
   return (
     <View>
       <Text>EventListDisplay</Text>
-      <DisplaySwitch />
-      <EventSummaryCard />
+      {venuesInCurrentViewWithGigs.map((venue) => {
+        return (
+          <View key={venue.venue} >
+            <EventSummaryCard venue={venue}/>
+            <Button
+            title="Go to event screen"
+            onPress={() =>
+              navigation.navigate('EventScreen')
+            }/>
+          </View>
+        );
+      })}
+
     </View>
   );
 }

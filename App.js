@@ -4,12 +4,9 @@ import { useState } from 'react';
 import { UserContext } from './contexts/UserContext';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MainTabNavigator from './Navigators/MainTabNavigator';
 
 import 'react-native-gesture-handler';
-
-const Tab = createBottomTabNavigator();
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState({username: "Billy.B.Bob"});
