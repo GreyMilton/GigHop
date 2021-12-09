@@ -42,6 +42,8 @@ export default function MainScreen({ navigation }) {
     })
   }
 
+  const [selectedDate, setSelectedDate] = useState();
+  
   return (
     <View>
       <SearchBar />

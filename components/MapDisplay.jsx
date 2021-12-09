@@ -30,7 +30,7 @@ export default function MapDisplay({ venuesInCurrentViewWithGigs, navigation }) 
                 title={venue.venue}
                 description={venue.description}
               >
-                <Callout onPress={() => navigation.navigate('EventScreen')}>
+                <Callout onPress={() => navigation.navigate('EventScreen', { eventId: '61ae26cb8d70b95db023dbe6'})}>
                     <EventSummaryCallout venue={venue} />
                 </Callout>
               </Marker>

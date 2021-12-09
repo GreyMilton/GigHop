@@ -12,13 +12,10 @@ export default function EventListDisplay({ venuesInCurrentViewWithGigs, navigati
             <EventSummaryCard venue={venue}/>
             <Button
             title="Go to event screen"
-            onPress={() =>
-              navigation.navigate('EventScreen')
-            }/>
+            onPress={() => navigation.navigate('EventScreen', { eventId: '61ae26cb8d70b95db023dbe6'})}/>
           </View>
         );
       })}
-
     </View>
   );
 }
