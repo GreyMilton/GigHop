@@ -5,7 +5,6 @@ import MapDisplay from './MapDisplay';
 import EventListDisplay from './EventListDisplay';
 import { getEventsByTimestamp } from '../grey-and-stuarts-axios/grey-and-stuarts-axios-requests';
 
-
 export default function MainScreen({ navigation }) {
   const venueArr = [
     {
