@@ -35,7 +35,7 @@ export default function EventScreen(props) {
             <View key='Venue'>
               <Text style={styles.text}>Held at: {item.venue_info[0].venue_name}</Text>
               <Text style={styles.text}>Address: {item.venue_info[0].address}</Text>
-              <Image style={styles.image} source={{ uri: item.venue_info[0].picture }}/>
+              <Image style={[item.venue_info[0].picture ? styles.image : styles.noImage]} source={{ uri: item.venue_info[0].picture }}/>
             </View>
           </View>
         )
