@@ -5,8 +5,8 @@ import {Button, Platform} from 'react-native';
 
 export default function TimeAndDateInput({ selectedTimestamp, setSelectedTimestamp }) {
 
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [showTimePicker, setShowTimePicker] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(Platform.OS === 'ios');
+  const [showTimePicker, setShowTimePicker] = useState(Platform.OS === 'ios');
   
   const onDatePickerChange = (event, newlySelectedDate = selectedTimestamp) => {
     setShowDatePicker(Platform.OS === 'ios');
@@ -26,8 +26,12 @@ export default function TimeAndDateInput({ selectedTimestamp, setSelectedTimesta
 
   return (
     <View>
-        <Button onPress={showDatepickerPress} title={selectedTimestamp.toDateString()} />
-        <Button onPress={showTimepickerPress} title={selectedTimestamp.toTimeString().substring(0,5)} />
+      {Platform.OS === 'ios' ? null :
+        <>
+          <Button onPress={showDatepickerPress} title={selectedTimestamp.toDateString()} />
+          <Button onPress={showTimepickerPress} title={selectedTimestamp.toTimeString().substring(0,5)} />
+        </>
+      }
       {showDatePicker && (
         <DateTimePicker
           testID="dateTimePicker"
