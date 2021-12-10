@@ -9,11 +9,11 @@ export default function TimeAndDateInput({ selectedTimestamp, setSelectedTimesta
   const [showTimePicker, setShowTimePicker] = useState(false);
   
   const onDatePickerChange = (event, newlySelectedDate = selectedTimestamp) => {
-    setShowDatePicker(false);
+    setShowDatePicker(Platform.OS === 'ios');
     setSelectedTimestamp(newlySelectedDate);
   };
   const onTimePickerChange = (event, newlySelectedTime = selectedTimestamp) => {
-    setShowTimePicker(false);
+    setShowTimePicker(Platform.OS === 'ios');
     setSelectedTimestamp(newlySelectedTime);
   };
 
