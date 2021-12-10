@@ -1,52 +1,51 @@
 import React, {useEffect, useState} from 'react';
 import { Text, View} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-
-
 import {Button, Platform} from 'react-native';
 
-export default function TimeAndDateInput({ navigation }) {
+export default function TimeAndDateInput({ selectedTimestamp, setSelectedTimestamp }) {
 
-  const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
-
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    setDate(currentDate);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showTimePicker, setShowTimePicker] = useState(false);
+  
+  const onDatePickerChange = (event, newlySelectedDate = selectedTimestamp) => {
+    setShowDatePicker(false);
+    setSelectedTimestamp(newlySelectedDate);
+  };
+  const onTimePickerChange = (event, newlySelectedTime = selectedTimestamp) => {
+    setShowTimePicker(false);
+    setSelectedTimestamp(newlySelectedTime);
   };
 
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
+  const showDatepickerPress = () => {
+    setShowDatePicker(true);
   };
-
-  const showDatepicker = () => {
-    showMode('date');
+  const showTimepickerPress = () => {
+    setShowTimePicker(true);
   };
-
-  // const showTimepicker = () => {
-  //   showMode('time');
-  // };
 
   return (
     <View>
-      <View>
-        <Button onPress={showDatepicker} title="Choose date" />
-        <Text>Chosen date is: {date.toDateString()}</Text>
-      </View>
-      {/* <View>
-        <Button onPress={showTimepicker} title="Show time picker!" />
-      </View> */}
-      {show && (
+        <Button onPress={showDatepickerPress} title={selectedTimestamp.toDateString()} />
+        <Button onPress={showTimepickerPress} title={selectedTimestamp.toTimeString().substring(0,5)} />
+      {showDatePicker && (
         <DateTimePicker
           testID="dateTimePicker"
-          value={date}
-          mode={mode}
+          value={selectedTimestamp}
+          mode={'date'}
           is24Hour={true}
           display="default"
-          onChange={onChange}
+          onChange={onDatePickerChange}
+        />
+      )}
+      {showTimePicker && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={selectedTimestamp}
+          mode={'time'}
+          is24Hour={true}
+          display="default"
+          onChange={onTimePickerChange}
         />
       )}
     </View>
