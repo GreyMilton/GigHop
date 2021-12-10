@@ -5,14 +5,13 @@ import TimeAndDateInput from './TimeAndDateInput';
 import FilterSelect from './FilterSelect';
 import SortSelect from './SortSelect';
 
-export default function SearchBar({ selectedDate, setSelectedDate }) {
+export default function SearchBar({ selectedTimestamp, setSelectedTimestamp }) {
   return (
     <View>
-      <Text>SearchBar</Text>
       <LocationInput />
-      <TimeAndDateInput selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+      <TimeAndDateInput selectedTimestamp={selectedTimestamp} setSelectedTimestamp={setSelectedTimestamp} />
       {/* <FilterSelect /> */}
-      <SortSelect />
+      {/* <SortSelect /> */}
     </View>
   );
 }

@@ -4,6 +4,9 @@ const gigHopAPI = axios.create({
   baseURL: 'https://gig-hop.herokuapp.com/api/'
 });
 
-export const getEventsByDate = (date = ' ') => {
-  return gigHopAPI.get(`/events?filter_by=${date}`).then((response) => {console.log(response.data)});
+export const getEventsByTimestamp = (selectedTimestamp = ' ') => {
+  return gigHopAPI.get(`/events?filter_by=${selectedTimestamp.toISOString()}`).then((response) => {return response.data});
 }
+
+ // When sending get request, timestamp will need to be sent as:
+  //    selectedTimestamp.toISOString()

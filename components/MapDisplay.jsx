@@ -4,7 +4,7 @@ import MapView, {Marker, Callout, PROVIDER_GOOGLE} from "react-native-maps";
 // import { mapStyle } from '../style-documents/map-style';
 import EventSummaryCallout from './EventSummaryCallout';
 
-export default function MapDisplay({ venuesInCurrentViewWithGigs, navigation }) {
+export default function MapDisplay({ mapMarkers, navigation }) {
 
   return (
     <View style={styles.container}>
@@ -17,21 +17,20 @@ export default function MapDisplay({ venuesInCurrentViewWithGigs, navigation }) 
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421
           }}>
-          {venuesInCurrentViewWithGigs.map(venue => {
+          {mapMarkers.map(event => {
             return (
               <Marker
-                identifier={venue.venue}
-                key={venue.venue} 
+                key={event['_id']} 
                 coordinate={{
-                  latitude: venue.coordinate.latitude,
-                  longitude: venue.coordinate.longitude
+                  latitude: parseFloat(event['venue_info'][0].coordinates.latitude["$numberDecimal"]),
+                  longitude: parseFloat(event['venue_info'][0].coordinates.longitude["$numberDecimal"])
                 }}
-                pinColor={venue.pinColor}
-                title={venue.venue}
-                description={venue.description}
+                pinColor={event['venue_info'][0]['pin_colour']}
+                title={event['event_name']}
+                description={event.description}
               >
-                <Callout onPress={() => navigation.navigate('EventScreen', { eventId: '61ae26cb8d70b95db023dbe6'})}>
-                    <EventSummaryCallout venue={venue} />
+                <Callout onPress={() => navigation.navigate('EventScreen', { eventId: event['_id']})}>
+                    <EventSummaryCallout event={event} />
                 </Callout>
               </Marker>
             );
