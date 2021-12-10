@@ -1,10 +1,10 @@
 import React from 'react';
-import { Button, Text, View} from 'react-native';
+import { Button, Text, View, ScrollView} from 'react-native';
 import EventSummaryCard from './EventSummaryCard';
 
 export default function EventListDisplay({ mapMarkers, navigation }) {
   return (
-    <View>
+    <ScrollView>
       {mapMarkers.map((event) => {
         return (
           <View key={event['_id']} >
@@ -15,6 +15,6 @@ export default function EventListDisplay({ mapMarkers, navigation }) {
           </View>
         );
       })}
-    </View>
+    </ScrollView>
   );
 }
