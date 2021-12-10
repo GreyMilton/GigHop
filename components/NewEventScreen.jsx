@@ -1,71 +1,85 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, Picker, Button, Platform } from "react-native";
-import { SafeAreaView, StyleSheet, TextInput } from "react-native";
+import {Text, View, Picker, Platform, Button, SafeAreaView, StyleSheet, TextInput, ScrollView } from "react-native"; 
 import { getVenues, getArtists } from "./utils/get";
 import DateTimePicker from '@react-native-community/datetimepicker';
+import {Form, FormItem} from 'react-native-form-component'
+import CurrencyInput from "react-native-currency-input";
 
 export default function NewEventScreen({ navigation }) {
   const [eventName, setEventName] = useState("");
   const [artist, setArtist] = useState("");
   const [venue, setVenue] = useState("");
-  const [venueAddress, setvenueAddress] = useState("");
-  const [startTime, setstartTime] = useState(new Date());
-  const [endTime, setendTime] = useState(new Date());
+  const [venueAddress, setVenueAddress] = useState("");
+  const [startTime, setStartTime] = useState(new Date());
+  const [endTime, setEndTime] = useState(new Date());
   const [price, setPrice] = useState();
   const [description, setDescription] = useState();
   const [picture, setPicture] = useState();
-  const [ArrayOfVenues, setArrayofVenues] = useState([]);
-  const [ArrayOfArtists, setArrayofArtists] = useState([]);
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
+  const [ArrayOfVenues, setArrayOfVenues] = useState([]);
+  const [ArrayOfArtists, setArrayOfArtists] = useState([]);
+  const [modeStart, setModeStart] = useState('date');
+  const [showStart, setShowStart] = useState(false);
+  const [modeEnd, setModeEnd] = useState('date');
+  const [showEnd, setShowEnd] = useState(false);
 
-  const onChangeStart = (event, selectedDate) => {
-    setShow(false);
-    const currentDate = selectedDate || Date;
-    setstartTime(currentDate);
+  const onChangeStart = (event, selectedDate = startTime) => {
+    setShowStart(false);
+    setStartTime(selectedDate);
   };
 
-  const onChangeEnd = (event, selectedDate) => {
-    const currentDate = selectedDate || Date;
-    setShow(false);
-    setendTime(currentDate);
+  const onChangeEnd = (event, selectedDate = endTime) => {
+    setShowEnd(false);
+    setEndTime(selectedDate);
   };
 
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
+  const showModeStart = (currentMode) => {
+    setShowStart(true);
+    setModeStart(currentMode);
   };
 
-  const showDatePicker = () => {
-    showMode('date');
+  const showDatePickerStart = () => {
+    showModeStart('date');
   };
 
-  const showTimePicker = () => {
-    showMode('time');
+  const showTimePickerStart = () => {
+    showModeStart('time');
+  };
+
+  const showModeEnd = (currentMode) => {
+    setShowEnd(true);
+    setModeEnd(currentMode);
+  };
+
+  const showDatePickerEnd = () => {
+    showModeEnd('date');
+  };
+
+  const showTimePickerEnd = () => {
+    showModeEnd('time');
   };
 
   useEffect(() => {
     getVenues().then((res) => {
-      setArrayofVenues(res);
+      setArrayOfVenues(res);
     });
-  }, []);
+  }, [setShowStart, setShowEnd]);
   useEffect(() => {
     getArtists().then((res) => {
-      setArrayofArtists(res);
+      setArrayOfArtists(res);
     });
-  }, []);
+  }, [setShowStart, setShowEnd]);
 
   //when you have collected all the details have been entered
-  const [newEvent, setnewEvent] = useState();
-  const [newArtist, setnewArtist] = useState();
-  const [newVenue, setnewVenue] = useState();
-  const [newVenueAdress, setnewVenueAdress] = useState();
-  const [newstartTime, setnewstartTime] = useState();
-  const [newendTime, setnewendTime] = useState();
-  const [newprice, setnewPrice] = useState();
-  const [newDescription, setnewDescriptin] = useState();
-  const [newPicture, setnewPicture] = useState();
-  // console.log(newEvent, newArtist, newVenue, newVenueAdress, newstartTime);
+  const [newEvent, setNewEvent] = useState();
+  const [newArtist, setNewArtist] = useState();
+  const [newVenue, setNewVenue] = useState();
+  const [newVenueAddress, setNewVenueAddress] = useState();
+  const [newStartTime, setNewStartTime] = useState();
+  const [newEndTime, setNewEndTime] = useState();
+  const [newPrice, setNewPrice] = useState();
+  const [newDescription, setNewDescriptin] = useState();
+  const [newPicture, setNewPicture] = useState();
+  // console.log(newEvent, newArtist, newVenue, newVenueAddress, newStartTime);
 
   //  "event_name",
   //   "entry_price",
@@ -78,144 +92,74 @@ export default function NewEventScreen({ navigation }) {
   //   "time_start",
   //   "picture"
   return (
-    <SafeAreaView>
-      <form action="">
-        <TextInput
-          required
-          style={styles.input}
-          onChangeText={setEventName}
-          value={eventName}
-          placeholder="event name"
-          keyboardType="text"
-        />
-        {/* <TextInput
-          required
-          style={styles.input}
-          onChangeText={setArtist}
-          value={artist}
-          placeholder="artist"
-          keyboardType="text"
-          //select
-        /> */}
-        <Picker
-          selectedValue={artist}
-          style={styles.input}
-          onValueChange={(itemValue, itemIndex) => setArtist(itemValue)}
-        >
-          <Picker.Item label="artist" value={undefined} />
-          {ArrayOfArtists.map((artist) => {
-            return (
-              <Picker.Item label={artist.artist_name} value={artist._id} />
+    <ScrollView>
+    <Form onSubmit=''>
+      <FormItem label='Event name' value={eventName} onChangeText={(eventName) => setEventName(eventName)}/>
+      <Picker
+        selectedValue={artist}
+        style={styles.input}
+        onValueChange={(itemValue, itemIndex) => setArtist(itemValue)}
+       >
+        <Picker.Item label="artist" value={undefined} />
+         {ArrayOfArtists.map((artist) => {
+          return (
+            <Picker.Item key={artist._id} label={artist.artist_name} value={artist._id} />
             );
-          })}
-        </Picker>
+           })}
+      </Picker>
+           <Picker
+           selectedValue={venue}
+           style={styles.input}
+           onValueChange={(itemValue, itemIndex) => setVenue(itemValue)}
+         >
+           <Picker.Item label="venue" value={undefined} />
+           {ArrayOfVenues.map((venue) => {
+             return <Picker.Item key={venue._id} label={venue.venue_name} value={venue._id} />;
+           })}
+         </Picker>
 
-        <Picker
-          selectedValue={venue}
-          style={styles.input}
-          onValueChange={(itemValue, itemIndex) => setVenue(itemValue)}
-        >
-          <Picker.Item label="venue" value={undefined} />
-          {/* <Picker.Item label="Java" value="java" />
-          <Picker.Item label="JavaScript" value="js" /> */}
-          {ArrayOfVenues.map((venue) => {
-            return <Picker.Item label={venue.venue_name} value={venue._id} />;
-          })}
-        </Picker>
-        {/* 
-        <TextInput
-          required
-          style={styles.input}
-          onChangeText={setVenue}
-          value={venue}
-          placeholder="Venue"
-          keyboardType="text"
-        /> */}
-    <View>
-      <Button onPress={showDatePicker} title=" Show Start Date" />
-    </View>
-    <View>
-      <Button onPress={showTimePicker} title="Show Start Time" />
-    </View>
-    <View>
-      {show && (
-    <DateTimePicker
-    testID="dateTimePicker"
-    value={startTime}
-    mode={mode}
-    is24Hour={true}
-    display="default"
-    onChange={onChangeStart}
+      <View>
+        <Button onPress={showDatePickerStart} title=" Show Start Date" />
+      </View>
+      <View>
+        <Button onPress={showTimePickerStart} title="Show Start Time" />
+      </View>
+      <Text>Chosen start date: {startTime.toDateString()} {startTime.toTimeString().substring(0, 5)}</Text>
+      <View>
+         {showStart && (
+        <DateTimePicker
+         testID="dateTimePickerStart"
+         value={startTime}
+         mode={modeStart}
+         is24Hour={true}
+         display="default"
+         onChange={onChangeStart}
+        />)}
+      </View>
 
-    />)}
-    </View>
-    {/* <DateTimePicker
-      value={endTime}
-      mode={'time'}
-          is24Hour={true}
-          display="default"
-      onChange={setendTime}
-    /> */}
-
-        {/* <TextInput
-          required
-          style={styles.input}
-          onChangeText={setstartTime}
-          value={startTime}
-          placeholder="start time"
-          keyboardType="text"
-        />
-        <TextInput
-          required
-          style={styles.input}
-          onChangeText={setendTime}
-          value={endTime}
-          placeholder="end time"
-          keyboardType="text"
-        /> */}
-        <TextInput
-          required
-          style={styles.input}
-          onChangeText={setPrice}
-          value={price}
-          placeholder="price"
-          keyboardType="number"
-        />
-        <TextInput
-          multiline
-          style={styles.input}
-          onChangeText={setDescription}
-          value={description}
-          placeholder="description"
-          keyboardType="text"
-        />
-        <TextInput
-          style={styles.input}
-          onChangeText={setPicture}
-          value={picture}
-          placeholder="picture"
-          keyboardType="text"
-        />
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            setnewEvent(eventName);
-            setEventName(""); //clear the interface
-            setnewArtist(artist);
-            setArtist("");
-            setnewVenue(venue);
-            setVenue("");
-            setnewVenueAdress(venueAddress);
-            setvenueAddress("");
-            setnewstartTime(startTime);
-            setstartTime("");
-          }}
-        >
-          submit event
-        </button>
-      </form>
-    </SafeAreaView>
-  );
+     <View>
+       <Button onPress={showDatePickerEnd} title=" Show End Date" />
+     </View>
+     <View>
+       <Button onPress={showTimePickerEnd} title="Show End Time" />
+     </View>
+     <Text>Chosen end date: {endTime.toDateString()} {endTime.toTimeString().substring(0, 5)}</Text>
+     <View>
+       {showEnd && (
+     <DateTimePicker
+     testID="dateTimePickerEnd"
+     value={endTime}
+     mode={modeEnd}
+     is24Hour={true}
+     display="default"
+     onChange={onChangeEnd}
+     />)}
+     </View>
+      <CurrencyInput label='Event price' value={price} onChangeValue={(price) => setPrice(price)}/>
+      <FormItem label='Event description' value={description} onChangeText={(description) => setDescription(description)}/>
+      <FormItem label='Event picture' value={picture} onChangeText={(picture) => setPicture(picture)}/>
+    </Form>
+    </ScrollView>);
 }
 const styles = StyleSheet.create({
   input: {
