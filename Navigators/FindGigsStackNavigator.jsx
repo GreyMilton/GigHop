@@ -14,7 +14,7 @@ export default function FindGigsStackNavigator() {
       <Stack.Screen
         name="MainScreen"
         component={MainScreen}
-        options={{headerShown: true}}
+        options={{ title: "Find gigs" }}
       />
       <Stack.Screen name="EventScreen" component={EventScreen} />
       <Stack.Screen name="MultipleEventsScreen" component={MultipleEventsScreen} />
