@@ -1,7 +1,68 @@
-import React from 'react';
-import { Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, View, Image, StyleSheet, StatusBar} from 'react-native';
+import axios from 'axios';
 
 export default function ArtistScreen(props) {
-    console.log(props.route.params.artist_id)
-    return <Text>Artist Id: {props.route.params.artist_id}</Text>
+  const artistId = props.route.params.artist_id;
+
+  const baseUrl = 'https://gig-hop.herokuapp.com/api/'
+
+  const [artist, setArtist] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+
+
+    useEffect(() => {
+        axios({
+          method: 'get',
+          url: `${baseUrl}/artists/${artistId}`
+        }).then((response) => {
+          setArtist(response.data)
+          setIsLoading(false)
+        });
+      }, []);
+
+      
+    if (isLoading) return <Text>LOADING</Text>
+    return (
+      <View>
+        <Text>ARTIST PAGE</Text>
+        <Text>Artist {artist.artist_name}</Text>
+        <Text>Description {artist.description}</Text>
+        <Image source={{ uri: artist.picture}}/>
+      </View>
+    )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: StatusBar.currentHeight,
+    marginHorizontal: 16,
+    backgroundColor: "#AFD2E9",
+  },
+  text: {
+    backgroundColor: '#7cb48f',
+    borderColor: 'black',
+    borderWidth: 1,
+    margin: 5,
+    width: '100%'
+  },
+  item: {
+    backgroundColor: "#C9F299",
+    padding: 20,
+    marginVertical: 8,
+    width: '90%'
+  },
+  image: {
+    resizeMode: 'contain',
+    width: '100%',
+    height: 200
+  },
+  noImage: {
+    resizeMode: 'contain',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold"
+  }
+});

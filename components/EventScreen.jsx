@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, StatusBar, Image, ScrollView, Button} from 'react-native';
 
 export default function EventScreen(props) {
-  const eventId = props.route.params.venue_id;
+  const eventId = props.route.params.eventId;
 
   const baseUrl = 'https://gig-hop.herokuapp.com/api/'
 
