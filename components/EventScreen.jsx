@@ -40,8 +40,7 @@ export default function EventScreen() {
             </View>
           </View>
         )
-        }
-      )}
+      })}
     </ScrollView>
   )
 };
