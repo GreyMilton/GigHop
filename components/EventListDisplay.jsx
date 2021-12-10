@@ -1,14 +1,20 @@
 import React from 'react';
-import { Text, View} from 'react-native';
-import DisplaySwitch from './DisplaySwitch';
+import { Button, Text, View, ScrollView} from 'react-native';
 import EventSummaryCard from './EventSummaryCard';
 
-export default function EventListDisplay({ navigation }) {
+export default function EventListDisplay({ mapMarkers, navigation }) {
   return (
-    <View>
-      <Text>EventListDisplay</Text>
-      <DisplaySwitch />
-      <EventSummaryCard />
-    </View>
+    <ScrollView>
+      {mapMarkers.map((event) => {
+        return (
+          <View key={event['_id']} >
+            <EventSummaryCard event={event}/>
+            <Button
+            title="Go to event screen"
+            onPress={() => navigation.navigate('EventScreen', { eventId: event['_id']})}/>
+          </View>
+        );
+      })}
+    </ScrollView>
   );
 }

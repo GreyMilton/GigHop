@@ -3,8 +3,10 @@ import { Text, View} from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import MainScreen from '../components/MainScreen';
 import EventScreen from '../components/EventScreen';
+import MultipleEventsScreen from '../components/MultipleEventsScreen';
+import ArtistScreen from '../components/ArtistScreen';
 
-export default function FindGigsStackNavigator({ navigation }) {
+export default function FindGigsStackNavigator() {
   const Stack = createStackNavigator();
 
   return (
@@ -15,6 +17,8 @@ export default function FindGigsStackNavigator({ navigation }) {
         options={{headerShown: true}}
       />
       <Stack.Screen name="EventScreen" component={EventScreen} />
+      <Stack.Screen name="MultipleEventsScreen" component={MultipleEventsScreen} />
+      <Stack.Screen name="ArtistScreen" component={ArtistScreen}/>
     </Stack.Navigator>
   );
 }
