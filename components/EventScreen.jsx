@@ -27,11 +27,10 @@ export default function EventScreen(props) {
         return (
           <View style={styles.item} key={item._id}>
             <View key='Event'>
-              
               <Text style={styles.text}>{item.event_name}</Text>
               <Text style={styles.text}>Entry Price: £{item.entry_price}</Text>
               <Text style={styles.text}>Event info: {item.description}</Text>
-              <Image style={styles.image} source={{ uri: item.picture}}/>
+              <Image style={[item.picture ? styles.image : styles.noImage]} source={{ uri: item.picture}}/>
             </View>
             <View key='Venue'>
               <Text style={styles.text}>Held at: {item.venue_info[0].venue_name}</Text>
@@ -66,9 +65,12 @@ const styles = StyleSheet.create({
     width: '90%'
   },
   image: {
-      resizeMode: 'cover',
-      width: '100%',
-      height: 200
+    resizeMode: 'contain',
+    width: '100%',
+    height: 200
+  },
+  noImage: {
+    resizeMode: 'contain',
   }
 });
 
