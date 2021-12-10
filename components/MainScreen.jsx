@@ -1,43 +1,69 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, Button } from 'react-native';
 import SearchBar from './SearchBar';
 import MapDisplay from './MapDisplay';
 import EventListDisplay from './EventListDisplay';
+import { getEventsByTimestamp } from '../grey-and-stuarts-axios/grey-and-stuarts-axios-requests';
 
 
 export default function MainScreen({ navigation }) {
   const venueArr = [
     {
-      venue: "The Ship",
-      coordinate: { latitude: 50.3678, longitude: -4.13566 },
-      description: "pub with live music",
-      pinColor: "yellow",
-      _id: '61ae26cb8d70b95db023dbe6'
+      "_id": "61ae26cb8d70b95db023dbe6",
+      "entry_price": 4.99,
+      "description": "test",
+      "venue_id": "61ae068dcff5425db378629e",
+      "user_id": "61ae0411e399a088552170ba",
+      "artists_ids": [
+        {
+          "artist_id": "61ae0411e399a088552170ba"
+        },
+        {
+          "artist_id": "testing"
+        },
+        {
+          "event_id": "testing"
+        }
+      ],
+      "authorised": {
+        "artist": true,
+        "venue": true
+      },
+      "time_end": "2021-12-10T22:00:00.000Z",
+      "time_start": "2021-12-10T18:30:00.000Z",
+      "picture": "https://upload.wikimedia.org/wikipedia/commons/e/ef/The_Wiggles_live_in_Sydney_2018.jpg",
+      "event_name": "Grey and the Wiggles",
+      "venue_info": [
+        {
+          "_id": "61ae068dcff5425db378629e",
+          "venue_name": "The Three Crowns",
+          "coordinates": {
+            "latitude": {
+              "$numberDecimal": "50.36835"
+            },
+            "longitude": {
+              "$numberDecimal": "-4.13577"
+            }
+          },
+          "description": "pub with live music",
+          "pin_colour": "cyan",
+          "address": "11 The Parade, Plymouth PL1 2JL",
+          "picture": "https://i2-prod.plymouthherald.co.uk/incoming/article579474.ece/ALTERNATES/s615/0_929382JPG.jpg",
+          "upcoming_events": [
+            {
+              "event_id": "61ae26cb8d70b95db023dbe6"
+            }
+          ],
+          "owner_id": "61ae22d28d70b95db023dbdd"
+        }
+      ]
     },
-    {
-      venue: "The Three Crowns",
-      coordinate: { latitude: 50.36835, longitude: -4.13577 },
-      description: "pub with live music",
-      pinColor: "cyan",
-      _id: '61ae29d18d70b95db023dbe8'
-    },
-    {
-      venue: "Cap'n Jaspers",
-      coordinate: { latitude: 50.36766, longitude: -4.13418 },
-      description: "pub with live music",
-      pinColor: "pink",
-      _id: '61ae2a868d70b95db023dbe9'
-    },
-    {
-      venue: "Bar Rakuda",
-      coordinate: { latitude: 50.36763, longitude: -4.13511 },
-      description: "pub with live music",
-      pinColor: "green",
-      _id: '61ae2b128d70b95db023dbea'
-    }
   ];
   const [mapIsDisplaying, setMapIsDisplaying] = useState(true);
+  const [fetchedEvents, setFetchedEvents] = useState(venueArr);
   const [venuesInCurrentViewWithGigs, setVenuesInCurrentViewWithGigs] = useState(venueArr);
+  const [mapMarkers, setMapMarkers] = useState(venueArr);
+
 
   const switchDisplay = () => {
     setMapIsDisplaying((prevState) => {
@@ -46,12 +72,29 @@ export default function MainScreen({ navigation }) {
     })
   }
 
+  const [selectedTimestamp, setSelectedTimestamp] = useState(new Date());
+  
+  useEffect(() => {
+    getEventsByTimestamp(selectedTimestamp).then((response) => {
+      setFetchedEvents(response);
+    })
+  }, [selectedTimestamp])
+
+  useEffect(() => {
+    // here is where we could filter out gigs not in the current map view
+    setVenuesInCurrentViewWithGigs(fetchedEvents);
+  }, [fetchedEvents])
+
+  useEffect(() => {
+    // setMapMarkers(compileMapMarkersData(venuesInCurrentViewWithGigs));
+    setMapMarkers(venuesInCurrentViewWithGigs);
+  }, [venuesInCurrentViewWithGigs])
+
   return (
     <View>
-      <SearchBar />
-      <Text>Current view: { mapIsDisplaying ? "Map" : "List" }</Text>
-      <Button title={ `switch to ${mapIsDisplaying ? "List" : "Map"} view` } onPress={switchDisplay}/>
-      {mapIsDisplaying ? <MapDisplay navigation={navigation} venuesInCurrentViewWithGigs={venuesInCurrentViewWithGigs} /> : <EventListDisplay navigation={navigation} venuesInCurrentViewWithGigs={venuesInCurrentViewWithGigs} /> }
+      <SearchBar selectedTimestamp={selectedTimestamp} setSelectedTimestamp={setSelectedTimestamp} />
+      <Button title={ `${mapIsDisplaying ? "Map/list" : "List/map"}` } onPress={switchDisplay}/>
+      {mapIsDisplaying ? <MapDisplay navigation={navigation} mapMarkers={mapMarkers} /> : <EventListDisplay navigation={navigation} mapMarkers={mapMarkers} /> }
     </View>
   );
 }

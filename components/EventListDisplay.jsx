@@ -2,26 +2,19 @@ import React from 'react';
 import { Button, Text, View} from 'react-native';
 import EventSummaryCard from './EventSummaryCard';
 
-export default function EventListDisplay({ venuesInCurrentViewWithGigs, navigation }) {
+export default function EventListDisplay({ mapMarkers, navigation }) {
   return (
     <View>
-      <Text>EventListDisplay</Text>
-      {venuesInCurrentViewWithGigs.map((venue) => {
-        console.log(venue._id)
+      {mapMarkers.map((event) => {
         return (
-          <View key={venue.venue} >
-            <EventSummaryCard venue={venue}/>
+          <View key={event['_id']} >
+            <EventSummaryCard event={event}/>
             <Button
             title="Go to event screen"
-            onPress={() =>
-              navigation.navigate('EventScreen', {
-                venue_id: venue._id
-              })
-            }/>
+            onPress={() => navigation.navigate('EventScreen', { eventId: event['_id']})}/>
           </View>
         );
       })}
-
     </View>
   );
 }
