@@ -26,14 +26,8 @@ export default function TimeAndDateInput({ selectedTimestamp, setSelectedTimesta
 
   return (
     <View>
-      <View>
-        <Button onPress={showDatepickerPress} title="Choose date" />
-        <Text>Chosen date is: {selectedTimestamp.toDateString()}</Text>
-      </View>
-      <View>
-        <Button onPress={showTimepickerPress} title="Choose time" />
-        <Text>Chosen time is: {selectedTimestamp.toTimeString().substring(0,5)}</Text>
-      </View>
+        <Button onPress={showDatepickerPress} title={selectedTimestamp.toDateString()} />
+        <Button onPress={showTimepickerPress} title={selectedTimestamp.toTimeString().substring(0,5)} />
       {showDatePicker && (
         <DateTimePicker
           testID="dateTimePicker"

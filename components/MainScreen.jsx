@@ -93,8 +93,7 @@ export default function MainScreen({ navigation }) {
   return (
     <View>
       <SearchBar selectedTimestamp={selectedTimestamp} setSelectedTimestamp={setSelectedTimestamp} />
-      <Text>{ mapIsDisplaying ? "Map" : "List" }</Text>
-      <Button title={ `switch to ${mapIsDisplaying ? "List" : "Map"}` } onPress={switchDisplay}/>
+      <Button title={ `${mapIsDisplaying ? "Map/list" : "List/map"}` } onPress={switchDisplay}/>
       {mapIsDisplaying ? <MapDisplay navigation={navigation} mapMarkers={mapMarkers} /> : <EventListDisplay navigation={navigation} mapMarkers={mapMarkers} /> }
     </View>
   );
