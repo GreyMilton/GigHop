@@ -11,25 +11,29 @@ export default function MainScreen({ navigation }) {
       venue: "The Ship",
       coordinate: { latitude: 50.3678, longitude: -4.13566 },
       description: "pub with live music",
-      pinColor: "yellow"
+      pinColor: "yellow",
+      _id: '61ae26cb8d70b95db023dbe6'
     },
     {
       venue: "The Three Crowns",
       coordinate: { latitude: 50.36835, longitude: -4.13577 },
       description: "pub with live music",
-      pinColor: "cyan"
+      pinColor: "cyan",
+      _id: '61ae29d18d70b95db023dbe8'
     },
     {
       venue: "Cap'n Jaspers",
       coordinate: { latitude: 50.36766, longitude: -4.13418 },
       description: "pub with live music",
-      pinColor: "pink"
+      pinColor: "pink",
+      _id: '61ae2a868d70b95db023dbe9'
     },
     {
       venue: "Bar Rakuda",
       coordinate: { latitude: 50.36763, longitude: -4.13511 },
       description: "pub with live music",
-      pinColor: "green"
+      pinColor: "green",
+      _id: '61ae2b128d70b95db023dbea'
     }
   ];
   const [mapIsDisplaying, setMapIsDisplaying] = useState(true);

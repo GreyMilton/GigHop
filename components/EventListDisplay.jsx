@@ -7,13 +7,16 @@ export default function EventListDisplay({ venuesInCurrentViewWithGigs, navigati
     <View>
       <Text>EventListDisplay</Text>
       {venuesInCurrentViewWithGigs.map((venue) => {
+        console.log(venue._id)
         return (
           <View key={venue.venue} >
             <EventSummaryCard venue={venue}/>
             <Button
             title="Go to event screen"
             onPress={() =>
-              navigation.navigate('EventScreen')
+              navigation.navigate('EventScreen', {
+                venue_id: venue._id
+              })
             }/>
           </View>
         );

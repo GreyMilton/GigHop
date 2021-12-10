@@ -2,8 +2,8 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, StatusBar, Image, ScrollView} from 'react-native';
 
-export default function EventScreen() {
-  const eventId = '61ae26cb8d70b95db023dbe6';
+export default function EventScreen(props) {
+  const eventId = props.route.params.venue_id;
 
   const baseUrl = 'https://gig-hop.herokuapp.com/api/'
 
