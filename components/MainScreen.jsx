@@ -1,9 +1,8 @@
-import React from 'react';
-import { Text, View, Button } from 'react-native';
-import SearchBar from './SearchBar';
-import MapDisplay from './MapDisplay';
-import EventListDisplay from './EventListDisplay';
-
+import React from "react";
+import { Text, View, Button } from "react-native";
+import SearchBar from "./SearchBar";
+import MapDisplay from "./MapDisplay";
+import EventListDisplay from "./EventListDisplay";
 
 export default function MainScreen({ navigation }) {
   return (
@@ -13,9 +12,7 @@ export default function MainScreen({ navigation }) {
       <EventListDisplay />
       <Button
         title="Go to event screen"
-        onPress={() =>
-          navigation.navigate('EventScreen')
-        }
+        onPress={() => navigation.navigate("EventScreen")}
       />
     </View>
   );
