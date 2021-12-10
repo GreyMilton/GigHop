@@ -42,11 +42,11 @@ export default function MainScreen({ navigation }) {
     })
   }
 
-  const [selectedDate, setSelectedDate] = useState();
+  const [selectedDate, setSelectedDate] = useState(new Date());
   
   return (
     <View>
-      <SearchBar />
+      <SearchBar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
       <Text>Current view: { mapIsDisplaying ? "Map" : "List" }</Text>
       <Button title={ `switch to ${mapIsDisplaying ? "List" : "Map"} view` } onPress={switchDisplay}/>
       {mapIsDisplaying ? <MapDisplay navigation={navigation} venuesInCurrentViewWithGigs={venuesInCurrentViewWithGigs} /> : <EventListDisplay navigation={navigation} venuesInCurrentViewWithGigs={venuesInCurrentViewWithGigs} /> }
