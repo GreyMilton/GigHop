@@ -1,20 +1,48 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { Text, View, Picker } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Text, View, Picker, Button, Platform } from "react-native";
 import { SafeAreaView, StyleSheet, TextInput } from "react-native";
 import { getVenues, getArtists } from "./utils/get";
+import DateTimePicker from '@react-native-community/datetimepicker';
+
 export default function NewEventScreen({ navigation }) {
   const [eventName, setEventName] = useState("");
   const [artist, setArtist] = useState("");
   const [venue, setVenue] = useState("");
   const [venueAddress, setvenueAddress] = useState("");
-  const [startTime, setstartTime] = useState("");
-  const [endTime, setendTime] = useState("");
+  const [startTime, setstartTime] = useState(new Date());
+  const [endTime, setendTime] = useState(new Date());
   const [price, setPrice] = useState();
   const [description, setDescription] = useState();
   const [picture, setPicture] = useState();
   const [ArrayOfVenues, setArrayofVenues] = useState([]);
   const [ArrayOfArtists, setArrayofArtists] = useState([]);
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
+
+  const onChangeStart = (event, selectedDate) => {
+    setShow(false);
+    const currentDate = selectedDate || Date;
+    setstartTime(currentDate);
+  };
+
+  const onChangeEnd = (event, selectedDate) => {
+    const currentDate = selectedDate || Date;
+    setShow(false);
+    setendTime(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatePicker = () => {
+    showMode('date');
+  };
+
+  const showTimePicker = () => {
+    showMode('time');
+  };
 
   useEffect(() => {
     getVenues().then((res) => {
@@ -103,8 +131,33 @@ export default function NewEventScreen({ navigation }) {
           placeholder="Venue"
           keyboardType="text"
         /> */}
+    <View>
+      <Button onPress={showDatePicker} title=" Show Start Date" />
+    </View>
+    <View>
+      <Button onPress={showTimePicker} title="Show Start Time" />
+    </View>
+    <View>
+      {show && (
+    <DateTimePicker
+    testID="dateTimePicker"
+    value={startTime}
+    mode={mode}
+    is24Hour={true}
+    display="default"
+    onChange={onChangeStart}
 
-        <TextInput
+    />)}
+    </View>
+    {/* <DateTimePicker
+      value={endTime}
+      mode={'time'}
+          is24Hour={true}
+          display="default"
+      onChange={setendTime}
+    /> */}
+
+        {/* <TextInput
           required
           style={styles.input}
           onChangeText={setstartTime}
@@ -119,7 +172,7 @@ export default function NewEventScreen({ navigation }) {
           value={endTime}
           placeholder="end time"
           keyboardType="text"
-        />
+        /> */}
         <TextInput
           required
           style={styles.input}
