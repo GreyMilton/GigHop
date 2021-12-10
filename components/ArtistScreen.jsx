@@ -24,11 +24,11 @@ export default function ArtistScreen(props) {
       
     if (isLoading) return <Text>LOADING</Text>
     return (
-      <View>
-        <Text>ARTIST PAGE</Text>
-        <Text>Artist {artist.artist_name}</Text>
-        <Text>Description {artist.description}</Text>
-        <Image source={{ uri: artist.picture}}/>
+      <View style={styles.container}>
+        <Text style={styles.title}>Artist Details:</Text>
+        <Text style={styles.text}>Artist {artist.artist_name}</Text>
+        <Text style={styles.text}>Description {artist.description}</Text>
+        <Image style={[artist.picture ? styles.image : styles.noImage]}source={{ uri: artist.picture}}/>
       </View>
     )
 }
