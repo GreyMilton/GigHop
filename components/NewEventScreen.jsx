@@ -95,17 +95,6 @@ export default function NewEventScreen({ navigation }) {
 
   }
 
-    //  "event_name",
-  //   "entry_price",
-  //   "description",
-  //   "venue_id",
-  //   "user_id",
-  //   "artists_ids",
-  //   "authorised",
-  //   "time_end",
-  //   "time_start",
-  //   "picture"
-
   let pickers;
 
   if(Platform.OS === 'ios') {
@@ -162,29 +151,6 @@ export default function NewEventScreen({ navigation }) {
       </Picker>
       </View>)
   }
-
-  //when you have collected all the details have been entered
-  const [newEvent, setNewEvent] = useState();
-  const [newArtist, setNewArtist] = useState();
-  const [newVenue, setNewVenue] = useState();
-  const [newVenueAddress, setNewVenueAddress] = useState();
-  const [newStartTime, setNewStartTime] = useState();
-  const [newEndTime, setNewEndTime] = useState();
-  const [newPrice, setNewPrice] = useState();
-  const [newDescription, setNewDescriptin] = useState();
-  const [newPicture, setNewPicture] = useState();
-  // console.log(newEvent, newArtist, newVenue, newVenueAddress, newStartTime);
-
-  //  "event_name",
-  //   "entry_price",
-  //   "description",
-  //   "venue_id",
-  //   "user_id",
-  //   "artists_ids",
-  //   "authorised",
-  //   "time_end",
-  //   "time_start",
-  //   "picture"
   return (
     <ScrollView>
       <SafeAreaView>
