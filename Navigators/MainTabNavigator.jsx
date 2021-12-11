@@ -22,10 +22,11 @@ export default function MainTabNavigator() {
       <Tab.Screen
         name="Find gigs"
         component={FindGigsStackNavigator}
+        options={{headerShown: false}}
       />
       <Tab.Screen name="Add gig" component={NewEventScreen} />
-      <Tab.Screen name="Faves" component={FavesScreen} />
-      {currentUser ? <Tab.Screen name={currentUser.username} component={UserStackNavigator} /> : <Tab.Screen name="Log in" component={LogInScreen} />}
+      {/* <Tab.Screen name="Faves" component={FavesScreen} /> */}
+      {currentUser ? <Tab.Screen name={currentUser.username} component={UserStackNavigator} options={{headerShown: false}}/> : <Tab.Screen name="Log in" component={LogInScreen} />}
     </Tab.Navigator>
   );
 }
