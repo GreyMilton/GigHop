@@ -7,8 +7,8 @@ const mainScreenStyles = StyleSheet.create({
     backgroundColor: '#d8dee3',
   },
   searchBarContainer: {
-    marginVertical: 2,
-    marginHorizontal: 4,
+    marginVertical: 6,
+    marginHorizontal: 8,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
@@ -17,18 +17,20 @@ const mainScreenStyles = StyleSheet.create({
   locationContainer: {
     alignItems: 'center',
     backgroundColor: 'white',
+    marginVertical: 2,
   },
   locationInput: {
     // height: 30,
     borderWidth: 1,
-    paddingVertical: 5,
+    paddingVertical: 3,
     paddingHorizontal: 10,
+    fontSize: 13,
   },
   timeAndDateInputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    marginVertical: 8,
+    marginVertical: 2,
     marginHorizontal: 6,
   },
   mapViewSwitchContainer: {
