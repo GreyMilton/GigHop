@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import { Text, View} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {Button, Platform} from 'react-native';
+import {Pressable, Platform} from 'react-native';
+import mainScreenStyles from '../style-documents/main-screen-styling';
+import androidPressableButtonStyles from '../style-documents/android-pressable-button-styles';
 
 export default function TimeAndDateInput({ selectedTimestamp, setSelectedTimestamp }) {
 
@@ -25,11 +27,15 @@ export default function TimeAndDateInput({ selectedTimestamp, setSelectedTimesta
   };
 
   return (
-    <View>
+    <View style={mainScreenStyles.timeAndDateInputContainer} >
       {Platform.OS === 'ios' ? null :
         <>
-          <Button onPress={showDatepickerPress} title={selectedTimestamp.toDateString()} />
-          <Button onPress={showTimepickerPress} title={selectedTimestamp.toTimeString().substring(0,5)} />
+          <Pressable style={androidPressableButtonStyles.button} onPress={showDatepickerPress} >
+            <Text style={androidPressableButtonStyles.text} >{selectedTimestamp.toDateString()}</Text>
+          </Pressable>
+          <Pressable style={androidPressableButtonStyles.button} onPress={showTimepickerPress} >
+            <Text style={androidPressableButtonStyles.text} >{selectedTimestamp.toTimeString().substring(0,5)}</Text>
+          </Pressable>
         </>
       }
       {showDatePicker && (

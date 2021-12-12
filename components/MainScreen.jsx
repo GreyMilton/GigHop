@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Pressable } from 'react-native';
 import SearchBar from './SearchBar';
 import MapDisplay from './MapDisplay';
 import EventListDisplay from './EventListDisplay';
 import { getEventsByTimestamp } from '../grey-and-stuarts-axios/grey-and-stuarts-axios-requests';
+import mainScreenStyles from '../style-documents/main-screen-styling';
 
 export default function MainScreen({ navigation }) {
   const venueArr = [
@@ -90,9 +91,14 @@ export default function MainScreen({ navigation }) {
   }, [venuesInCurrentViewWithGigs])
 
   return (
-    <View>
+    <View style={mainScreenStyles.mainScreenContainer}>
       <SearchBar selectedTimestamp={selectedTimestamp} setSelectedTimestamp={setSelectedTimestamp} />
-      <Button title={ `${mapIsDisplaying ? "Map/list" : "List/map"}` } onPress={switchDisplay}/>
+      <View style={mainScreenStyles.mapViewSwitchContainer} >
+        <Pressable style={mainScreenStyles.mapViewSwitchButton} onPress={switchDisplay}>
+          <Text style={mainScreenStyles.mapViewSwitchTextSelected} >{`${mapIsDisplaying ? "Map" : "List"}`}</Text>
+          <Text style={mainScreenStyles.mapViewSwitchTextNotSelected}>{`${mapIsDisplaying ? "/list" : "/map"}`}</Text>
+        </Pressable>
+      </View>
       {mapIsDisplaying ? <MapDisplay navigation={navigation} mapMarkers={mapMarkers} /> : <EventListDisplay navigation={navigation} mapMarkers={mapMarkers} /> }
     </View>
   );

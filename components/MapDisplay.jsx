@@ -3,14 +3,15 @@ import { StyleSheet, Text, View, Dimensions, Button } from 'react-native';
 import MapView, {Marker, Callout, PROVIDER_GOOGLE} from "react-native-maps";
 // import { mapStyle } from '../style-documents/map-style';
 import EventSummaryCallout from './EventSummaryCallout';
+import mainScreenStyles from '../style-documents/main-screen-styling';
 
 export default function MapDisplay({ mapMarkers, navigation }) {
 
   return (
-    <View style={styles.container}>
+    <View style={mainScreenStyles.mapDisplayContainer}>
       <MapView provider={PROVIDER_GOOGLE}
           customMapStyle={mapStyle}
-          style={styles.map}
+          style={mainScreenStyles.map}
           initialRegion={{
             latitude: 50.376289,
             longitude: -4.143841,
@@ -29,8 +30,10 @@ export default function MapDisplay({ mapMarkers, navigation }) {
                 title={event['event_name']}
                 description={event.description}
               >
-                <Callout onPress={() => navigation.navigate('EventScreen', { eventId: event['_id']})}>
+                <Callout tooltip={false} style={mainScreenStyles.callout} onPress={() => navigation.navigate('EventScreen', { eventId: event['_id']})}>
                     <EventSummaryCallout event={event} />
+                    {/* <View style={mainScreenStyles.EventSummaryCalloutArrowBorder} />
+                    <View style={mainScreenStyles.EventSummaryCalloutArrow} /> */}
                 </Callout>
               </Marker>
             );
@@ -39,59 +42,6 @@ export default function MapDisplay({ mapMarkers, navigation }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  // container1: {
-  //   flex: 1,
-  //   backgroundColor: '#fff',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  // },
-  container: {
-    width: Dimensions.get('window').width,
-    alignItems: 'center',
-  },
-  callout: {
-    width: 390,
-    height: 60,
-    position: 'absolute',
-    top: 170,
-    elevation: 10,
-    backgroundColor: 'white',
-    borderRadius: 4,
-    padding: 4,
-  },
-  map: {
-    // flex: 70,
-    width: Dimensions.get('window').width,
-    // height: Dimensions.get('window').height,
-    height: 240,
-    position: 'relative',
-  },
-  // container2: {
-  //   flex: 4,
-  //   backgroundColor: '#fff',
-  //   // alignItems: 'center',
-  //   // justifyContent: 'center',
-  // },
-  // container3: {
-  //   flex: 1,
-  //   backgroundColor: '#fff',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  // },
-  marker: {
-    paddingVertical: 0,
-    paddingHorizontal: 0,
-    backgroundColor: "#c6ddcc",
-    borderColor: "#eee",
-    borderRadius: 5,
-    elevation: 10,
-  },
-  text: {
-  color: "#fff",   
-  },
-});
 
 const mapStyle = [
   {
