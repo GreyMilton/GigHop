@@ -10,7 +10,15 @@ export default function FindGigsStackNavigator() {
   const Stack = createStackNavigator();
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{
+      headerStyle: {
+      },
+      headerTintColor: '#000',
+      headerTitleStyle: {
+        fontSize: 18,
+      },
+      headerTitleAlign: 'left',
+    }}>
       <Stack.Screen
         name="MainScreen"
         component={MainScreen}

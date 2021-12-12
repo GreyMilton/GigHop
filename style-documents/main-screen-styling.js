@@ -4,9 +4,10 @@ import { StyleSheet, Dimensions } from 'react-native';
 const mainScreenStyles = StyleSheet.create({
   mainScreenContainer: {
     flex: 1,
+    backgroundColor: '#d8dee3',
   },
   searchBarContainer: {
-    marginVertical: 3,
+    marginVertical: 2,
     marginHorizontal: 4,
     alignItems: 'center',
     justifyContent: 'center',
@@ -15,6 +16,7 @@ const mainScreenStyles = StyleSheet.create({
   },
   locationContainer: {
     alignItems: 'center',
+    backgroundColor: 'white',
   },
   locationInput: {
     // height: 30,
