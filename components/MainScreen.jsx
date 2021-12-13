@@ -5,6 +5,7 @@ import MapDisplay from './MapDisplay';
 import EventListDisplay from './EventListDisplay';
 import { getEventsByTimestamp } from '../grey-and-stuarts-axios/grey-and-stuarts-axios-requests';
 import mainScreenStyles from '../style-documents/main-screen-styling';
+import { createNewVenueReferenceObject } from '../utils/main-screen-utils';
 
 export default function MainScreen({ navigation }) {
   const venueArr = [
@@ -63,7 +64,7 @@ export default function MainScreen({ navigation }) {
   const [fetchedEvents, setFetchedEvents] = useState(venueArr);
   const [venuesInCurrentViewWithGigs, setVenuesInCurrentViewWithGigs] = useState(venueArr);
   const [mapMarkers, setMapMarkers] = useState(venueArr);
-
+  const [venueReferenceObject, setVenueReferenceObject] = useState({"61ae068dcff5425db378629e": [{"_id": "61ae26cb8d70b95db023dbe6", "time_start": "2021-12-10T18:30:00.000Z"}]});
 
   const switchDisplay = () => {
     setMapIsDisplaying((prevState) => {
@@ -86,7 +87,9 @@ export default function MainScreen({ navigation }) {
   }, [fetchedEvents])
 
   useEffect(() => {
-    // setMapMarkers(compileMapMarkersData(venuesInCurrentViewWithGigs));
+    // here is where we calculate multiple gigs at the same venue
+    setVenueReferenceObject(createNewVenueReferenceObject(venuesInCurrentViewWithGigs));
+    console.log("venueReferenceObject:", venueReferenceObject);
     setMapMarkers(venuesInCurrentViewWithGigs);
   }, [venuesInCurrentViewWithGigs])
 
@@ -99,7 +102,7 @@ export default function MainScreen({ navigation }) {
           <Text style={mainScreenStyles.mapViewSwitchTextNotSelected}>{`${mapIsDisplaying ? "/list" : "/map"}`}</Text>
         </Pressable>
       </View>
-      {mapIsDisplaying ? <MapDisplay navigation={navigation} mapMarkers={mapMarkers} /> : <EventListDisplay navigation={navigation} mapMarkers={mapMarkers} /> }
+      {mapIsDisplaying ? <MapDisplay navigation={navigation} mapMarkers={mapMarkers} venueReferenceObject={venueReferenceObject}/> : <EventListDisplay navigation={navigation} mapMarkers={mapMarkers} /> }
     </View>
   );
 }

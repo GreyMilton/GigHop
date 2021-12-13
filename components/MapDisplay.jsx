@@ -5,7 +5,7 @@ import MapView, {Marker, Callout, PROVIDER_GOOGLE} from "react-native-maps";
 import EventSummaryCallout from './EventSummaryCallout';
 import mainScreenStyles from '../style-documents/main-screen-styling';
 
-export default function MapDisplay({ mapMarkers, navigation }) {
+export default function MapDisplay({ mapMarkers, navigation, venueReferenceObject }) {
 
   return (
     <View style={mainScreenStyles.mapDisplayContainer}>
@@ -20,20 +20,18 @@ export default function MapDisplay({ mapMarkers, navigation }) {
           }}>
           {mapMarkers.map(event => {
             return (
-              <Marker
+            <Marker
                 key={event['_id']} 
                 coordinate={{
                   latitude: parseFloat(event['venue_info'][0].coordinates.latitude["$numberDecimal"]),
                   longitude: parseFloat(event['venue_info'][0].coordinates.longitude["$numberDecimal"])
                 }}
-                pinColor={event['venue_info'][0]['pin_colour']}
+                pinColor={venueReferenceObject && (venueReferenceObject[event["venue_id"]].length > 1) ? 'yellow' : 'green'}
                 title={event['event_name']}
                 description={event.description}
               >
                 <Callout tooltip={false} style={mainScreenStyles.callout} onPress={() => navigation.navigate('EventScreen', { eventId: event['_id']})}>
-                    <EventSummaryCallout event={event} />
-                    {/* <View style={mainScreenStyles.EventSummaryCalloutArrowBorder} />
-                    <View style={mainScreenStyles.EventSummaryCalloutArrow} /> */}
+                    <EventSummaryCallout venueReferenceObject={venueReferenceObject} event={event} />
                 </Callout>
               </Marker>
             );
