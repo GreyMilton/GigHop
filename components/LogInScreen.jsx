@@ -1,12 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Text, SafeAreaView, View } from 'react-native';
+import { Text, SafeAreaView, View, ScrollView } from 'react-native';
 import { Form, FormItem } from 'react-native-form-component';
 import { UserContext } from '../contexts/UserContext';
 import { getAllUsers, getSingleUser } from '../utils/api-requests';
 
 export default function LogInScreen({ navigation }) {
 
-  const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useState("shyFly");
   const [validUsers, setValidUsers] = useState([]);
   const [showInvalidUser, setInvalidUser] = useState(false);
   const { currentUser, setCurrentUser } = useContext(UserContext);
@@ -16,14 +16,12 @@ export default function LogInScreen({ navigation }) {
       .then((listOfUsers) => {
         const usernames = listOfUsers.map(user => user._id);
         setValidUsers(usernames);
-        console.log(validUsers);
       })
   }, []);
 
   const onSubmit = () => {
     if (validUsers.includes(userName)) {
       setInvalidUser(false);
-      console.log(userName);
       getSingleUser(userName)
         .then(selectedUser => {
           setCurrentUser(selectedUser)
@@ -31,9 +29,8 @@ export default function LogInScreen({ navigation }) {
     } else {
       setInvalidUser(true);
     }
-
   } 
-
+  
   let errorMessage = "";
 
   if (showInvalidUser) {
@@ -41,12 +38,12 @@ export default function LogInScreen({ navigation }) {
   }
 
   return (
-    <View>
+    <ScrollView>
       <Text>Please enter your username to login</Text>
       <Text>{errorMessage}</Text>
       <Form onButtonPress={onSubmit}>
-        <FormItem label="Username Login Label" value={userName} onChangeText={ (userName) => setUserName(userName) }/>
+        <FormItem label="Username" value={userName} onChangeText={ (userName) => setUserName(userName) }/>
       </Form>
-    </View>
+    </ScrollView>
   );
 }
