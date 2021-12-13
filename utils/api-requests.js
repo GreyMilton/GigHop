@@ -1,8 +1,36 @@
-import axios from "axios";
+import axios from 'axios';
 
-export const gigHopAPI = axios.create({
-  baseURL: "https:gig-hop.herokuapp.com/api",
+const gigHopAPI = axios.create({
+  baseURL: 'https://gig-hop.herokuapp.com/api/'
 });
+
+export const getEventsByTimestamp = (selectedTimestamp = ' ') => {
+  return gigHopAPI.get(`/events?filter_by=${selectedTimestamp.toISOString()}`).then((response) => {return response.data});
+}
+
+//if it throws errors remember that comma
+export const getVenues = () => {
+  return gigHopAPI
+    .get("/venues")
+    .then((res) => {
+      return res.data;
+      // console.log(res.data[0].venue_name);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const getArtists = () => {
+  return gigHopAPI
+    .get("/artists")
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 export const PostNewEventDetails = (data) => {
   let venueData = JSON.stringify(data)
@@ -50,4 +78,12 @@ export const PostNewVenue = (data) => {
     }). catch ((err) => {
       console.log(err)
     })
+}
+
+export const getEventById = (eventId) => {
+  return gigHopAPI.get(`/events/${eventId}`).then((response) => {return response.data});
+}
+
+export const getArtistById = (artistId) => {
+  return gigHopAPI.get(`/artists/${artistId}`).then((response) => {return response.data});
 }

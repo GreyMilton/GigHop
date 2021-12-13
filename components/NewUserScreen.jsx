@@ -2,9 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import {Checkbox} from 'react-native-paper'
 import { Form, FormItem } from "react-native-form-component";
-import { PostNewUser, PostNewArtist, PostNewVenue } from "./utils/post";
-
-
+import { PostNewUser, PostNewArtist, PostNewVenue } from "../utils/api-requests";
 
 export default function NewUserScreen() {
     const [username, setUsername] = useState('');

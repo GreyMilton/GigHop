@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import {Text, View, Platform, Button, SafeAreaView, StyleSheet, TextInput, ScrollView } from "react-native"; 
-import { getVenues, getArtists } from "./utils/get";
-import { PostNewEventDetails } from "./utils/post";
+import { getVenues, getArtists, PostNewEventDetails } from "../utils/api-requests";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {Form, FormItem} from 'react-native-form-component'
 import CurrencyInput from "react-native-currency-input";

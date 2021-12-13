@@ -1,22 +1,17 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, StatusBar, Image, ScrollView, Button} from 'react-native';
+import { getEventById } from '../utils/api-requests';
 
 export default function EventScreen(props) {
   const eventId = props.route.params.eventId;
-
-  const baseUrl = 'https://gig-hop.herokuapp.com/api/'
 
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    axios({
-      method: 'get',
-      url: `${baseUrl}/events/${eventId}`
-    }).then((response) => {
-      setData(response.data)
-      setIsLoading(false)
+    getEventById(eventId).then((response) => {
+      setData(response);
+      setIsLoading(false);
     });
   }, []);
 
