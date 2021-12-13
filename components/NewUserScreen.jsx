@@ -48,13 +48,14 @@ export default function NewUserScreen() {
     }
     const onPressHandler = async () => {
         let newUserData = {
-            username: username,
+            _id: username,
             picture: profilePicture,
             artist: checkedArtist,
             venue: checkedVenue,
             events: []
         };
         let newArtistData = {
+            user_id: username,
             artist_name: artistName,
             description: artistDescription,
             picture: artistPicture,
@@ -62,6 +63,7 @@ export default function NewUserScreen() {
             upcoming_events:[]
         }
         let newVenueData = {
+            user_id: username,
             venue_name: venueName,
             coordinates:{
                 latitude:latitude,
@@ -72,8 +74,8 @@ export default function NewUserScreen() {
             address: venueAddress,
             upcoming_events: []
         }
-        let newUser = await PostNewUser(newUserData);
-        console.log(newUser)
+        PostNewUser(newUserData);
+        
         if(checkedArtist) {
             PostNewArtist(newArtistData)
         }
