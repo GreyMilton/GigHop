@@ -42,7 +42,7 @@ export default function MainTabNavigator() {
       />
       <Tab.Screen name="Add user" component={NewUserScreen} />
       {/* <Tab.Screen name="Faves" component={FavesScreen} /> */}
-      {currentUser ? <Tab.Screen name={currentUser.username} component={UserStackNavigator} options={{headerShown: false, tabBarIcon: ({ focused, color, size }) => {
+      {currentUser ? <Tab.Screen name={currentUser._id} component={UserStackNavigator} options={{headerShown: false, tabBarIcon: ({ focused, color, size }) => {
           return (
             currentUser.picture ? 
             <Image style={tabNavigatorStyles.userAvatar} source={{ uri: currentUser.picture}} /> :
