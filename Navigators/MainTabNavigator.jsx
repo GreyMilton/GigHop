@@ -8,6 +8,7 @@ import UserStackNavigator from './UserStackNavigator';
 import FavesScreen from '../components/FavesScreen';
 import { UserContext } from '../contexts/UserContext';
 import { useContext } from 'react';
+import NewUserScreen from '../components/NewUserScreen';
 
 export default function MainTabNavigator() {
   const Tab = createBottomTabNavigator();
@@ -25,6 +26,7 @@ export default function MainTabNavigator() {
         options={{headerShown: false}}
       />
       <Tab.Screen name="Add gig" component={NewEventScreen} />
+      <Tab.Screen name="Add user" component={NewUserScreen} />
       {/* <Tab.Screen name="Faves" component={FavesScreen} /> */}
       {currentUser ? <Tab.Screen name={currentUser.username} component={UserStackNavigator} options={{headerShown: false}}/> : <Tab.Screen name="Log in" component={LogInScreen} />}
     </Tab.Navigator>

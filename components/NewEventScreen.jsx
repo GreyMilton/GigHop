@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {Text, View, Platform, Button, SafeAreaView, StyleSheet, TextInput, ScrollView } from "react-native"; 
 import { getVenues, getArtists } from "./utils/get";
 import { PostNewEventDetails } from "./utils/post";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {Form, FormItem} from 'react-native-form-component'
 import CurrencyInput from "react-native-currency-input";
-import {Picker, PickerIOS, CheckBox} from '@react-native-picker/picker'
+import {Picker, PickerIOS} from '@react-native-picker/picker'
+import { UserContext } from "../contexts/UserContext";
 
 export default function NewEventScreen({ navigation }) {
+  const {currentUser} = useContext(UserContext);
+
   const [eventName, setEventName] = useState("");
   const [artist, setArtist] = useState("");
   const [venue, setVenue] = useState("");
-  const [venueAddress, setVenueAddress] = useState("");
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
   const [price, setPrice] = useState(0);
@@ -82,28 +84,16 @@ export default function NewEventScreen({ navigation }) {
       entry_price: price,
       description: description,
       venue_id: venue,
-      user_id: '',
+      user_id: currentUser._id,
       artists_ids: [artist],
       authorised: {artist: false, venue: false},
       time_start: time_start,
       time_end: time_end,
       picture: picture
     }
-    console.log(data)
     PostNewEventDetails(data)
 
   }
-
-    //  "event_name",
-  //   "entry_price",
-  //   "description",
-  //   "venue_id",
-  //   "user_id",
-  //   "artists_ids",
-  //   "authorised",
-  //   "time_end",
-  //   "time_start",
-  //   "picture"
 
   let pickers;
 
@@ -161,29 +151,6 @@ export default function NewEventScreen({ navigation }) {
       </Picker>
       </View>)
   }
-
-  //when you have collected all the details have been entered
-  const [newEvent, setNewEvent] = useState();
-  const [newArtist, setNewArtist] = useState();
-  const [newVenue, setNewVenue] = useState();
-  const [newVenueAddress, setNewVenueAddress] = useState();
-  const [newStartTime, setNewStartTime] = useState();
-  const [newEndTime, setNewEndTime] = useState();
-  const [newPrice, setNewPrice] = useState();
-  const [newDescription, setNewDescriptin] = useState();
-  const [newPicture, setNewPicture] = useState();
-  // console.log(newEvent, newArtist, newVenue, newVenueAddress, newStartTime);
-
-  //  "event_name",
-  //   "entry_price",
-  //   "description",
-  //   "venue_id",
-  //   "user_id",
-  //   "artists_ids",
-  //   "authorised",
-  //   "time_end",
-  //   "time_start",
-  //   "picture"
   return (
     <ScrollView>
       <SafeAreaView>
