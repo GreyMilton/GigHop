@@ -106,6 +106,24 @@ export const getEventById = eventId => {
   });
 };
 
+
+
+export const getAllUsers = () => {
+  return gigHopAPI
+          .get("users")
+          .then(users => {
+            return users.data;
+          })
+}
+
+export const getSingleUser = (username) => {
+  return gigHopAPI
+           .get(`/users/${username}`)
+           .then(user => {
+             return user.data;
+           })
+}
+
 export const getArtistById = artistId => {
   return gigHopAPI.get(`/artists/${artistId}`).then(response => {
     return response.data;

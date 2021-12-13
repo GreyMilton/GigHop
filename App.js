@@ -8,15 +8,14 @@ import MainTabNavigator from "./Navigators/MainTabNavigator";
 
 import "react-native-gesture-handler";
 
-export default function App() {
+export default function App({ navigation }) {
   const initialUser = {
-    _id: "JamesRod7",
-    picture:
-      "https://static.standard.co.uk/2021/05/28/17/newFile.jpg?width=968&auto=webp&quality=75&crop=968%3A645%2Csmart",
-    artist: true,
-    venue: false,
-    events: []
-  };
+    "_id": "JamesRod7",
+    "picture": "https://static.standard.co.uk/2021/05/28/17/newFile.jpg?width=968&auto=webp&quality=75&crop=968%3A645%2Csmart",
+    "artist": true,
+    "venue": false,
+    "events": []
+  }
 
   const [currentUser, setCurrentUser] = useState(initialUser);
 
