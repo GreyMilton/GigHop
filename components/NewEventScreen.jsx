@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import {Text, View, Platform, Button, SafeAreaView, StyleSheet, TextInput, ScrollView } from "react-native"; 
-import { getVenues, getArtists, PostNewEventDetails } from "../utils/api-requests";
+import { getVenues, getArtists, postNewEventDetails, patchArtistNewEvent, patchVenueNewEvent } from "../utils/api-requests";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {Form, FormItem} from 'react-native-form-component'
 import CurrencyInput from "react-native-currency-input";
@@ -72,7 +72,7 @@ export default function NewEventScreen({ navigation }) {
     });
   }, [setShowStart, setShowEnd]);
 
-  const onPressHandler = () => {
+  const onPressHandler = async () => {
     let time_start = new Date(startTime);
     let time_end = new Date(endTime)
     if (eventName.length < 0 || venue.length < 0 || artist.length < 0) {
@@ -90,7 +90,15 @@ export default function NewEventScreen({ navigation }) {
       time_end: time_end,
       picture: picture
     }
-    PostNewEventDetails(data)
+
+
+    const eventData = await postNewEventDetails(data);
+
+    let addEvent = {
+      add_event:{event_id: eventData}
+    }
+    patchArtistNewEvent(addEvent, artist);
+    patchVenueNewEvent(addEvent, venue);
 
   }
 
@@ -153,7 +161,7 @@ export default function NewEventScreen({ navigation }) {
   return (
     <ScrollView>
       <SafeAreaView>
-        <Form onButtonPress={onPressHandler} >
+        <Form onButtonPress={onPressHandler}  >
       <FormItem isRequired label='Event name' value={eventName} onChangeText={(eventName) => setEventName(eventName)}/>
     {pickers}
 

@@ -1,22 +1,26 @@
-import axios from 'axios';
+import axios from "axios";
 
 const gigHopAPI = axios.create({
-  baseURL: 'https://gig-hop.herokuapp.com/api/'
+  baseURL: "https://gig-hop.herokuapp.com/api/"
 });
 
-export const getEventsByTimestamp = (selectedTimestamp = ' ') => {
-  return gigHopAPI.get(`/events?filter_by=${selectedTimestamp.toISOString()}`).then((response) => {return response.data});
-}
+export const getEventsByTimestamp = (selectedTimestamp = " ") => {
+  return gigHopAPI
+    .get(`/events?filter_by=${selectedTimestamp.toISOString()}`)
+    .then(response => {
+      return response.data;
+    });
+};
 
 //if it throws errors remember that comma
 export const getVenues = () => {
   return gigHopAPI
     .get("/venues")
-    .then((res) => {
+    .then(res => {
       return res.data;
       // console.log(res.data[0].venue_name);
     })
-    .catch((err) => {
+    .catch(err => {
       console.log(err);
     });
 };
@@ -24,66 +28,104 @@ export const getVenues = () => {
 export const getArtists = () => {
   return gigHopAPI
     .get("/artists")
-    .then((res) => {
+    .then(res => {
       return res.data;
     })
-    .catch((err) => {
+    .catch(err => {
       console.log(err);
     });
 };
 
-export const PostNewEventDetails = (data) => {
-  let venueData = JSON.stringify(data)
-  console.log(venueData)
-  return gigHopAPI.post("/events",
-    venueData, {headers: {
-      'Content-Type': 'application/json;charset=UTF-8'}}
-  )
-  .then((res) => {
-    console.log(res)
-  }).catch((err) => {
-    console.log(err)
+export const postNewEventDetails = data => {
+  let venueData = JSON.stringify(data);
+  return gigHopAPI
+    .post("/events", venueData, {
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    })
+    .then(res => {
+      return res.data;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+export const PostNewUser = data => {
+  let userData = JSON.stringify(data);
+  return gigHopAPI
+    .post("/users", userData, {
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    })
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+export const PostNewArtist = data => {
+  let artistData = JSON.stringify(data);
+  return gigHopAPI
+    .post("/artists", artistData, {
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    })
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+export const PostNewVenue = data => {
+  let venueData = JSON.stringify(data);
+  return gigHopAPI
+    .post("/venues", venueData, {
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8"
+      }
+    })
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+export const getEventById = eventId => {
+  return gigHopAPI.get(`/events/${eventId}`).then(response => {
+    return response.data;
   });
 };
 
-export const PostNewUser = (data) => {
-  let userData = JSON.stringify(data)
-  return gigHopAPI.post('/users', userData, {headers: {
-    'Content-Type': 'application/json;charset=UTF-8'}}
-    ).then((res) => {
-      return res
-      console.log(res)
-    }). catch ((err) => {
-      console.log(err)
-    })
-}
+export const getArtistById = artistId => {
+  return gigHopAPI.get(`/artists/${artistId}`).then(response => {
+    return response.data;
+  });
+};
 
-export const PostNewArtist = (data) => {
-  let artistData = JSON.stringify(data)
-  return gigHopAPI.post('/artists', artistData, {headers: {
-    'Content-Type': 'application/json;charset=UTF-8'}}
-    ).then((res) => {
-      console.log(res)
-    }). catch ((err) => {
-      console.log(err)
-    })
-}
+export const patchArtistNewEvent = (data, artistId) => {
+  let addEvent = JSON.stringify(data);
+  return gigHopAPI.patch(`/artists/${artistId}`, addEvent, {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8"
+    }
+  });
+};
 
-export const PostNewVenue = (data) => {
-  let venueData = JSON.stringify(data)
-  return gigHopAPI.post('/venues', venueData, {headers: {
-    'Content-Type': 'application/json;charset=UTF-8'}}
-    ).then((res) => {
-      console.log(res)
-    }). catch ((err) => {
-      console.log(err)
-    })
-}
-
-export const getEventById = (eventId) => {
-  return gigHopAPI.get(`/events/${eventId}`).then((response) => {return response.data});
-}
-
-export const getArtistById = (artistId) => {
-  return gigHopAPI.get(`/artists/${artistId}`).then((response) => {return response.data});
-}
+export const patchVenueNewEvent = (data, artistId) => {
+  let addEvent = JSON.stringify(data);
+  return gigHopAPI.patch(`/venues/${artistId}`, addEvent, {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8"
+    }
+  });
+};
