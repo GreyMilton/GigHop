@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import {Text, View, Platform, Button, SafeAreaView, StyleSheet, TextInput, ScrollView } from "react-native"; 
+import {Text, Platform, Pressable, View, StyleSheet, TextInput, ScrollView, Button } from "react-native"; 
 import { getVenues, getArtists, PostNewEventDetails } from "../utils/api-requests";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {Form, FormItem} from 'react-native-form-component'
 import CurrencyInput from "react-native-currency-input";
 import {Picker, PickerIOS} from '@react-native-picker/picker'
 import { UserContext } from "../contexts/UserContext";
+import FormsStyles from "../style-documents/forms-styling";
 
 export default function NewEventScreen({ navigation }) {
   const {currentUser} = useContext(UserContext);
@@ -101,7 +102,7 @@ export default function NewEventScreen({ navigation }) {
       <View>
         <PickerIOS
     selectedValue={artist}
-    style={styles.input}
+    style={FormsStyles.dropdown}
     onValueChange={(itemValue) => setArtist(itemValue)}
     >
     <Picker.Item label="artist" value={""} />
@@ -113,7 +114,7 @@ export default function NewEventScreen({ navigation }) {
   </PickerIOS>
         <PickerIOS
         selectedValue={venue}
-        style={styles.input}
+        style={FormsStyles.dropdown}
         onValueChange={(itemValue) => setVenue(itemValue)}
       >
         <Picker.Item label="venue" value={""} />
@@ -128,7 +129,7 @@ export default function NewEventScreen({ navigation }) {
       <View>
     <Picker
     selectedValue={artist}
-    style={styles.input}
+    style={FormsStyles.dropdown}
     onValueChange={(itemValue, itemIndex) => setArtist(itemValue)}
     >
     <Picker.Item label="artist" value={undefined} />
@@ -140,7 +141,7 @@ export default function NewEventScreen({ navigation }) {
   </Picker>
         <Picker
         selectedValue={venue}
-        style={styles.input}
+        style={FormsStyles.dropdown}
         onValueChange={(itemValue, itemIndex) => setVenue(itemValue)}
       >
         <Picker.Item label="venue" value={undefined} />
@@ -152,18 +153,20 @@ export default function NewEventScreen({ navigation }) {
   }
   return (
     <ScrollView>
-      <SafeAreaView>
-        <Form onButtonPress={onPressHandler} >
-      <FormItem isRequired label='Event name' value={eventName} onChangeText={(eventName) => setEventName(eventName)}/>
+      <View>
+        <Form onButtonPress={onPressHandler} buttonText="Submit New Gig" buttonStyle={FormsStyles.submitButton} buttonTextStyle={FormsStyles.submitButtonText} >
+      <FormItem isRequired label='Event name' labelStyle={FormsStyles.label} textInputStyle={FormsStyles.input} value={eventName} onChangeText={(eventName) => setEventName(eventName)}/>
     {pickers}
 
-      <View>
-        <Button onPress={showDatePickerStart} title=" Show Start Date" />
+      <View style={FormsStyles.timeAndDateInputContainer}>
+        <Text>Gig start:</Text>
+        <Pressable style={FormsStyles.timeOrDatePickerButtonAndroid} onPress={showDatePickerStart} >
+          <Text style={FormsStyles.timeOrDatePickerButtonTextAndroid}>{startTime.toDateString()}</Text>
+        </Pressable>
+        <Pressable style={FormsStyles.timeOrDatePickerButtonAndroid} onPress={showTimePickerStart} >
+        <Text style={FormsStyles.timeOrDatePickerButtonTextAndroid}>{startTime.toTimeString().substring(0, 5)}</Text>
+        </Pressable>
       </View>
-      <View>
-        <Button onPress={showTimePickerStart} title="Show Start Time" />
-      </View>
-      <Text>Chosen start date: {startTime.toDateString()} {startTime.toTimeString().substring(0, 5)}</Text>
       <View>
          {showStart && (
         <DateTimePicker
@@ -176,13 +179,15 @@ export default function NewEventScreen({ navigation }) {
         />)}
       </View>
 
-     <View>
-       <Button onPress={showDatePickerEnd} title=" Show End Date" />
+     <View style={FormsStyles.timeAndDateInputContainer}>
+      <Text>Gig end:</Text>
+       <Pressable style={FormsStyles.timeOrDatePickerButtonAndroid} onPress={showDatePickerEnd} title=" Show End Date" >
+        <Text style={FormsStyles.timeOrDatePickerButtonTextAndroid}>{endTime.toDateString()}</Text>
+       </Pressable>
+       <Pressable style={FormsStyles.timeOrDatePickerButtonAndroid} onPress={showTimePickerEnd} title="Show End Time" >
+       <Text style={FormsStyles.timeOrDatePickerButtonTextAndroid}>{endTime.toTimeString().substring(0, 5)}</Text>
+       </Pressable>
      </View>
-     <View>
-       <Button onPress={showTimePickerEnd} title="Show End Time" />
-     </View>
-     <Text>Chosen end date: {endTime.toDateString()} {endTime.toTimeString().substring(0, 5)}</Text>
      <View>
        {showEnd && (
      <DateTimePicker
@@ -195,10 +200,10 @@ export default function NewEventScreen({ navigation }) {
      />)}
      </View>
       <CurrencyInput prefix="£" separator="." label='Event price' value={price} onChangeValue={(price) => setPrice(price)}/>
-      <FormItem label='Event description' value={description} onChangeText={(description) => setDescription(description)}/>
-      <FormItem label='Event picture' value={picture} onChangeText={(picture) => setPicture(picture)}/>
+      <FormItem label='Event description' labelStyle={FormsStyles.label} textInputStyle={FormsStyles.input} value={description} onChangeText={(description) => setDescription(description)}/>
+      <FormItem underneathText="Hellllllo!" underneathTextStyle={FormsStyles.textUnderneathInput} label='Event picture' labelStyle={FormsStyles.label} textInputStyle={FormsStyles.input} value={picture} onChangeText={(picture) => setPicture(picture)}/>
     </Form>
-    </SafeAreaView>
+    </View>
     </ScrollView>);
 }
 const styles = StyleSheet.create({
@@ -207,5 +212,6 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
+    backgroundColor: 'lightblue',
   },
 });
