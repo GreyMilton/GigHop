@@ -8,11 +8,13 @@ export default function LocationInput() {
 
   return (
     <View style={mainScreenStyles.locationContainer} >
+      <View style={mainScreenStyles.locationInnerContainer}>
       <TextInput
         style={mainScreenStyles.locationInput}
         onChangeText={onChangeText}
         value={text}
       />
+      </View>
     </View>
   );
 }

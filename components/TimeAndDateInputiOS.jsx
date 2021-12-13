@@ -15,15 +15,21 @@ export default function TimeAndDateInputiOS({ selectedTimestamp, setSelectedTime
 
   return (
     <View style={mainScreenStyles.timeAndDateInputContainer} >
+      <View style={mainScreenStyles.timeAndDateButtoniOSContainer}>
       <DateTimePicker
+        style={mainScreenStyles.timeAndDateButtoniOS}
         testID="dateTimePicker"
         value={selectedTimestamp}
         mode={'date'}
         is24Hour={true}
         display="default"
         onChange={onDatePickerChange}
+        textColor="white"
       />
+      </View>
+      <View style={mainScreenStyles.timeAndDateButtoniOSContainer}>
       <DateTimePicker
+        style={mainScreenStyles.timeAndDateButtoniOS}
         testID="dateTimePicker"
         value={selectedTimestamp}
         mode={'time'}
@@ -31,6 +37,7 @@ export default function TimeAndDateInputiOS({ selectedTimestamp, setSelectedTime
         display="default"
         onChange={onTimePickerChange}
       />
+      </View>
     </View>
   );
 };
