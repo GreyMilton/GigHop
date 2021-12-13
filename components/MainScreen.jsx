@@ -94,6 +94,13 @@ export default function MainScreen({ navigation }) {
     setMapMarkers(venuesInCurrentViewWithGigs);
   }, [venuesInCurrentViewWithGigs])
 
+  useEffect(() => {
+    console.log("*************************");
+    console.log(venuesInCurrentViewWithGigs);
+    console.log("*************************");
+    console.log(venueReferenceObject);
+  }, [venueReferenceObject]);
+
   return (
     <View style={mainScreenStyles.mainScreenContainer}>
       <SearchBar selectedTimestamp={selectedTimestamp} setSelectedTimestamp={setSelectedTimestamp} />
@@ -103,7 +110,7 @@ export default function MainScreen({ navigation }) {
           <Text style={mainScreenStyles.mapViewSwitchTextNotSelected}>{`${mapIsDisplaying ? "/list" : "/map"}`}</Text>
         </Pressable>
       </View>
-      {mapIsDisplaying ? <MapDisplay navigation={navigation} mapMarkers={mapMarkers} venueReferenceObject={venueReferenceObject} isLoading={isLoading}/> : <EventListDisplay navigation={navigation} mapMarkers={mapMarkers} isLoading={isLoading}/> }
+      {mapIsDisplaying ? <MapDisplay navigation={navigation} mapMarkers={mapMarkers} venueReferenceObject={venueReferenceObject} isLoading={isLoading}/> : <EventListDisplay navigation={navigation} mapMarkers={mapMarkers} isLoading={isLoading} venueReferenceObject={venueReferenceObject}/> }
     </View>
   );
 }

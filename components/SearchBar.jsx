@@ -1,7 +1,8 @@
 import React from 'react';
-import { Text, View} from 'react-native';
+import { Text, View, Platform } from 'react-native';
 import LocationInput from './LocationInput';
-import TimeAndDateInput from './TimeAndDateInput';
+import TimeAndDateInputiOS from './TimeAndDateInputiOS';
+import TimeAndDateInputAndroid from './TimeAndDateInputAndroid';
 import FilterSelect from './FilterSelect';
 import SortSelect from './SortSelect';
 import mainScreenStyles from '../style-documents/main-screen-styling';
@@ -10,7 +11,11 @@ export default function SearchBar({ selectedTimestamp, setSelectedTimestamp }) {
   return (
     <View style={mainScreenStyles.searchBarContainer} >
       <LocationInput />
-      <TimeAndDateInput selectedTimestamp={selectedTimestamp} setSelectedTimestamp={setSelectedTimestamp} />
+      { Platform.OS === 'ios' ?
+        <TimeAndDateInputiOS selectedTimestamp={selectedTimestamp} setSelectedTimestamp={setSelectedTimestamp} />
+        :
+        <TimeAndDateInputAndroid selectedTimestamp={selectedTimestamp} setSelectedTimestamp={setSelectedTimestamp} />
+      }
       {/* <FilterSelect /> */}
       {/* <SortSelect /> */}
     </View>

@@ -14,8 +14,13 @@ const mainScreenStyles = StyleSheet.create({
 		flexWrap: "wrap",
 	},
 	locationContainer: {
+		flex: 1,
 		alignItems: "center",
+		marginVertical: 2,
+	},
+	locationInnerContainer: {
 		backgroundColor: "white",
+		alignItems: "center",
 		marginVertical: 2,
 	},
 	locationInput: {
@@ -26,6 +31,7 @@ const mainScreenStyles = StyleSheet.create({
 		fontSize: 13,
 	},
 	timeAndDateInputContainer: {
+		flex: 2,
 		flexDirection: "row",
 		alignItems: "center",
 		justifyContent: "space-around",
@@ -48,6 +54,22 @@ const mainScreenStyles = StyleSheet.create({
 		fontWeight: "bold",
 		letterSpacing: 0.25,
 		color: "white",
+	},
+	timeAndDateButtoniOSContainer: {
+		flex: 1,
+		// alignItems: "center",
+		justifyContent: "space-around",
+		// paddingVertical: 6,
+		// paddingHorizontal: 16,
+		marginHorizontal: 2,
+		// borderRadius: 4,
+		// elevation: 3,
+		// backgroundColor: "white",
+		// width: 100,
+	},
+	timeAndDateButtoniOS: {
+		backgroundColor: "red",
+		borderRadius: 4,
 	},
 	mapViewSwitchContainer: {},
 	mapViewSwitchButton: {

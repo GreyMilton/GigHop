@@ -4,21 +4,20 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import {Pressable, Platform} from 'react-native';
 import mainScreenStyles from '../style-documents/main-screen-styling';
 
-export default function TimeAndDateInput({ selectedTimestamp, setSelectedTimestamp }) {
+export default function TimeAndDateInputAndroid({ selectedTimestamp, setSelectedTimestamp }) {
 
-  const [showDatePicker, setShowDatePicker] = useState(Platform.OS === 'ios');
-  const [showTimePicker, setShowTimePicker] = useState(Platform.OS === 'ios');
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showTimePicker, setShowTimePicker] = useState(false);
   
   const onDatePickerChange = (event, newlySelectedDate = selectedTimestamp) => {
-    setShowDatePicker(Platform.OS === 'ios');
+    setShowDatePicker(false);
     setSelectedTimestamp(newlySelectedDate);
   };
   const onTimePickerChange = (event, newlySelectedTime = selectedTimestamp) => {
-    setShowTimePicker(Platform.OS === 'ios');
+    setShowTimePicker(false);
     setSelectedTimestamp(newlySelectedTime);
   };
-
-  // when Android buttons pressed:
+  
   const showDatepickerPress = () => {
     setShowDatePicker(true);
   };
@@ -28,16 +27,12 @@ export default function TimeAndDateInput({ selectedTimestamp, setSelectedTimesta
 
   return (
     <View style={mainScreenStyles.timeAndDateInputContainer} >
-      {Platform.OS === 'ios' ? null :
-        <>
-          <Pressable style={mainScreenStyles.timeAndDatePressableButtonsAndroid} onPress={showDatepickerPress} >
-            <Text style={mainScreenStyles.timeAndDatePressableButtonsTextAndroid} >{selectedTimestamp.toDateString()}</Text>
-          </Pressable>
-          <Pressable style={mainScreenStyles.timeAndDatePressableButtonsAndroid} onPress={showTimepickerPress} >
-            <Text style={mainScreenStyles.timeAndDatePressableButtonsTextAndroid} >{selectedTimestamp.toTimeString().substring(0,5)}</Text>
-          </Pressable>
-        </>
-      }
+      <Pressable style={mainScreenStyles.timeAndDatePressableButtonsAndroid} onPress={showDatepickerPress} >
+        <Text style={mainScreenStyles.timeAndDatePressableButtonsTextAndroid} >{selectedTimestamp.toDateString()}</Text>
+      </Pressable>
+      <Pressable style={mainScreenStyles.timeAndDatePressableButtonsAndroid} onPress={showTimepickerPress} >
+        <Text style={mainScreenStyles.timeAndDatePressableButtonsTextAndroid} >{selectedTimestamp.toTimeString().substring(0,5)}</Text>
+      </Pressable>
       {showDatePicker && (
         <DateTimePicker
           testID="dateTimePicker"
