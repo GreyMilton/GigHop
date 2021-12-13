@@ -121,9 +121,18 @@ export const patchArtistNewEvent = (data, artistId) => {
   });
 };
 
-export const patchVenueNewEvent = (data, artistId) => {
+export const patchVenueNewEvent = (data, venueId) => {
   let addEvent = JSON.stringify(data);
-  return gigHopAPI.patch(`/venues/${artistId}`, addEvent, {
+  return gigHopAPI.patch(`/venues/${venueId}`, addEvent, {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8"
+    }
+  });
+};
+
+export const patchUserNewEvent = (data, userId) => {
+  let addEvent = JSON.stringify(data);
+  return gigHopAPI.patch(`/users/${userId}`, addEvent, {
     headers: {
       "Content-Type": "application/json;charset=UTF-8"
     }

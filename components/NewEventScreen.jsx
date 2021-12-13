@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import {Text, View, Platform, Button, SafeAreaView, StyleSheet, TextInput, ScrollView } from "react-native"; 
-import { getVenues, getArtists, postNewEventDetails, patchArtistNewEvent, patchVenueNewEvent } from "../utils/api-requests";
+import { getVenues, getArtists, postNewEventDetails, patchArtistNewEvent, patchVenueNewEvent, patchUserNewEvent } from "../utils/api-requests";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {Form, FormItem} from 'react-native-form-component'
 import CurrencyInput from "react-native-currency-input";
@@ -93,12 +93,14 @@ export default function NewEventScreen({ navigation }) {
 
 
     const eventData = await postNewEventDetails(data);
+    console.log(currentUser._id)
 
     let addEvent = {
       add_event:{event_id: eventData}
     }
     patchArtistNewEvent(addEvent, artist);
     patchVenueNewEvent(addEvent, venue);
+    patchUserNewEvent(addEvent, currentUser._id)
 
   }
 
