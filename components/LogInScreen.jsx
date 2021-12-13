@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Text, SafeAreaView } from 'react-native';
+import { Text, SafeAreaView, View } from 'react-native';
 import { Form, FormItem } from 'react-native-form-component';
 import { UserContext } from '../contexts/UserContext';
 import { getAllUsers, getSingleUser } from '../utils/api-requests';
@@ -41,13 +41,12 @@ export default function LogInScreen({ navigation }) {
   }
 
   return (
-    <SafeAreaView>
+    <View>
       <Text>Please enter your username to login</Text>
       <Text>{errorMessage}</Text>
       <Form onButtonPress={onSubmit}>
-        <FormItem isRequired label="Username Login Label" value={userName} onChangeText={ (userName) => setUserName(userName) }/>
+        <FormItem label="Username Login Label" value={userName} onChangeText={ (userName) => setUserName(userName) }/>
       </Form>
-      <Text>{}</Text>
-    </SafeAreaView>
+    </View>
   );
 }
