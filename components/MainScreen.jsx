@@ -89,7 +89,6 @@ export default function MainScreen({ navigation }) {
   useEffect(() => {
     // here is where we calculate multiple gigs at the same venue
     setVenueReferenceObject(createNewVenueReferenceObject(venuesInCurrentViewWithGigs));
-    console.log("venueReferenceObject:", venueReferenceObject);
     setMapMarkers(venuesInCurrentViewWithGigs);
   }, [venuesInCurrentViewWithGigs])
 

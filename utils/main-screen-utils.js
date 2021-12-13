@@ -18,7 +18,6 @@ const createNewVenueReferenceObject = (arrayOfEventObjects) => {
       for (let j = 0; j < eventArray.length; j++) {
         const oldEventId = eventArray[j]["_id"];
         const oldEventTimeStamp = new Date(eventArray[j]["time_start"]).getTime();
-        console.log(eventTimestamp, oldEventId, oldEventTimeStamp);
 
         if (eventTimestamp <= oldEventTimeStamp) {
           eventArray.unshift(newEventObject);

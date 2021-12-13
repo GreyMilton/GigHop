@@ -4,7 +4,7 @@ import { StyleSheet, Dimensions } from 'react-native';
 const mainScreenStyles = StyleSheet.create({
   mainScreenContainer: {
     flex: 1,
-    backgroundColor: '#d8dee3',
+    backgroundColor: '#bfc4ca',
   },
   searchBarContainer: {
     marginVertical: 6,
