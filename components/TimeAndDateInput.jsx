@@ -3,7 +3,6 @@ import { Text, View} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {Pressable, Platform} from 'react-native';
 import mainScreenStyles from '../style-documents/main-screen-styling';
-import androidPressableButtonStyles from '../style-documents/android-pressable-button-styles';
 
 export default function TimeAndDateInput({ selectedTimestamp, setSelectedTimestamp }) {
 
@@ -19,6 +18,7 @@ export default function TimeAndDateInput({ selectedTimestamp, setSelectedTimesta
     setSelectedTimestamp(newlySelectedTime);
   };
 
+  // when Android buttons pressed:
   const showDatepickerPress = () => {
     setShowDatePicker(true);
   };
@@ -30,11 +30,11 @@ export default function TimeAndDateInput({ selectedTimestamp, setSelectedTimesta
     <View style={mainScreenStyles.timeAndDateInputContainer} >
       {Platform.OS === 'ios' ? null :
         <>
-          <Pressable style={androidPressableButtonStyles.button} onPress={showDatepickerPress} >
-            <Text style={androidPressableButtonStyles.text} >{selectedTimestamp.toDateString()}</Text>
+          <Pressable style={mainScreenStyles.timeAndDatePressableButtonsAndroid} onPress={showDatepickerPress} >
+            <Text style={mainScreenStyles.timeAndDatePressableButtonsTextAndroid} >{selectedTimestamp.toDateString()}</Text>
           </Pressable>
-          <Pressable style={androidPressableButtonStyles.button} onPress={showTimepickerPress} >
-            <Text style={androidPressableButtonStyles.text} >{selectedTimestamp.toTimeString().substring(0,5)}</Text>
+          <Pressable style={mainScreenStyles.timeAndDatePressableButtonsAndroid} onPress={showTimepickerPress} >
+            <Text style={mainScreenStyles.timeAndDatePressableButtonsTextAndroid} >{selectedTimestamp.toTimeString().substring(0,5)}</Text>
           </Pressable>
         </>
       }
