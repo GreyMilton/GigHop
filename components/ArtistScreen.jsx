@@ -1,28 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, Image, StyleSheet, StatusBar} from 'react-native';
-import axios from 'axios';
+import { getArtistById } from '../utils/api-requests';
 
 export default function ArtistScreen(props) {
   const artistId = props.route.params.artist_id;
-
-  const baseUrl = 'https://gig-hop.herokuapp.com/api/'
 
   const [artist, setArtist] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
 
-    useEffect(() => {
-        axios({
-          method: 'get',
-          url: `${baseUrl}/artists/${artistId}`
-        }).then((response) => {
-          setArtist(response.data)
-          setIsLoading(false)
-        });
-      }, []);
+  useEffect(() => {
+    getArtistById(artistId).then((response) => {
+      setArtist(response);
+      setIsLoading(false);
+    });
+  }, []);
 
-      
-    if (isLoading) return <Text>LOADING</Text>
+    if (isLoading) return <Text>LOADING</Text>;
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Artist Details:</Text>

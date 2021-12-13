@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Pressable } from 'react-native';
 import SearchBar from './SearchBar';
 import MapDisplay from './MapDisplay';
 import EventListDisplay from './EventListDisplay';
-import { getEventsByTimestamp } from '../grey-and-stuarts-axios/grey-and-stuarts-axios-requests';
+import { getEventsByTimestamp } from '../utils/api-requests';
 import mainScreenStyles from '../style-documents/main-screen-styling';
 import { createNewVenueReferenceObject } from '../utils/main-screen-utils';
 
