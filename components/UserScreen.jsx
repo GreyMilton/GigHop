@@ -8,7 +8,7 @@ export default function UserScreen({ route, navigation }) {
 
   return (
     <View>
-      <Text>UserScreen for {currentUser.username}</Text>
+      <Text>UserScreen for {currentUser._id}</Text>
       <Button
         title="Go to list of events I have created"
         onPress={() =>
