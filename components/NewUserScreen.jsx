@@ -75,6 +75,7 @@ export default function NewUserScreen() {
             upcoming_events: []
         }
         let newUser = await PostNewUser(newUserData);
+        console.log(newUser)
         if(checkedArtist) {
             PostNewArtist(newArtistData)
         }

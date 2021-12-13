@@ -23,7 +23,6 @@ export const PostNewUser = (data) => {
   return gigHopAPI.post('/users', userData, {headers: {
     'Content-Type': 'application/json;charset=UTF-8'}}
     ).then((res) => {
-      console.log(res)
       return res
       console.log(res)
     }). catch ((err) => {
