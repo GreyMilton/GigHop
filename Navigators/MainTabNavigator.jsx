@@ -9,6 +9,9 @@ import FavesScreen from '../components/FavesScreen';
 import { UserContext } from '../contexts/UserContext';
 import { useContext } from 'react';
 import NewUserScreen from '../components/NewUserScreen';
+import tabNavigatorStyles from '../style-documents/navigators-styling';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 
 export default function MainTabNavigator() {
   const Tab = createBottomTabNavigator();
@@ -37,7 +40,6 @@ export default function MainTabNavigator() {
           return <MaterialCommunityIcons name="plus" size={26} color="black" />;
         } }}
       />
-      <Tab.Screen name="Add gig" component={NewEventScreen} />
       <Tab.Screen name="Add user" component={NewUserScreen} />
       {/* <Tab.Screen name="Faves" component={FavesScreen} /> */}
       {currentUser ? <Tab.Screen name={currentUser.username} component={UserStackNavigator} options={{headerShown: false, tabBarIcon: ({ focused, color, size }) => {
