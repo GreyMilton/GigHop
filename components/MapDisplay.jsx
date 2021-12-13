@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Dimensions, Button } from 'react-native';
+import { Text, View, Dimensions, Button } from 'react-native';
 import MapView, {Marker, Callout, PROVIDER_GOOGLE} from "react-native-maps";
 import mapStyle from '../style-documents/map-style';
 import EventSummaryCallout from './EventSummaryCallout';
