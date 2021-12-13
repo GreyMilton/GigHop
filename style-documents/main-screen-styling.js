@@ -20,6 +20,8 @@ const mainScreenStyles = StyleSheet.create({
 	},
 	locationInnerContainer: {
 		backgroundColor: "white",
+		alignItems: "center",
+		marginVertical: 2,
 	},
 	locationInput: {
 		// height: 30,
@@ -159,6 +161,30 @@ const mainScreenStyles = StyleSheet.create({
 		fontSize: 18,
 		alignSelf: "center",
 		fontWeight: "bold",
+	},
+	LoadingContainer: {
+		flex: 1,
+		backgroundColor: "#294460",
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	LoadingPopupContainer: {
+		position: "absolute",
+		top: 0,
+		left: 0,
+		right: 0,
+		bottom: 0,
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	LoadingPopup: {
+		backgroundColor: "black",
+		borderRadius: 5,
+		padding: 5,
+	},
+	LoadingText: {
+		color: "white",
+		fontSize: 30,
 	},
 });
 

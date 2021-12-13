@@ -25,7 +25,7 @@ export default function UserStackNavigator() {
       <Stack.Screen
         name="UserScreen"
         component={UserScreen}
-        options={{ title: `${currentUser.username}` }}
+        options={{ title: `${currentUser._id}` }}
       />
       <Stack.Screen name="EditEventScreen" component={EditEventScreen} />
       <Stack.Screen name="UsersEventsScreen" component={UsersEventsScreen} />

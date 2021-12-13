@@ -61,10 +61,11 @@ export default function MainScreen({ navigation }) {
     },
   ];
   const [mapIsDisplaying, setMapIsDisplaying] = useState(true);
-  const [fetchedEvents, setFetchedEvents] = useState(venueArr);
-  const [venuesInCurrentViewWithGigs, setVenuesInCurrentViewWithGigs] = useState(venueArr);
-  const [mapMarkers, setMapMarkers] = useState(venueArr);
+  const [fetchedEvents, setFetchedEvents] = useState([]);
+  const [venuesInCurrentViewWithGigs, setVenuesInCurrentViewWithGigs] = useState([]);
+  const [mapMarkers, setMapMarkers] = useState([]);
   const [venueReferenceObject, setVenueReferenceObject] = useState({"61ae068dcff5425db378629e": [{"_id": "61ae26cb8d70b95db023dbe6", "time_start": "2021-12-10T18:30:00.000Z"}]});
+  const [isLoading, setIsLoading] = useState(true);
 
   const switchDisplay = () => {
     setMapIsDisplaying((prevState) => {
@@ -77,7 +78,8 @@ export default function MainScreen({ navigation }) {
   
   useEffect(() => {
     getEventsByTimestamp(selectedTimestamp).then((response) => {
-      setFetchedEvents(response);
+      setFetchedEvents(response),
+      setIsLoading(false);
     })
   }, [selectedTimestamp])
 
@@ -108,7 +110,7 @@ export default function MainScreen({ navigation }) {
           <Text style={mainScreenStyles.mapViewSwitchTextNotSelected}>{`${mapIsDisplaying ? "/list" : "/map"}`}</Text>
         </Pressable>
       </View>
-      {mapIsDisplaying ? <MapDisplay navigation={navigation} mapMarkers={mapMarkers} venueReferenceObject={venueReferenceObject}/> : <EventListDisplay navigation={navigation} mapMarkers={mapMarkers} venueReferenceObject={venueReferenceObject} /> }
+      {mapIsDisplaying ? <MapDisplay navigation={navigation} mapMarkers={mapMarkers} venueReferenceObject={venueReferenceObject} isLoading={isLoading}/> : <EventListDisplay navigation={navigation} mapMarkers={mapMarkers} isLoading={isLoading} venueReferenceObject={venueReferenceObject}/> }
     </View>
   );
 }
