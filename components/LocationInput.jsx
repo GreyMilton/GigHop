@@ -1,26 +1,18 @@
 import React, { useState } from 'react';
 import { Text, View, StyleSheet, TextInput } from 'react-native';
+import mainScreenStyles from '../style-documents/main-screen-styling';
 
-export default function LocationInput({ navigation }) {
+export default function LocationInput() {
 
   const [text, onChangeText] = useState("Plymouth");
 
   return (
-    <View>
+    <View style={mainScreenStyles.locationContainer} >
       <TextInput
-        style={styles.input}
+        style={mainScreenStyles.locationInput}
         onChangeText={onChangeText}
         value={text}
       />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
-});

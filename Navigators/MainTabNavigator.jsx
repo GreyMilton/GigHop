@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View} from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import NewEventScreen from '../components/NewEventScreen';
 import LogInScreen from '../components/LogInScreen';
@@ -18,17 +18,35 @@ export default function MainTabNavigator() {
   return (
     <Tab.Navigator
     screenOptions={{
-      headerShown: true
+      headerStyle: {
+      },
+      headerTintColor: '#000',
+      headerTitleStyle: {
+        fontSize: 18,
+      },
+      headerTitleAlign: 'left',
     }}>
       <Tab.Screen
         name="Find gigs"
         component={FindGigsStackNavigator}
-        options={{headerShown: false}}
+        options={{headerShown: false, tabBarIcon: ({ focused, color, size }) => {
+          return <MaterialCommunityIcons name="map-search" size={26} color="black" />;
+        } }}
+      />
+      <Tab.Screen name="Add gig" component={NewEventScreen} options={{tabBarIcon: ({ focused, color, size }) => {
+          return <MaterialCommunityIcons name="plus" size={26} color="black" />;
+        } }}
       />
       <Tab.Screen name="Add gig" component={NewEventScreen} />
       <Tab.Screen name="Add user" component={NewUserScreen} />
       {/* <Tab.Screen name="Faves" component={FavesScreen} /> */}
-      {currentUser ? <Tab.Screen name={currentUser.username} component={UserStackNavigator} options={{headerShown: false}}/> : <Tab.Screen name="Log in" component={LogInScreen} />}
+      {currentUser ? <Tab.Screen name={currentUser.username} component={UserStackNavigator} options={{headerShown: false, tabBarIcon: ({ focused, color, size }) => {
+          return (
+            currentUser.picture ? 
+            <Image style={tabNavigatorStyles.userAvatar} source={{ uri: currentUser.picture}} /> :
+            <FontAwesome5 name="smile" size={22} color="black" />
+          );
+        } }}/> : <Tab.Screen name="Log in" component={LogInScreen} />}
     </Tab.Navigator>
   );
 }
