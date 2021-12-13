@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from "react";
-import {Text, View, Picker, Platform, Button, SafeAreaView, StyleSheet, TextInput, ScrollView } from "react-native"; 
+import React, { useContext, useEffect, useState } from "react";
+import {Text, View, Platform, Button, SafeAreaView, StyleSheet, TextInput, ScrollView } from "react-native"; 
 import { getVenues, getArtists } from "./utils/get";
+import { PostNewEventDetails } from "./utils/post";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {Form, FormItem} from 'react-native-form-component'
 import CurrencyInput from "react-native-currency-input";
+import {Picker, PickerIOS} from '@react-native-picker/picker'
+import { UserContext } from "../contexts/UserContext";
 
 export default function NewEventScreen({ navigation }) {
+  const {currentUser} = useContext(UserContext);
+
   const [eventName, setEventName] = useState("");
   const [artist, setArtist] = useState("");
   const [venue, setVenue] = useState("");
-  const [venueAddress, setVenueAddress] = useState("");
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
-  const [price, setPrice] = useState();
-  const [description, setDescription] = useState();
+  const [price, setPrice] = useState(0);
+  const [description, setDescription] = useState('');
   const [picture, setPicture] = useState();
   const [ArrayOfVenues, setArrayOfVenues] = useState([]);
   const [ArrayOfArtists, setArrayOfArtists] = useState([]);
@@ -23,12 +27,12 @@ export default function NewEventScreen({ navigation }) {
   const [showEnd, setShowEnd] = useState(false);
 
   const onChangeStart = (event, selectedDate = startTime) => {
-    setShowStart(false);
+    setShowStart(Platform.OS === 'ios');
     setStartTime(selectedDate);
   };
 
   const onChangeEnd = (event, selectedDate = endTime) => {
-    setShowEnd(false);
+    setShowEnd(Platform.OS === 'ios');
     setEndTime(selectedDate);
   };
 
@@ -69,54 +73,90 @@ export default function NewEventScreen({ navigation }) {
     });
   }, [setShowStart, setShowEnd]);
 
-  //when you have collected all the details have been entered
-  const [newEvent, setNewEvent] = useState();
-  const [newArtist, setNewArtist] = useState();
-  const [newVenue, setNewVenue] = useState();
-  const [newVenueAddress, setNewVenueAddress] = useState();
-  const [newStartTime, setNewStartTime] = useState();
-  const [newEndTime, setNewEndTime] = useState();
-  const [newPrice, setNewPrice] = useState();
-  const [newDescription, setNewDescriptin] = useState();
-  const [newPicture, setNewPicture] = useState();
-  // console.log(newEvent, newArtist, newVenue, newVenueAddress, newStartTime);
+  const onPressHandler = () => {
+    let time_start = new Date(startTime);
+    let time_end = new Date(endTime)
+    if (eventName.length < 0 || venue.length < 0 || artist.length < 0) {
+      alert('please enter an event name')
+    }
+    let data = {
+      event_name: eventName,
+      entry_price: price,
+      description: description,
+      venue_id: venue,
+      user_id: currentUser._id,
+      artists_ids: [artist],
+      authorised: {artist: false, venue: false},
+      time_start: time_start,
+      time_end: time_end,
+      picture: picture
+    }
+    PostNewEventDetails(data)
 
-  //  "event_name",
-  //   "entry_price",
-  //   "description",
-  //   "venue_id",
-  //   "user_id",
-  //   "artists_ids",
-  //   "authorised",
-  //   "time_end",
-  //   "time_start",
-  //   "picture"
+  }
+
+  let pickers;
+
+  if(Platform.OS === 'ios') {
+    pickers = (
+      <View>
+        <PickerIOS
+    selectedValue={artist}
+    style={styles.input}
+    onValueChange={(itemValue) => setArtist(itemValue)}
+    >
+    <Picker.Item label="artist" value={""} />
+      {ArrayOfArtists.map((artist) => {
+      return (
+        <Picker.Item key={artist._id} label={artist.artist_name} value={artist._id} />
+        );
+        })}
+  </PickerIOS>
+        <PickerIOS
+        selectedValue={venue}
+        style={styles.input}
+        onValueChange={(itemValue) => setVenue(itemValue)}
+      >
+        <Picker.Item label="venue" value={""} />
+        {ArrayOfVenues.map((venue) => {
+          return <Picker.Item key={venue._id} label={venue.venue_name} value={venue._id} />;
+        })}
+      </PickerIOS>
+      </View>
+    )
+  } else {
+    pickers = (
+      <View>
+    <Picker
+    selectedValue={artist}
+    style={styles.input}
+    onValueChange={(itemValue, itemIndex) => setArtist(itemValue)}
+    >
+    <Picker.Item label="artist" value={undefined} />
+      {ArrayOfArtists.map((artist) => {
+      return (
+        <Picker.Item key={artist._id} label={artist.artist_name} value={artist._id} />
+        );
+        })}
+  </Picker>
+        <Picker
+        selectedValue={venue}
+        style={styles.input}
+        onValueChange={(itemValue, itemIndex) => setVenue(itemValue)}
+      >
+        <Picker.Item label="venue" value={undefined} />
+        {ArrayOfVenues.map((venue) => {
+          return <Picker.Item key={venue._id} label={venue.venue_name} value={venue._id} />;
+        })}
+      </Picker>
+      </View>)
+  }
   return (
     <ScrollView>
-    <Form onSubmit=''>
-      <FormItem label='Event name' value={eventName} onChangeText={(eventName) => setEventName(eventName)}/>
-      <Picker
-        selectedValue={artist}
-        style={styles.input}
-        onValueChange={(itemValue, itemIndex) => setArtist(itemValue)}
-       >
-        <Picker.Item label="artist" value={undefined} />
-         {ArrayOfArtists.map((artist) => {
-          return (
-            <Picker.Item key={artist._id} label={artist.artist_name} value={artist._id} />
-            );
-           })}
-      </Picker>
-           <Picker
-           selectedValue={venue}
-           style={styles.input}
-           onValueChange={(itemValue, itemIndex) => setVenue(itemValue)}
-         >
-           <Picker.Item label="venue" value={undefined} />
-           {ArrayOfVenues.map((venue) => {
-             return <Picker.Item key={venue._id} label={venue.venue_name} value={venue._id} />;
-           })}
-         </Picker>
+      <SafeAreaView>
+        <Form onButtonPress={onPressHandler} >
+      <FormItem isRequired label='Event name' value={eventName} onChangeText={(eventName) => setEventName(eventName)}/>
+    {pickers}
 
       <View>
         <Button onPress={showDatePickerStart} title=" Show Start Date" />
@@ -155,10 +195,11 @@ export default function NewEventScreen({ navigation }) {
      onChange={onChangeEnd}
      />)}
      </View>
-      <CurrencyInput label='Event price' value={price} onChangeValue={(price) => setPrice(price)}/>
+      <CurrencyInput prefix="£" separator="." label='Event price' value={price} onChangeValue={(price) => setPrice(price)}/>
       <FormItem label='Event description' value={description} onChangeText={(description) => setDescription(description)}/>
       <FormItem label='Event picture' value={picture} onChangeText={(picture) => setPicture(picture)}/>
     </Form>
+    </SafeAreaView>
     </ScrollView>);
 }
 const styles = StyleSheet.create({
