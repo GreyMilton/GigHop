@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 
 const formsStyles = StyleSheet.create({
 	addGigContainer: {
@@ -6,7 +6,7 @@ const formsStyles = StyleSheet.create({
 		paddingTop: 18,
 	},
 	addUserScrollView: {
-		backgroundColor: '#505050',
+		backgroundColor: "#d8dee5",
 	},
 	addUserContainer: {
 		backgroundColor: "#d8dee5",
@@ -146,7 +146,7 @@ const formsStyles = StyleSheet.create({
 		marginBottom: 20,
 		borderRadius: 4,
 		elevation: 3,
-		backgroundColor: "#143753",
+		backgroundColor: "black",
   },
   submitButtonText:{
 		fontSize: 16,

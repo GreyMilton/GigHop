@@ -30,7 +30,7 @@ export default function MapDisplay({ mapMarkers, navigation, venueReferenceObjec
                 title={event['event_name']}
                 description={event.description}
               >
-                <Callout tooltip={false} style={mainScreenStyles.callout} onPress={() => navigation.navigate('EventScreen', { eventId: event['_id']})}>
+                <Callout tooltip={false} style={mainScreenStyles.callout} onPress={() => navigation.navigate('EventScreen', { eventId: event['_id'], eventName: event['event_name']})}>
                     <EventSummaryCallout venueReferenceObject={venueReferenceObject} event={event} />
                 </Callout>
               </Marker>
@@ -70,7 +70,7 @@ export default function MapDisplay({ mapMarkers, navigation, venueReferenceObjec
                 title={event['event_name']}
                 description={event.description}
               >
-                <Callout tooltip={false} style={mainScreenStyles.callout} onPress={() => navigation.navigate('EventScreen', { eventId: event['_id']})}>
+                <Callout tooltip={false} style={mainScreenStyles.callout} onPress={() => navigation.navigate('EventScreen', { eventId: event['_id'], eventName: event['event_name']})}>
                     <EventSummaryCallout venueReferenceObject={venueReferenceObject} event={event} />
                 </Callout>
               </Marker>

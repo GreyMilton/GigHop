@@ -1,85 +1,67 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, StatusBar, Image, ScrollView, Button} from 'react-native';
+import { View, StyleSheet, Text, StatusBar, Image, ScrollView, Pressable} from 'react-native';
 import { getEventById } from '../utils/api-requests';
+import eventScreenStyles from '../style-documents/event-screen-styling.js';
 
 export default function EventScreen(props) {
   const eventId = props.route.params.eventId;
 
-  const [data, setData] = useState();
-  const [isLoading, setIsLoading] = useState(true)
+  const [currentEvent, setEvent] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getEventById(eventId).then((response) => {
-      setData(response);
+      setEvent(response);
       setIsLoading(false);
     });
   }, []);
 
-  if (isLoading) return <Text>LOADING</Text>
+  if (isLoading) return <Text>LOADING</Text>;
   return (
-    <ScrollView style={styles.container}>
-      {data.map((item) => {
-        return (
-          <View style={styles.item} key={item._id}>
-            <View key='Event'>
-              <Text style={styles.title}>Event Details</Text>
-              <Text style={styles.text}>{item.event_name}</Text>
-              <Text style={styles.text}>Entry Price: £{item.entry_price}</Text>
-              <Text style={styles.text}>Event info: {item.description}</Text>
-              <Image style={[item.picture ? styles.image : styles.noImage]} source={{ uri: item.picture}}/>
-              <Button
-                title="Artist Details"
-                onPress={() =>
-                  props.navigation.navigate('ArtistScreen', {
-                    artist_id: item.artists_ids[0].artist_id
-                  })
-                }
-              />
-            </View>
-            <View key='Venue'>
-              <Text style={styles.title}>Venue Details:</Text>
-              <Text style={styles.text}>Held at: {item.venue_info[0].venue_name}</Text>
-              <Text style={styles.text}>Address: {item.venue_info[0].address}</Text>
-              <Image style={[item.venue_info[0].picture ? styles.image : styles.noImage]} source={{ uri: item.venue_info[0].picture }}/>
-            </View>
+    <ScrollView style={eventScreenStyles.eventScreenScrollViewContainer}>
+      <View style={eventScreenStyles.eventScreenContainer}>
+        <Text style={eventScreenStyles.eventScreenTitle}>{currentEvent[0].event_name}</Text>
+        <View style={eventScreenStyles.eventDetailsContainer}>
+          <View style={eventScreenStyles.eventScreenTextContainer}>
+            <Text style={eventScreenStyles.eventScreenTextLabel}>Entry: </Text>
+            <Text style={eventScreenStyles.eventScreenText}>£{currentEvent[0].entry_price}</Text>
           </View>
-        )
-      })}
+          <View style={eventScreenStyles.eventScreenTextContainer}>
+            <Text style={eventScreenStyles.eventScreenTextLabel}>About: </Text>
+            <Text style={eventScreenStyles.eventScreenText}>{currentEvent[0].description}</Text>
+          </View>
+        </View>
+        { currentEvent[0].picture ?
+        <Image style={eventScreenStyles.eventScreenImage} source={{ uri: currentEvent[0].picture}}/>
+        : null}
+        <Pressable style={eventScreenStyles.eventScreenButtonAndroid}
+          title="Artist Details"
+          onPress={() =>
+            props.navigation.navigate('ArtistScreen', {
+              artist_id: currentEvent[0].artists_ids[0].artist_id
+            })
+          }
+        >
+          <Text style={eventScreenStyles.eventScreenButtonTextAndroid}>More on the artist</Text>
+        </Pressable>
+        <View style={eventScreenStyles.venueContainer}>
+          <Text style={eventScreenStyles.eventScreenVenueTitle}>Venue:</Text>
+          <View style={eventScreenStyles.venueDetailsContainer}>
+            <View style={eventScreenStyles.eventScreenTextContainer}>
+              <Text style={eventScreenStyles.eventScreenTextLabel}>Name:</Text>
+              <Text style={eventScreenStyles.eventScreenText}> {currentEvent[0].venue_info[0].venue_name}</Text>
+            </View>
+            <View style={eventScreenStyles.eventScreenTextContainer}>
+              <Text style={eventScreenStyles.eventScreenTextLabel}>Address:</Text>
+              <Text style={eventScreenStyles.eventScreenText}> {currentEvent[0].venue_info[0].address}</Text>
+            </View>
+        </View>
+ 
+          </View>
+          { currentEvent[0].venue_info[0].picture ?
+          <Image style={eventScreenStyles.eventScreenImage} source={{ uri: currentEvent[0].venue_info[0].picture }}/>
+          : null}
+        </View>
     </ScrollView>
   )
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: StatusBar.currentHeight,
-    marginHorizontal: 16,
-    backgroundColor: "#AFD2E9",
-  },
-  text: {
-    backgroundColor: '#7cb48f',
-    borderColor: 'black',
-    borderWidth: 1,
-    margin: 5,
-    width: '100%'
-  },
-  item: {
-    backgroundColor: "#C9F299",
-    padding: 20,
-    marginVertical: 8,
-    width: '90%'
-  },
-  image: {
-    resizeMode: 'contain',
-    width: '100%',
-    height: 200
-  },
-  noImage: {
-    resizeMode: 'contain',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold"
-  }
-});
-
