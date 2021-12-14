@@ -11,14 +11,14 @@ import formsStyles from "../style-documents/forms-styling";
 export default function NewEventScreen({ navigation }) {
   const {currentUser} = useContext(UserContext);
 
-  const [eventName, setEventName] = useState("");
-  const [artist, setArtist] = useState("");
-  const [venue, setVenue] = useState("");
+  const [eventName, setEventName] = useState(null);
+  const [artist, setArtist] = useState(null);
+  const [venue, setVenue] = useState(null);
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
   const [price, setPrice] = useState(0);
-  const [description, setDescription] = useState('');
-  const [picture, setPicture] = useState();
+  const [description, setDescription] = useState(null);
+  const [picture, setPicture] = useState('');
   const [ArrayOfVenues, setArrayOfVenues] = useState([]);
   const [ArrayOfArtists, setArrayOfArtists] = useState([]);
   const [modeStart, setModeStart] = useState('date');
@@ -81,7 +81,7 @@ export default function NewEventScreen({ navigation }) {
     }
     let data = {
       event_name: eventName,
-      entry_price: price,
+      entry_price: {'$numberDecimal': price},
       description: description,
       venue_id: venue,
       user_id: currentUser._id,
@@ -94,14 +94,23 @@ export default function NewEventScreen({ navigation }) {
 
 
     const eventData = await postNewEventDetails(data);
-    console.log(currentUser._id)
 
     let addEvent = {
       add_event:{event_id: eventData}
     }
-    patchArtistNewEvent(addEvent, artist);
-    patchVenueNewEvent(addEvent, venue);
-    patchUserNewEvent(addEvent, currentUser._id)
+    await patchArtistNewEvent(addEvent, artist);
+    await patchVenueNewEvent(addEvent, venue);
+    await patchUserNewEvent(addEvent, currentUser._id)
+    navigation.navigate('Find gigs');
+    setEventName(null);
+    setArtist(null);
+    setVenue(null);
+    setStartTime(new Date());
+    setEndTime(new Date());
+    setPrice(0);
+    setDescription(null);
+    setPicture(null);
+
 
   }
 

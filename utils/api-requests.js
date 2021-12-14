@@ -77,7 +77,7 @@ export const PostNewArtist = data => {
       }
     })
     .then(res => {
-      console.log(res);
+      return res.data._id;
     })
     .catch(err => {
       console.log(err);
@@ -93,7 +93,7 @@ export const PostNewVenue = data => {
       }
     })
     .then(res => {
-      console.log(res);
+      return res.data._id;
     })
     .catch(err => {
       console.log(err);
@@ -106,23 +106,17 @@ export const getEventById = eventId => {
   });
 };
 
-
-
 export const getAllUsers = () => {
-  return gigHopAPI
-          .get("users")
-          .then(users => {
-            return users.data;
-          })
-}
+  return gigHopAPI.get("users").then(users => {
+    return users.data;
+  });
+};
 
-export const getSingleUser = (username) => {
-  return gigHopAPI
-           .get(`/users/${username}`)
-           .then(user => {
-             return user.data;
-           })
-}
+export const getSingleUser = username => {
+  return gigHopAPI.get(`/users/${username}`).then(user => {
+    return user.data;
+  });
+};
 
 export const getArtistById = artistId => {
   return gigHopAPI.get(`/artists/${artistId}`).then(response => {
@@ -151,6 +145,24 @@ export const patchVenueNewEvent = (data, venueId) => {
 export const patchUserNewEvent = (data, userId) => {
   let addEvent = JSON.stringify(data);
   return gigHopAPI.patch(`/users/${userId}`, addEvent, {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8"
+    }
+  });
+};
+
+export const patchUserIsArtist = (data, userId) => {
+  let isArtist = JSON.stringify(data);
+  return gigHopAPI.patch(`/users/${userId}`, isArtist, {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8"
+    }
+  });
+};
+
+export const patchUserIsVenue = (data, userId) => {
+  let isVenue = JSON.stringify(data);
+  return gigHopAPI.patch(`/users/${userId}`, isVenue, {
     headers: {
       "Content-Type": "application/json;charset=UTF-8"
     }

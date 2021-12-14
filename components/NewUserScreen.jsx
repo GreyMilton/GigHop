@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import {Checkbox} from 'react-native-paper'
 import { Form, FormItem } from "react-native-form-component";
-import { PostNewUser, PostNewArtist, PostNewVenue } from "../utils/api-requests";
+import { PostNewUser, PostNewArtist, PostNewVenue, patchUserIsArtist, patchUserIsVenue } from "../utils/api-requests";
 import formsStyles from "../style-documents/forms-styling";
 
-export default function NewUserScreen() {
+
+export default function NewUserScreen({navigation}) {
     const [username, setUsername] = useState('');
     const [artistPicture, setArtistPicture] = useState('');
     const [checkedArtist, setCheckedArtist] = useState(false);
@@ -13,8 +14,8 @@ export default function NewUserScreen() {
     const [artistDescription, setArtistDescription] = useState('');
     const [genre, setGenre] = useState(''); 
     const [venueName, setVenueName] = useState('');
-    const [latitude, setLatitude] = useState(50);
-    const [longitude, setLongitude] = useState(-4);
+    const [latitude, setLatitude] = useState('');
+    const [longitude, setLongitude] = useState('');
     const [venueDescription, setVenueDescription] = useState('');
     const [venuePicture, setVenuePicture] = useState('');
     const [venueAddress, setVenueAddress] = useState('');
@@ -71,8 +72,8 @@ export default function NewUserScreen() {
         let newUserData = {
             _id: username,
             picture: profilePicture,
-            artist: checkedArtist,
-            venue: checkedVenue,
+            artist: '',
+            venue: '',
             events: []
         };
         let newArtistData = {
@@ -87,22 +88,33 @@ export default function NewUserScreen() {
             user_id: username,
             venue_name: venueName,
             coordinates:{
-                latitude:latitude,
-                longitude: longitude
+                latitude:{'$numberDecimal': latitude},
+                longitude: {'$numberDecimal': longitude}
             },
             description: venueDescription,
             picture: venuePicture,
             address: venueAddress,
             upcoming_events: []
         }
-        PostNewUser(newUserData);
+        await PostNewUser(newUserData);
         
         if(checkedArtist) {
-            PostNewArtist(newArtistData)
+            let artistId = await PostNewArtist(newArtistData);
+            let isArtist = {
+                is_artist: {artist: artistId}
+            }
+            patchUserIsArtist(isArtist, username)
         }
         if(checkedVenue) {
-            PostNewVenue(newVenueData)
+            let venueId = await PostNewVenue(newVenueData);
+            let isVenue = {
+                is_venue: {venue: venueId}
+            }
+            patchUserIsArtist(isVenue, username)
         }
+
+        navigation.navigate('Find gigs');
+
     }
 
     return (
