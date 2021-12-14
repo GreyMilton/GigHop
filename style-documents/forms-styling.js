@@ -5,6 +5,9 @@ const formsStyles = StyleSheet.create({
 		backgroundColor: "#d8dee5",
 		paddingTop: 18,
 	},
+	addUserScrollView: {
+		backgroundColor: '#505050',
+	},
 	addUserContainer: {
 		backgroundColor: "#d8dee5",
 		paddingTop: 18,
