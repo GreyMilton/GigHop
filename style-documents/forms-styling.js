@@ -155,6 +155,10 @@ const formsStyles = StyleSheet.create({
 		letterSpacing: 0.25,
 		color: "white",
   },
+	logInGuidance: {
+		textAlign: 'center',
+		margin: 10,
+	}
 });
 
 export default formsStyles;
