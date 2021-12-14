@@ -29,13 +29,13 @@ export default function ConfirmationScreen() {
         })
       })
     })
-  }, []);
+  }, [associatedEventIds]);
 
   console.log(associatedEvents)
 
   let eventList = associatedEvents.map((event) => {
     return (
-      <View key={event._id}>
+      <View key={event.event_name}>
         <Text>{event.event_name}</Text>
       </View>
     )
@@ -43,7 +43,6 @@ export default function ConfirmationScreen() {
 
   return (
     <View>
-      <Text>Events be here</Text>
       {eventList}
     </View>
   );
