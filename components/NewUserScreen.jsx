@@ -6,7 +6,7 @@ import { PostNewUser, PostNewArtist, PostNewVenue, patchUserIsArtist, patchUserI
 import formsStyles from "../style-documents/forms-styling";
 
 
-export default function NewUserScreen({navigation}) {
+export default function NewUserScreen({ navigation }) {
     const [username, setUsername] = useState('');
     const [artistPicture, setArtistPicture] = useState('');
     const [checkedArtist, setCheckedArtist] = useState(false);
@@ -113,14 +113,14 @@ export default function NewUserScreen({navigation}) {
             patchUserIsArtist(isVenue, username)
         }
 
-        navigation.navigate('Find gigs');
+        navigation.navigate('Log In');
 
     }
 
     return (
         <ScrollView style={formsStyles.addUserScrollView}>
             <View style={formsStyles.addUserContainer} >
-                <Form onButtonPress={onPressHandler} buttonText="Submit New User" buttonStyle={formsStyles.submitButton} buttonTextStyle={formsStyles.submitButtonText}>
+                <Form onButtonPress={onPressHandler} buttonText="Create Account" buttonStyle={formsStyles.submitButton} buttonTextStyle={formsStyles.submitButtonText}>
                     <View style={formsStyles.formItemContainer}>
                         <FormItem labelStyle={formsStyles.label} textInputStyle={formsStyles.input} label='Username' value={username} onChangeText={(username) => {setUsername(username)}} />
                     </View>

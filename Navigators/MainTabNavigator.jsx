@@ -12,6 +12,7 @@ import NewUserScreen from '../components/NewUserScreen';
 import tabNavigatorStyles from '../style-documents/navigators-styling';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
+import LoggedOutStackNavigator from './LoggedOutStackNavigator';
 
 export default function MainTabNavigator() {
   const Tab = createBottomTabNavigator();
@@ -40,15 +41,16 @@ export default function MainTabNavigator() {
           return <MaterialCommunityIcons name="plus" size={26} color="black" />;
         } }}
       />
-      <Tab.Screen name="Add user" component={NewUserScreen} />
-      {/* <Tab.Screen name="Faves" component={FavesScreen} /> */}
       {currentUser ? <Tab.Screen name={currentUser._id} component={UserStackNavigator} options={{headerShown: false, tabBarIcon: ({ focused, color, size }) => {
           return (
             currentUser.picture ? 
             <Image style={tabNavigatorStyles.userAvatar} source={{ uri: currentUser.picture}} /> :
             <FontAwesome5 name="smile" size={22} color="black" />
           );
-        } }}/> : <Tab.Screen name="Log in" component={LogInScreen} />}
+        } }}/> : <Tab.Screen name="Log In" component={LoggedOutStackNavigator} options={{headerShown: false, tabBarIcon: ({ focused, color, size }) => {
+          return <MaterialCommunityIcons name="login" size={24} color="black" />
+        } }}/>
+      }
     </Tab.Navigator>
   );
 }
