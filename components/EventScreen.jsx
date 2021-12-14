@@ -16,7 +16,11 @@ export default function EventScreen(props) {
     });
   }, []);
 
-  if (isLoading) return <Text>LOADING</Text>;
+  if (isLoading) return (
+    <View style={styles.LoadingContainer}>
+      <Text style={styles.LoadingText}>Loading Event...</Text>
+    </View>
+  )
   return (
     <ScrollView style={eventScreenStyles.eventScreenScrollViewContainer}>
       <View style={eventScreenStyles.eventScreenContainer}>
@@ -65,3 +69,46 @@ export default function EventScreen(props) {
     </ScrollView>
   )
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: StatusBar.currentHeight,
+    backgroundColor: "#d8dee5",
+  },
+  text: {
+    backgroundColor: '#7cb48f',
+    borderColor: 'black',
+    borderWidth: 1,
+    margin: 5,
+    width: '100%'
+  },
+  item: {
+    backgroundColor: "#C9F299",
+    padding: 20,
+    marginVertical: 8,
+    width: '90%'
+  },
+  image: {
+    resizeMode: 'contain',
+    width: '100%',
+    height: 200
+  },
+  noImage: {
+    resizeMode: 'contain',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold"
+  },
+  LoadingContainer: {
+		flex: 1,
+		backgroundColor: "#d8dee5",
+		justifyContent: "center",
+		alignItems: "center",
+	},
+  LoadingText: {
+		color: "black",
+		fontSize: 30,
+	}
+});

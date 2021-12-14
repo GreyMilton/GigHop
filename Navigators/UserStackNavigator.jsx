@@ -6,6 +6,7 @@ import EditEventScreen from '../components/EditEventScreen';
 import UsersEventsScreen from '../components/UsersEventsScreen';
 import { UserContext } from '../contexts/UserContext';
 import { useContext } from 'react';
+import ConfirmationScreen from '../components/ConfirmationScreen';
 
 export default function UserStackNavigator() {
 
@@ -29,6 +30,7 @@ export default function UserStackNavigator() {
       />
       <Stack.Screen name="EditEventScreen" component={EditEventScreen} />
       <Stack.Screen name="UsersEventsScreen" component={UsersEventsScreen} />
+      <Stack.Screen name="ConfirmationScreen" component={ConfirmationScreen} />
       {/* <Stack.Screen name="Log In" component={LogInScreen} /> */}
       {/* <Stack.Screen name="Tabs" component={MainTabNavigator} /> */}
     </Stack.Navigator>

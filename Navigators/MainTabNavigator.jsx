@@ -11,8 +11,7 @@ import { useContext } from 'react';
 import NewUserScreen from '../components/NewUserScreen';
 import tabNavigatorStyles from '../style-documents/navigators-styling';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons'; 
-
+import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function MainTabNavigator() {
   const Tab = createBottomTabNavigator();
