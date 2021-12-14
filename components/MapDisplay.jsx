@@ -4,9 +4,11 @@ import MapView, {Marker, Callout, PROVIDER_GOOGLE} from "react-native-maps";
 import mapStyle from '../style-documents/map-style';
 import EventSummaryCallout from './EventSummaryCallout';
 import mainScreenStyles from '../style-documents/main-screen-styling';
+import { getTicketmasterEvents } from '../utils/api-requests';
 
 export default function MapDisplay({ mapMarkers, navigation, venueReferenceObject, isLoading }) {
 
+  getTicketmasterEvents();
   if(isLoading) return(
     <View style={mainScreenStyles.mapDisplayContainer}>
       <MapView provider={PROVIDER_GOOGLE}
