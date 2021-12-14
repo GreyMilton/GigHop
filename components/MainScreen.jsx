@@ -95,10 +95,6 @@ export default function MainScreen({ navigation }) {
   }, [venuesInCurrentViewWithGigs])
 
   useEffect(() => {
-    console.log("*************************");
-    console.log(venuesInCurrentViewWithGigs);
-    console.log("*************************");
-    console.log(venueReferenceObject);
   }, [venueReferenceObject]);
 
   return (
