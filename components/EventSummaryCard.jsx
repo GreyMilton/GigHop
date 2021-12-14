@@ -5,7 +5,7 @@ import { findIndexOfEvent } from '../utils/main-screen-utils';
 
 export default function EventSummaryCard({ event, navigation, venueReferenceObject }) {
   return (
-      <Pressable style={mainScreenStyles.EventSummaryCardPressableButton} onPress={() => navigation.navigate('EventScreen', { eventId: event['_id']})}>
+      <Pressable style={mainScreenStyles.EventSummaryCardPressableButton} onPress={() => navigation.navigate('EventScreen', { eventId: event['_id'], eventName: event['event_name']})}>
         <View>
           { event ? <>
           <Text style={mainScreenStyles.EventSummaryCardPressableHeaderText}>{event['event_name']}</Text>

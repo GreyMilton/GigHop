@@ -118,7 +118,7 @@ export default function NewUserScreen({navigation}) {
     }
 
     return (
-        <ScrollView>
+        <ScrollView style={formsStyles.addUserScrollView}>
             <View style={formsStyles.addUserContainer} >
                 <Form onButtonPress={onPressHandler} buttonText="Submit New User" buttonStyle={formsStyles.submitButton} buttonTextStyle={formsStyles.submitButtonText}>
                     <View style={formsStyles.formItemContainer}>

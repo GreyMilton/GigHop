@@ -24,7 +24,7 @@ export default function FindGigsStackNavigator() {
         component={MainScreen}
         options={{ title: "Find gigs" }}
       />
-      <Stack.Screen name="EventScreen" component={EventScreen} />
+      <Stack.Screen name="EventScreen" component={EventScreen} options={({ route }) => ({ title: route.params.eventName })}/>
       <Stack.Screen name="MultipleEventsScreen" component={MultipleEventsScreen} />
       <Stack.Screen name="ArtistScreen" component={ArtistScreen}/>
     </Stack.Navigator>

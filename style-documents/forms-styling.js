@@ -1,9 +1,12 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 
 const formsStyles = StyleSheet.create({
 	addGigContainer: {
 		backgroundColor: "#d8dee5",
 		paddingTop: 18,
+	},
+	addUserScrollView: {
+		backgroundColor: "#d8dee5",
 	},
 	addUserContainer: {
 		backgroundColor: "#d8dee5",
@@ -143,7 +146,7 @@ const formsStyles = StyleSheet.create({
 		marginBottom: 20,
 		borderRadius: 4,
 		elevation: 3,
-		backgroundColor: "#143753",
+		backgroundColor: "black",
   },
   submitButtonText:{
 		fontSize: 16,
@@ -152,6 +155,10 @@ const formsStyles = StyleSheet.create({
 		letterSpacing: 0.25,
 		color: "white",
   },
+	logInGuidance: {
+		textAlign: 'center',
+		margin: 10,
+	}
 });
 
 export default formsStyles;
