@@ -6,7 +6,7 @@ import { getAllUsers, getSingleUser } from '../utils/api-requests';
 
 export default function LogInScreen({ navigation }) {
 
-  const [userName, setUserName] = useState("shyFly");
+  const [userName, setUserName] = useState("");
   const [validUsers, setValidUsers] = useState([]);
   const [showInvalidUser, setInvalidUser] = useState(false);
   const { currentUser, setCurrentUser } = useContext(UserContext);
