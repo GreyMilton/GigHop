@@ -6,7 +6,8 @@ const formsStyles = StyleSheet.create({
 		paddingTop: 18,
 	},
 	addUserContainer: {
-
+		backgroundColor: "#d8dee5",
+		paddingTop: 18,
 	},
 	formItemContainer:{
 		marginHorizontal: 10,
@@ -14,6 +15,37 @@ const formsStyles = StyleSheet.create({
   label: {
   },
   input: {
+	},
+	checkboxesContainer: {
+		marginBottom: 15,
+		borderRadius: 6,
+	},
+	checkboxOuterContainer: {
+		marginHorizontal: 35,
+		flexDirection: 'row',
+	},
+	checkboxLabel: {
+		fontWeight: 'bold',
+		padding: 8,
+		// marginHorizontal: 6,
+		// marginVertical: 2,
+		backgroundColor: 'white',
+		width: 150,
+	},
+	checkboxContainer: {
+		backgroundColor: 'white',
+		padding: 0,
+	},
+	artistFormContainer: {
+		backgroundColor: '#cbdfd0',
+		// borderColor: 'red',
+		// borderRadius: 4,
+		// borderWidth: 2,
+		paddingTop: 14,
+	},
+	venueFormContainer: {
+		backgroundColor: '#f5eede',
+		paddingTop: 14,
 	},
 	dropdownsContainer: {
 		paddingBottom: 18,
