@@ -16,7 +16,11 @@ export default function ArtistScreen(props) {
     });
   }, []);
 
-    if (isLoading) return <Text>LOADING</Text>;
+    if (isLoading) return (
+      <View style={styles.LoadingContainer}>
+        <Text style={styles.LoadingText}>Loading Artist...</Text>
+      </View>
+    )
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Artist Details:</Text>
@@ -58,5 +62,15 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold"
-  }
+  },
+  LoadingContainer: {
+		flex: 1,
+		backgroundColor: "#d8dee5",
+		justifyContent: "center",
+		alignItems: "center",
+	},
+  LoadingText: {
+		color: "black",
+		fontSize: 30,
+	}
 });
