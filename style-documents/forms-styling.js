@@ -5,6 +5,9 @@ const formsStyles = StyleSheet.create({
 		backgroundColor: "#d8dee5",
 		paddingTop: 18,
 	},
+	addUserContainer: {
+
+	},
 	formItemContainer:{
 		marginHorizontal: 10,
 	},
@@ -108,7 +111,7 @@ const formsStyles = StyleSheet.create({
 		marginBottom: 20,
 		borderRadius: 4,
 		elevation: 3,
-		backgroundColor: "black",
+		backgroundColor: "#143753",
   },
   submitButtonText:{
 		fontSize: 16,
