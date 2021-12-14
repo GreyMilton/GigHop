@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Text, View, Button } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { getSingleUser, getEventById } from "../utils/api-requests";
+import { useContext } from 'react';
+import { UserContext } from '../contexts/UserContext';
 
 export default function UsersEventsScreen({ navigation }) {
-  const [arrayofuserevents, setArrayofuserevents] = useState([]);
-  const [listofEvents, setlistofEvents] = useState([]);
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const [arrayOfUsersEvents, setArrayOfUsersEvents] = useState([]);
+  const [listOfEvents, setListOfEvents] = useState([]);
 
   useEffect(() => {
     const unsubscribe = navigation.getParent().addListener("focus", () => {
@@ -15,35 +18,46 @@ export default function UsersEventsScreen({ navigation }) {
   }, [navigation]);
 
   useEffect(() => {
-    getSingleUser("JamesRod7").then((response) => {
-      console.log(Array.isArray(response.events));
-      setArrayofuserevents(response.events);
+    getSingleUser(currentUser._id).then((response) => {
+      // console.log(Array.isArray(response.events));
+      setArrayOfUsersEvents(response.events);
+      setListOfEvents([]);
     });
   }, []);
 
   let eventsObtained = [];
 
   useEffect(() => {
-    for (let i = 0; i < arrayofuserevents.length; i++) {
-      getEventById(arrayofuserevents[i].event_id).then((res) => {
-        eventsObtained.push(res.event_name);
+    for (let i = 0; i < arrayOfUsersEvents.length; i++) {
+      console.log("************** IN THE FOR LOOP!!!!! ******************");
+      if (typeof arrayOfUsersEvents[i].event_id === 'string') {
+      getEventById(arrayOfUsersEvents[i].event_id).then((res) => {
+        if (res.length > 0) {
+          setListOfEvents((prevList) => {
+            return [...prevList, res[0]]
+          })
+          eventsObtained.push(res);}
+      }).then(() => {
+        console.log("events obtained:", eventsObtained);
+      }).catch((err) => {
+        console.log(err);
       });
     }
-    if (eventsObtained.length === arrayofuserevents.length) {
-      setlistofEvents(eventsObtained);
-    }
-  }, [eventsObtained]);
+  }
+  }, [arrayOfUsersEvents]);
 
-  console.log(listofEvents);
+  useEffect(() => {
+    console.log("list of events", listOfEvents);
+  }, [listOfEvents])
 
   return (
     <View>
       <Text>UsersEventsScreen</Text>
       <ScrollView>
-        {listofEvents.map((event) => {
+        {listOfEvents.map((event) => {
           return (
-            <View>
-              {event}
+            <View key={event._id}>
+              <Text>{event.event_name}</Text>
               <Button
                 title="Edit an event"
                 onPress={() => navigation.navigate("EditEventScreen")}
