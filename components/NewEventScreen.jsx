@@ -6,19 +6,19 @@ import {Form, FormItem} from 'react-native-form-component'
 import CurrencyInput from "react-native-currency-input";
 import {Picker, PickerIOS} from '@react-native-picker/picker'
 import { UserContext } from "../contexts/UserContext";
-import FormsStyles from "../style-documents/forms-styling";
+import formsStyles from "../style-documents/forms-styling";
 
 export default function NewEventScreen({ navigation }) {
   const {currentUser} = useContext(UserContext);
 
-  const [eventName, setEventName] = useState("");
-  const [artist, setArtist] = useState("");
-  const [venue, setVenue] = useState("");
+  const [eventName, setEventName] = useState(null);
+  const [artist, setArtist] = useState(null);
+  const [venue, setVenue] = useState(null);
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
   const [price, setPrice] = useState(0);
-  const [description, setDescription] = useState('');
-  const [picture, setPicture] = useState();
+  const [description, setDescription] = useState(null);
+  const [picture, setPicture] = useState('');
   const [ArrayOfVenues, setArrayOfVenues] = useState([]);
   const [ArrayOfArtists, setArrayOfArtists] = useState([]);
   const [modeStart, setModeStart] = useState('date');
@@ -81,7 +81,7 @@ export default function NewEventScreen({ navigation }) {
     }
     let data = {
       event_name: eventName,
-      entry_price: price,
+      entry_price: {'$numberDecimal': price},
       description: description,
       venue_id: venue,
       user_id: currentUser._id,
@@ -98,9 +98,19 @@ export default function NewEventScreen({ navigation }) {
     let addEvent = {
       add_event:{event_id: eventData}
     }
-    patchArtistNewEvent(addEvent, artist);
-    patchVenueNewEvent(addEvent, venue);
-    patchUserNewEvent(addEvent, currentUser._id)
+    await patchArtistNewEvent(addEvent, artist);
+    await patchVenueNewEvent(addEvent, venue);
+    await patchUserNewEvent(addEvent, currentUser._id)
+    navigation.navigate('Find gigs');
+    setEventName(null);
+    setArtist(null);
+    setVenue(null);
+    setStartTime(new Date());
+    setEndTime(new Date());
+    setPrice(0);
+    setDescription(null);
+    setPicture(null);
+
 
   }
 
@@ -108,10 +118,10 @@ export default function NewEventScreen({ navigation }) {
 
   if(Platform.OS === 'ios') {
     pickers = (
-      <View>
+      <View style={formsStyles.dropdownsContainer}>
         <PickerIOS
     selectedValue={artist}
-    style={FormsStyles.dropdown}
+    style={formsStyles.dropdown}
     onValueChange={(itemValue) => setArtist(itemValue)}
     >
     <Picker.Item label="artist" value={""} />
@@ -123,7 +133,7 @@ export default function NewEventScreen({ navigation }) {
   </PickerIOS>
         <PickerIOS
         selectedValue={venue}
-        style={FormsStyles.dropdown}
+        style={formsStyles.dropdown}
         onValueChange={(itemValue) => setVenue(itemValue)}
       >
         <Picker.Item label="venue" value={""} />
@@ -135,10 +145,10 @@ export default function NewEventScreen({ navigation }) {
     )
   } else {
     pickers = (
-      <View>
+      <View style={formsStyles.dropdownsContainer}>
     <Picker
     selectedValue={artist}
-    style={FormsStyles.dropdown}
+    style={formsStyles.dropdown}
     onValueChange={(itemValue, itemIndex) => setArtist(itemValue)}
     >
     <Picker.Item label="artist" value={undefined} />
@@ -150,7 +160,7 @@ export default function NewEventScreen({ navigation }) {
   </Picker>
         <Picker
         selectedValue={venue}
-        style={FormsStyles.dropdown}
+        style={formsStyles.dropdown}
         onValueChange={(itemValue, itemIndex) => setVenue(itemValue)}
       >
         <Picker.Item label="venue" value={undefined} />
@@ -162,65 +172,71 @@ export default function NewEventScreen({ navigation }) {
   }
   return (
     <ScrollView>
-      <View>
-        <Form onButtonPress={onPressHandler} buttonText="Submit New Gig" buttonStyle={FormsStyles.submitButton} buttonTextStyle={FormsStyles.submitButtonText} >
-      <FormItem isRequired label='Event name' labelStyle={FormsStyles.label} textInputStyle={FormsStyles.input} value={eventName} onChangeText={(eventName) => setEventName(eventName)}/>
-    {pickers}
+      <View style={formsStyles.addGigContainer} >
+        <Form onButtonPress={onPressHandler} buttonText="Submit New Gig" buttonStyle={formsStyles.submitButton} buttonTextStyle={formsStyles.submitButtonText} >
+          <View style={formsStyles.formItemContainer}>
+            <FormItem isRequired label='Gig name' labelStyle={formsStyles.label} textInputStyle={formsStyles.input} value={eventName} onChangeText={(eventName) => setEventName(eventName)}/>
+          </View>
+            {pickers}
 
-      <View style={FormsStyles.timeAndDateInputContainer}>
-        <Text>Gig start:</Text>
-        <Pressable style={FormsStyles.timeOrDatePickerButtonAndroid} onPress={showDatePickerStart} >
-          <Text style={FormsStyles.timeOrDatePickerButtonTextAndroid}>{startTime.toDateString()}</Text>
-        </Pressable>
-        <Pressable style={FormsStyles.timeOrDatePickerButtonAndroid} onPress={showTimePickerStart} >
-        <Text style={FormsStyles.timeOrDatePickerButtonTextAndroid}>{startTime.toTimeString().substring(0, 5)}</Text>
-        </Pressable>
-      </View>
-      <View>
-         {showStart && (
-        <DateTimePicker
-         testID="dateTimePickerStart"
-         value={startTime}
-         mode={modeStart}
-         is24Hour={true}
-         display="default"
-         onChange={onChangeStart}
-        />)}
-      </View>
+          <View style={formsStyles.timeAndDateInputContainer}>
+            <Text style={formsStyles.timeAndDateInputLabel}>Start time</Text>
+            <View style={formsStyles.timeAndDateButtonContainer}>
+              <Pressable style={formsStyles.datePickerButtonAndroid} onPress={showDatePickerStart} >
+                <Text style={formsStyles.timeOrDatePickerButtonTextAndroid}>{startTime.toDateString()}</Text>
+              </Pressable>
+              <Pressable style={formsStyles.timePickerButtonAndroid} onPress={showTimePickerStart} >
+                <Text style={formsStyles.timeOrDatePickerButtonTextAndroid}>{startTime.toTimeString().substring(0, 5)}</Text>
+              </Pressable>
+            </View>
+          </View>
+          <View>
+          {showStart && (
+            <DateTimePicker
+              testID="dateTimePickerStart"
+              value={startTime}
+              mode={modeStart}
+              is24Hour={true}
+              display="default"
+              onChange={onChangeStart}
+            />)
+          }
+          </View>
 
-     <View style={FormsStyles.timeAndDateInputContainer}>
-      <Text>Gig end:</Text>
-       <Pressable style={FormsStyles.timeOrDatePickerButtonAndroid} onPress={showDatePickerEnd} title=" Show End Date" >
-        <Text style={FormsStyles.timeOrDatePickerButtonTextAndroid}>{endTime.toDateString()}</Text>
-       </Pressable>
-       <Pressable style={FormsStyles.timeOrDatePickerButtonAndroid} onPress={showTimePickerEnd} title="Show End Time" >
-       <Text style={FormsStyles.timeOrDatePickerButtonTextAndroid}>{endTime.toTimeString().substring(0, 5)}</Text>
-       </Pressable>
-     </View>
-     <View>
-       {showEnd && (
-     <DateTimePicker
-     testID="dateTimePickerEnd"
-     value={endTime}
-     mode={modeEnd}
-     is24Hour={true}
-     display="default"
-     onChange={onChangeEnd}
-     />)}
-     </View>
-      <CurrencyInput prefix="£" separator="." label='Event price' value={price} onChangeValue={(price) => setPrice(price)}/>
-      <FormItem label='Event description' labelStyle={FormsStyles.label} textInputStyle={FormsStyles.input} value={description} onChangeText={(description) => setDescription(description)}/>
-      <FormItem underneathText="Hellllllo!" underneathTextStyle={FormsStyles.textUnderneathInput} label='Event picture' labelStyle={FormsStyles.label} textInputStyle={FormsStyles.input} value={picture} onChangeText={(picture) => setPicture(picture)}/>
-    </Form>
-    </View>
+          <View style={formsStyles.timeAndDateInputContainer}>
+            <Text style={formsStyles.timeAndDateInputLabel}>End time</Text>
+            <View style={formsStyles.timeAndDateButtonContainer}>
+              <Pressable style={formsStyles.datePickerButtonAndroid} onPress={showDatePickerEnd} title=" Show End Date" >
+                <Text style={formsStyles.timeOrDatePickerButtonTextAndroid}>{endTime.toDateString()}</Text>
+              </Pressable>
+              <Pressable style={formsStyles.timePickerButtonAndroid} onPress={showTimePickerEnd} title="Show End Time" >
+                <Text style={formsStyles.timeOrDatePickerButtonTextAndroid}>{endTime.toTimeString().substring(0, 5)}</Text>
+              </Pressable>         
+            </View>
+          </View>
+          <View>
+            {showEnd && (
+              <DateTimePicker
+                testID="dateTimePickerEnd"
+                value={endTime}
+                mode={modeEnd}
+                is24Hour={true}
+                display="default"
+                onChange={onChangeEnd}
+              />)
+            }
+          </View>
+            <View style={formsStyles.entryFeeContainer}>
+              <Text style={formsStyles.entryFeeLabel} >Entry fee</Text>
+              <CurrencyInput style={formsStyles.entryFeeInput} prefix="£" separator="." label='Event price' value={price} onChangeValue={(price) => setPrice(price)}/>
+            </View>
+            <View style={formsStyles.formItemContainer}>
+              <FormItem label='Gig description' labelStyle={formsStyles.label} textInputStyle={formsStyles.input} value={description} onChangeText={(description) => setDescription(description)}/> 
+            </View>
+            <View style={formsStyles.formItemContainer}>
+              <FormItem label='Gig picture (url)' labelStyle={formsStyles.label} textInputStyle={formsStyles.input} value={picture} onChangeText={(picture) => setPicture(picture)}/>
+            </View>
+        </Form>
+      </View>
     </ScrollView>);
 }
-const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    backgroundColor: 'lightblue',
-  },
-});
