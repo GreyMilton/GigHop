@@ -7,7 +7,7 @@ import { UserContext } from '../contexts/UserContext';
 
 export default function UsersEventsScreen({ navigation }) {
   const { currentUser, setCurrentUser } = useContext(UserContext);
-  const [arrayOfUsersEvents, setArrayOfUsersEvents] = useState([]);
+  const [arrayOfUsersEvents, setArrayOfUsersEvents] = useState(currentUser.events);
   const [listOfEvents, setListOfEvents] = useState([]);
 
   useEffect(() => {
@@ -17,15 +17,15 @@ export default function UsersEventsScreen({ navigation }) {
     return unsubscribe;
   }, [navigation]);
 
-  useEffect(() => {
-    getSingleUser(currentUser._id).then((response) => {
-      // console.log(Array.isArray(response.events));
-      setArrayOfUsersEvents(response.events);
-      setListOfEvents([]);
-    });
-  }, []);
+  // useEffect(() => {
+  //   getSingleUser(currentUser._id).then((response) => {
+  //     // console.log(Array.isArray(response.events));
+  //     setArrayOfUsersEvents(response.events);
+  //     setListOfEvents([]);
+  //   });
+  // }, []);
 
-  let eventsObtained = [];
+  // let eventsObtained = [];
 
   useEffect(() => {
     for (let i = 0; i < arrayOfUsersEvents.length; i++) {
