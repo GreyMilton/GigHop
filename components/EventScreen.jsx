@@ -28,7 +28,7 @@ export default function EventScreen(props) {
         <View style={eventScreenStyles.eventDetailsContainer}>
           <View style={eventScreenStyles.eventScreenTextContainer}>
             <Text style={eventScreenStyles.eventScreenTextLabel}>Entry: </Text>
-            <Text style={eventScreenStyles.eventScreenText}>£{currentEvent[0].entry_price}</Text>
+            <Text style={eventScreenStyles.eventScreenText}>£{currentEvent[0].entry_price["$numberDecimal"]}</Text>
           </View>
           <View style={eventScreenStyles.eventScreenTextContainer}>
             <Text style={eventScreenStyles.eventScreenTextLabel}>About: </Text>

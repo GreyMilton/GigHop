@@ -12,8 +12,6 @@ export const getEventsByTimestamp = (selectedTimestamp = " ") => {
     });
 };
 
-
-
 //if it throws errors remember that comma
 export const getVenues = () => {
   return gigHopAPI
@@ -165,6 +163,52 @@ export const patchUserIsArtist = (data, userId) => {
 export const patchUserIsVenue = (data, userId) => {
   let isVenue = JSON.stringify(data);
   return gigHopAPI.patch(`/users/${userId}`, isVenue, {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8"
+    }
+  });
+};
+
+export const patchConfirmEvent = (data, eventId) => {
+  let confirm = JSON.stringify(data);
+  return gigHopAPI.patch(`/events/${eventId}`, confirm, {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8"
+    }
+  });
+};
+
+export const getVenueById = venueId => {
+  return gigHopAPI.get(`/venues/${venueId}`).then(response => {
+    return response.data;
+  });
+};
+
+export const deleteEventById = eventId => {
+  gigHopAPI.delete(`/events/${eventId}`);
+};
+
+export const patchArtistDeleteEvent = (data, artistId) => {
+  let addEvent = JSON.stringify(data);
+  return gigHopAPI.patch(`/artists/${artistId}`, addEvent, {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8"
+    }
+  });
+};
+
+export const patchVenueDeleteEvent = (data, venueId) => {
+  let addEvent = JSON.stringify(data);
+  return gigHopAPI.patch(`/venues/${venueId}`, addEvent, {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8"
+    }
+  });
+};
+
+export const patchUserDeleteEvent = (data, userId) => {
+  let addEvent = JSON.stringify(data);
+  return gigHopAPI.patch(`/users/${userId}`, addEvent, {
     headers: {
       "Content-Type": "application/json;charset=UTF-8"
     }
