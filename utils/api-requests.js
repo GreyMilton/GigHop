@@ -12,8 +12,6 @@ export const getEventsByTimestamp = (selectedTimestamp = " ") => {
     });
 };
 
-
-
 //if it throws errors remember that comma
 export const getVenues = () => {
   return gigHopAPI
@@ -165,6 +163,16 @@ export const patchUserIsArtist = (data, userId) => {
 export const patchUserIsVenue = (data, userId) => {
   let isVenue = JSON.stringify(data);
   return gigHopAPI.patch(`/users/${userId}`, isVenue, {
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8"
+    }
+  });
+};
+
+export const patchConfirmArtist = (data, eventId) => {
+  let confirmArtist = JSON.stringify(data);
+  console.log(confirmArtist);
+  return gigHopAPI.patch(`/events/${eventId}`, confirmArtist, {
     headers: {
       "Content-Type": "application/json;charset=UTF-8"
     }
