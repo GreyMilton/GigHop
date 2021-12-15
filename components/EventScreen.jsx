@@ -18,7 +18,7 @@ export default function EventScreen(props) {
 
   if (isLoading) return (
     <View style={styles.LoadingContainer}>
-      <Text style={styles.LoadingText}>Loading Event...</Text>
+      <Text style={styles.LoadingText}>Loading Gig...</Text>
     </View>
   )
   return (

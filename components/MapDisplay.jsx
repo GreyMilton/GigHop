@@ -40,7 +40,7 @@ export default function MapDisplay({ mapMarkers, navigation, venueReferenceObjec
       <View style={mainScreenStyles.LoadingPopupContainer}>
         <View style={mainScreenStyles.LoadingPopup}>
           <Text style={mainScreenStyles.LoadingText}>
-            Loading Events...
+            Loading Gigs...
           </Text>
         </View>
       </View>

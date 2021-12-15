@@ -64,7 +64,7 @@ export default function UserScreen({ route, navigation }) {
           >
             <Text style={userScreenStyles.UserScreenButtonTextAndroid}>Gigs To Confirm</Text>
           </Pressable>
-          <Text style={userScreenStyles.userScreenPrompt}>Gigs requiring my confirmation to appear on Gig Hop</Text>
+          <Text style={userScreenStyles.userScreenPrompt}>Gigs requiring further confirmation to appear on Gig Hop</Text>
           </>
           : null}
         </View>

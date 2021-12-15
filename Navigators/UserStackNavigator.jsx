@@ -30,7 +30,7 @@ export default function UserStackNavigator() {
       />
       <UserStack.Screen name="EditEventScreen" component={EditEventScreen} />
       <UserStack.Screen name="UsersEventsScreen" component={UsersEventsScreen} />
-      <UserStack.Screen name="ConfirmationScreen" component={ConfirmationScreen} />
+      <UserStack.Screen name="ConfirmationScreen" component={ConfirmationScreen} options={{ title: "Gigs Confirmation" }}/>
     </UserStack.Navigator>
   );
 }
