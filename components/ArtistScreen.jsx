@@ -21,13 +21,9 @@ export default function ArtistScreen(props) {
     })).then((res) => {
       setArtists(res);
       setIsLoading(false);
-<<<<<<< HEAD
-    }).catch(console.log);
-=======
     }).catch((err) => {
       console.log(err)
     })
->>>>>>> 0e2dd7624f5048d829e1c76e881754833ca97021
   }, []);
 
     if (isLoading) return (
