@@ -41,9 +41,9 @@ export default function LogInScreen({ navigation }) {
   return (
     <ScrollView style={formsStyles.logInScreenContainer}>
       <Text style={formsStyles.logInGuidance} >Please enter your username to log in</Text>
-      <Text>{errorMessage}</Text>
       <Form buttonText="Log In" onButtonPress={onSubmit} buttonStyle={formsStyles.submitButton} buttonTextStyle={formsStyles.submitButtonText}>
         <View style={formsStyles.formItemContainer}>
+      <Text style={formsStyles.logInErrorMessage}>{errorMessage}</Text>
           <FormItem labelStyle={formsStyles.label} textInputStyle={formsStyles.input} label="Username" value={userName} onChangeText={ (userName) => {
             setUserName(userName)
             setInvalidUser(false)
