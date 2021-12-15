@@ -1,13 +1,19 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 
 const formsStyles = StyleSheet.create({
 	addGigContainer: {
 		backgroundColor: "#d8dee5",
 		paddingTop: 18,
 	},
+	addUserScrollView: {
+		backgroundColor: "#d8dee5",
+	},
 	addUserContainer: {
 		backgroundColor: "#d8dee5",
 		paddingTop: 18,
+	},
+	logInScreenContainer: {
+		backgroundColor: "#d8dee5",
 	},
 	formItemContainer:{
 		marginHorizontal: 10,
@@ -143,7 +149,7 @@ const formsStyles = StyleSheet.create({
 		marginBottom: 20,
 		borderRadius: 4,
 		elevation: 3,
-		backgroundColor: "#143753",
+		backgroundColor: "black",
   },
   submitButtonText:{
 		fontSize: 16,
@@ -152,6 +158,37 @@ const formsStyles = StyleSheet.create({
 		letterSpacing: 0.25,
 		color: "white",
   },
+	logInGuidance: {
+		textAlign: 'center',
+		margin: 10,
+	},
+	logInScreenSignUpContainer: {
+		marginVertical: 30,
+		marginHorizontal: 10,
+	},
+	logInScreenSignUpSuggestion: {
+		textAlign: 'center',
+		margin: 10,
+		fontSize: 15,
+		// fontWeight: 'bold',
+	},
+	logInScreenSignUpButtonAndroid: {
+		flex: 1,
+		alignItems: "center",
+		justifyContent: "space-around",
+		padding: 14,
+		borderRadius: 4,
+		margin: 2,
+		elevation: 3,
+		backgroundColor: "black",
+  },
+	logInScreenSignUpButtonTextAndroid: {
+		fontSize: 15,
+		lineHeight: 21,
+		fontWeight: "bold",
+		letterSpacing: 0.25,
+		color: "white",
+	}
 });
 
 export default formsStyles;

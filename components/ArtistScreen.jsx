@@ -1,30 +1,58 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, Image, StyleSheet, StatusBar} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import artistScreenStyles from '../style-documents/artist-screen-styling';
 import { getArtistById } from '../utils/api-requests';
 
 export default function ArtistScreen(props) {
-  const artistId = props.route.params.artist_id;
+  const artistsIds = props.route.params.artists_ids;
 
-  const [artist, setArtist] = useState();
+  const [artists, setArtists] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
 
   useEffect(() => {
-    getArtistById(artistId).then((response) => {
-      setArtist(response);
+    setArtists();
+    Promise.all(artistsIds.map((artist) => {
+      return getArtistById(artist.artist_id);
+    })).then((res) => {
+      setArtists(res);
       setIsLoading(false);
-    });
+    })
   }, []);
 
-    if (isLoading) return <Text>LOADING</Text>;
-    return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Artist Details:</Text>
-        <Text style={styles.text}>Artist {artist.artist_name}</Text>
-        <Text style={styles.text}>Description {artist.description}</Text>
-        <Image style={[artist.picture ? styles.image : styles.noImage]}source={{ uri: artist.picture}}/>
+    if (isLoading) return (
+      <View style={styles.LoadingContainer}>
+        <Text style={styles.LoadingText}>Loading Artist...</Text>
       </View>
     )
+    return (
+      <ScrollView style={artistScreenStyles.artistScreenScrollViewContainer} >
+        <View style={artistScreenStyles.artistScreenContainer}>
+          <Text style={artistScreenStyles.artistScreenTitle}>Artist{artists.length > 1 && 's'}</Text>
+          {artists.map((artist) => {
+            return (
+              <View key={artist._id} >
+                <View style={artistScreenStyles.artistDetailsContainer}>
+                  <View style={artistScreenStyles.artistScreenTextContainer}>
+                    <Text style={artistScreenStyles.artistScreenTextLabel}>Artist:</Text>
+                    <Text style={artistScreenStyles.artistScreenText}> {artist.artist_name}</Text>
+                  </View>
+                  <View style={artistScreenStyles.artistScreenTextContainer}>
+                    <Text style={artistScreenStyles.artistScreenTextLabel}>Description:</Text>
+                    <Text style={artistScreenStyles.artistScreenText}> {artist.description}</Text>
+                  </View>
+                </View>
+                { artist.picture ?
+                  <Image style={artistScreenStyles.artistScreenImage} source={{ uri: artist.picture}}/>
+                : null}
+              </View>
+            )
+          })}
+        </View>
+      </ScrollView>
+          );
+
 }
 
 const styles = StyleSheet.create({
@@ -58,5 +86,15 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold"
-  }
+  },
+  LoadingContainer: {
+		flex: 1,
+		backgroundColor: "#d8dee5",
+		justifyContent: "center",
+		alignItems: "center",
+	},
+  LoadingText: {
+		color: "black",
+		fontSize: 30,
+	}
 });

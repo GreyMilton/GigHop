@@ -25,6 +25,8 @@ export default function NewEventScreen({ navigation }) {
   const [showStart, setShowStart] = useState(false);
   const [modeEnd, setModeEnd] = useState('date');
   const [showEnd, setShowEnd] = useState(false);
+  const [venuesLoading, setVenuesLoading] = useState(true);
+  const [artistsLoading, setArtistsLoading] = useState(true);
 
   const onChangeStart = (event, selectedDate = startTime) => {
     setShowStart(Platform.OS === 'ios');
@@ -65,11 +67,13 @@ export default function NewEventScreen({ navigation }) {
   useEffect(() => {
     getVenues().then((res) => {
       setArrayOfVenues(res);
+      setVenuesLoading(false);
     });
   }, [setShowStart, setShowEnd]);
   useEffect(() => {
     getArtists().then((res) => {
       setArrayOfArtists(res);
+      setArtistsLoading(false);
     });
   }, [setShowStart, setShowEnd]);
 
@@ -124,7 +128,7 @@ export default function NewEventScreen({ navigation }) {
     style={formsStyles.dropdown}
     onValueChange={(itemValue) => setArtist(itemValue)}
     >
-    <Picker.Item label="artist" value={""} />
+    <Picker.Item label={(artistsLoading ? "Loading artists..." : "artist")} value={""} />
       {ArrayOfArtists.map((artist) => {
       return (
         <Picker.Item key={artist._id} label={artist.artist_name} value={artist._id} />
@@ -136,7 +140,7 @@ export default function NewEventScreen({ navigation }) {
         style={formsStyles.dropdown}
         onValueChange={(itemValue) => setVenue(itemValue)}
       >
-        <Picker.Item label="venue" value={""} />
+        <Picker.Item label={(venuesLoading ? "Loading Venues..." : "venue")} value={""} />
         {ArrayOfVenues.map((venue) => {
           return <Picker.Item key={venue._id} label={venue.venue_name} value={venue._id} />;
         })}
