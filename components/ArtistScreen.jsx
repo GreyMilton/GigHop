@@ -10,15 +10,18 @@ export default function ArtistScreen(props) {
   const [artists, setArtists] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
-
   useEffect(() => {
     setArtists();
     Promise.all(artistsIds.map((artist) => {
+      if (typeof artist === 'string') {
+        return getArtistById(artist);
+      } else {
       return getArtistById(artist.artist_id);
+    }
     })).then((res) => {
       setArtists(res);
       setIsLoading(false);
-    })
+    }).catch(console.log);
   }, []);
 
     if (isLoading) return (

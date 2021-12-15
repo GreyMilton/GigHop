@@ -29,9 +29,11 @@ export default function UsersEventsScreen({ navigation }) {
 
   return (
     <ScrollView style={usersEventsScreenStyles.usersEventsScrollViewContainer}>
-      {listOfEvents.map((event) => {
-        return ( event.length > 0 &&
-          <View style={usersEventsScreenStyles.usersEventsEventViewContainer} key={event[0]._id}>
+      {listOfEvents.map((event, index) => {
+        if (event.length > 0) {
+          console.log(event[0]._id);
+        return (
+          <View style={usersEventsScreenStyles.usersEventsEventViewContainer} key={index}>
             <Pressable style={usersEventsScreenStyles.usersEventsPressableEvent}
               onPress={() => navigation.navigate("EditEventScreen", { event: event[0] })}
             >
@@ -48,7 +50,12 @@ export default function UsersEventsScreen({ navigation }) {
             </Pressable>
           </View>
         );
-      })}
-      </ScrollView>
+      } else {
+        <View key={index}></View>
+      }
+    })}
+    </ScrollView>
   );
+
 }
+

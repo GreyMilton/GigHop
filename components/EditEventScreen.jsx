@@ -7,14 +7,15 @@ import { postNewEventDetails, patchArtistNewEvent, patchVenueNewEvent, patchUser
 import PickerForArtist from './PickerForArtist';
 import PickerForVenue from './PickerForVenue';
 import formsStyles from "../style-documents/forms-styling";
+import dateModifier from '../utils/date-modifier';
 
 export default function EditEventScreen(props) {
   const event = props.route.params.event;
   const {currentUser} = useContext(UserContext);
 
   const [eventName, setEventName] = useState(event.event_name);
-  const [startTime, setStartTime] = useState(event.time_start);
-  const [endTime, setEndTime] = useState(event.time_end);
+  const [startTime, setStartTime] = useState(new Date(event.time_start));
+  const [endTime, setEndTime] = useState(new Date(event.time_end));
   const [price, setPrice] = useState(event.entry_price);
   const [description, setDescription] = useState(event.description);
   const [picture, setPicture] = useState(event.picture);
@@ -156,13 +157,11 @@ export default function EditEventScreen(props) {
               </View>} */}
             <View style={formsStyles.editEventScreenTextContainer}>
               <Text style={formsStyles.editEventScreenTextLabel}>Current Start Time:</Text>
-              {/*Turn into time and date pickers*/}
-              <Text style={formsStyles.editEventScreenText}> {event.time_start}</Text>
+              <Text style={formsStyles.editEventScreenText}> {dateModifier(event.time_start).substring(3)}</Text>
             </View>
             <View style={formsStyles.editEventScreenTextContainer}>
               <Text style={formsStyles.editEventScreenTextLabel}>Current End Time:</Text>
-              {/*Turn into time and date pickers*/}
-              <Text style={formsStyles.editEventScreenText}> {event.time_end}</Text>
+              <Text style={formsStyles.editEventScreenText}> {dateModifier(event.time_end).substring(3)}</Text>
             </View>
             <View style={formsStyles.timeAndDateInputContainer}>
             <Text style={formsStyles.timeAndDateInputLabel}>Start time</Text>
