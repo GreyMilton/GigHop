@@ -12,6 +12,38 @@ export const getEventsByTimestamp = (selectedTimestamp = " ") => {
 		});
 };
 
+export const getTicketmasterEventsByTimestamp = (selectedTimestamp = " ") => {
+	const startDate =
+		`${selectedTimestamp.toISOString().substring(0, 11)}` + "00:00:00Z";
+	const endDate =
+		`${selectedTimestamp.toISOString().substring(0, 11)}` + "23:59:00Z";
+
+	const reqStr = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=GB&city=Plymouth&classificationName=music&startDateTime=${startDate}&endDateTime=${endDate}&apikey=qBX7LCUXqZgBssWsDOfW6ssvrwYWiYTV`;
+
+	return axios
+		.get(reqStr)
+		.then((res) => {
+			let eventArray = [];
+			if (res.data._embedded) {
+				res.data._embedded.events.map((event) => {
+					eventArray.push({
+						name: event.name,
+						startTime: event.dates.start.dateTime,
+						venue: event._embedded.venues[0].name,
+						longitude: event._embedded.venues[0].location.longitude,
+						latitude: event._embedded.venues[0].location.latitude,
+						description: "Event from Ticketmaster",
+						ticketmaster: true,
+					});
+				});
+				return eventArray;
+			} else return;
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+};
+
 //if it throws errors remember that comma
 export const getVenues = () => {
 	return gigHopAPI
@@ -149,27 +181,4 @@ export const patchUserNewEvent = (data, userId) => {
 			"Content-Type": "application/json;charset=UTF-8",
 		},
 	});
-};
-
-export const getTicketmasterEvents = () => {
-	const reqStr = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=GB&city=Plymouth&size=3&classificationName=music&apikey=qBX7LCUXqZgBssWsDOfW6ssvrwYWiYTV`;
-
-	return axios
-		.get(reqStr)
-		.then((res) => {
-			res.data._embedded.events.forEach((event) => {
-				console.log("---------");
-				console.log("Name: " + event.name);
-				console.log("Starts at: " + event.dates.start.dateTime);
-				console.log("Venue: " + event._embedded.venues[0].name);
-				console.log(
-					"Longitude: " + event._embedded.venues[0].location.longitude
-				);
-				console.log("Latitude: " + event._embedded.venues[0].location.latitude);
-				console.log("---------");
-			});
-		})
-		.catch((err) => {
-			console.log(err);
-		});
 };

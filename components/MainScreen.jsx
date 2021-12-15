@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Pressable } from 'react-native';
 import SearchBar from './SearchBar';
 import MapDisplay from './MapDisplay';
 import EventListDisplay from './EventListDisplay';
-import { getEventsByTimestamp } from '../utils/api-requests';
+import { getEventsByTimestamp, getTicketmasterEventsByTimestamp } from '../utils/api-requests';
 import mainScreenStyles from '../style-documents/main-screen-styling';
 import { createNewVenueReferenceObject } from '../utils/main-screen-utils';
 
@@ -62,6 +62,7 @@ export default function MainScreen({ navigation }) {
   ];
   const [mapIsDisplaying, setMapIsDisplaying] = useState(true);
   const [fetchedEvents, setFetchedEvents] = useState([]);
+  const [ticketmasterEvents, setTicketmasterEvents] = useState([]);
   const [venuesInCurrentViewWithGigs, setVenuesInCurrentViewWithGigs] = useState([]);
   const [mapMarkers, setMapMarkers] = useState([]);
   const [venueReferenceObject, setVenueReferenceObject] = useState({"61ae068dcff5425db378629e": [{"_id": "61ae26cb8d70b95db023dbe6", "time_start": "2021-12-10T18:30:00.000Z"}]});
@@ -84,9 +85,24 @@ export default function MainScreen({ navigation }) {
   }, [selectedTimestamp])
 
   useEffect(() => {
-    // here is where we could filter out gigs not in the current map view
-    setVenuesInCurrentViewWithGigs(fetchedEvents);
-  }, [fetchedEvents])
+    const assignTicketmasterEvents = async () => {
+      await getTicketmasterEventsByTimestamp(selectedTimestamp)
+      .then((response) => {
+        setTicketmasterEvents(response)
+        setIsLoading(false)
+      })
+    }
+    assignTicketmasterEvents();
+  }, [selectedTimestamp])
+
+  useEffect(() => {
+    // // here is where we could filter out gigs not in the current map view
+    if(ticketmasterEvents.length > 0) {
+      setVenuesInCurrentViewWithGigs(fetchedEvents)
+    } else {
+      setVenuesInCurrentViewWithGigs({...fetchedEvents})
+    }
+  }, [fetchedEvents, ticketmasterEvents])
 
   useEffect(() => {
     // here is where we calculate multiple gigs at the same venue
@@ -95,11 +111,13 @@ export default function MainScreen({ navigation }) {
   }, [venuesInCurrentViewWithGigs])
 
   useEffect(() => {
-    console.log("*************************");
-    console.log(venuesInCurrentViewWithGigs);
-    console.log("*************************");
-    console.log(venueReferenceObject);
+    // console.log("*************************");
+    // console.log(venuesInCurrentViewWithGigs);
+    // console.log("*************************");
+    // console.log(venueReferenceObject);
   }, [venueReferenceObject]);
+
+  // console.log(mapMarkers)
 
   return (
     <View style={mainScreenStyles.mainScreenContainer}>

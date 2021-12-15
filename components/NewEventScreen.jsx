@@ -98,7 +98,7 @@ export default function NewEventScreen({ navigation }) {
 
 
     const eventData = await postNewEventDetails(data);
-    console.log(currentUser._id)
+    // console.log(currentUser._id)
 
     let addEvent = {
       add_event:{event_id: eventData}
