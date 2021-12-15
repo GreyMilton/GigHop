@@ -1,6 +1,12 @@
 import { StyleSheet } from "react-native";
 
 const formsStyles = StyleSheet.create({
+	editEventScreenScrollViewContainer: {
+		backgroundColor: "#d8dee5",
+	},
+	editEventScreenMainViewContainer: {
+		margin: 10,
+	},
 	addGigContainer: {
 		backgroundColor: "#d8dee5",
 		paddingTop: 18,
@@ -194,7 +200,41 @@ const formsStyles = StyleSheet.create({
 		fontWeight: "bold",
 		letterSpacing: 0.25,
 		color: "white",
-	}
+	},
+	editEventScreenTextContainer: {
+    flexDirection: 'row',
+    alignContent: 'center',
+    flexWrap: 'wrap',
+		marginVertical: 10,
+  },
+  editEventScreenTextLabel: {
+    fontWeight: 'bold',
+    fontSize: 14,
+    marginVertical: 4,
+    marginLeft: 4,
+  },
+  editEventScreenText: {
+
+    // backgroundColor: '#7cb48f',
+    // borderColor: 'black',
+    // borderWidth: 1,
+    // margin: 5,
+    // width: '100%'
+    fontSize: 14,
+    marginVertical: 4,
+  },
+	editEventScreenEventImage: {
+		resizeMode: 'contain',
+    // width: '100%',
+    height: 200,
+    margin: 15,
+	},
+	eventScreenInputlabel: {
+		fontSize: 14,
+  },
+  eventScreenInput: {
+		fontSize: 14,
+	},
 });
 
 export default formsStyles;
