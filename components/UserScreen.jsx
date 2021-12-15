@@ -69,7 +69,7 @@ export default function UserScreen({ route, navigation }) {
           : null}
         </View>
         <View style={userScreenStyles.userScreenLogOutButtonContainer} >
-          <Pressable style={userScreenStyles.UserScreenButtonAndroid}
+          <Pressable style={userScreenStyles.UserScreenLogOutButtonAndroid}
             onPress={() => {
                 setCurrentUser();
                 navigation.navigate('Find gigs');

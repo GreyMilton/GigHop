@@ -155,7 +155,7 @@ const formsStyles = StyleSheet.create({
 		marginBottom: 20,
 		borderRadius: 4,
 		elevation: 3,
-		backgroundColor: "black",
+		backgroundColor: "#01232d",
   },
   submitButtonText:{
 		fontSize: 16,

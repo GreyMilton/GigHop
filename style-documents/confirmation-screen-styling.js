@@ -89,7 +89,7 @@ const confirmationScreenStyles = StyleSheet.create({
 		margin: 2,
 		elevation: 3,
     width: 110,
-		backgroundColor: '#9b0000',
+		backgroundColor: '#64002d',
   },
   borderLineContainer: {
     marginTop: 16,
