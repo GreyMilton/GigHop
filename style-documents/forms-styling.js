@@ -162,6 +162,12 @@ const formsStyles = StyleSheet.create({
 		textAlign: 'center',
 		margin: 10,
 	},
+	logInErrorMessage: {
+		color: '#e60000',
+		textAlign: 'center',
+		fontWeight: 'bold',
+		fontSize: 16,
+	},
 	logInScreenSignUpContainer: {
 		marginVertical: 30,
 		marginHorizontal: 10,

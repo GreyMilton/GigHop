@@ -41,10 +41,12 @@ export default function MainTabNavigator() {
           return <MaterialCommunityIcons name="map-search" size={28} color="black" />;
         } }}
       />
+      { currentUser ? 
       <Tab.Screen name="Add gig" component={NewEventScreen} options={{tabBarIcon: ({ focused, color, size }) => {
           return <MaterialCommunityIcons name="plus" size={30} color="black" />;
         } }}
-      />
+      /> : null
+      }
       {currentUser ? <Tab.Screen name={currentUser._id} component={UserStackNavigator} options={{headerShown: false, tabBarIcon: ({ focused, color, size }) => {
           return (
             currentUser.picture ? 
