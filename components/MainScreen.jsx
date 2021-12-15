@@ -96,11 +96,12 @@ export default function MainScreen({ navigation }) {
   }, [selectedTimestamp])
 
   useEffect(() => {
+    console.log(ticketmasterEvents)
     // // here is where we could filter out gigs not in the current map view
-    if(ticketmasterEvents.length > 0) {
+    if(ticketmasterEvents == undefined || []) {
       setVenuesInCurrentViewWithGigs(fetchedEvents)
     } else {
-      setVenuesInCurrentViewWithGigs({...fetchedEvents})
+      setVenuesInCurrentViewWithGigs([...fetchedEvents, ...ticketmasterEvents])
     }
   }, [fetchedEvents, ticketmasterEvents])
 

@@ -7,7 +7,6 @@ import mainScreenStyles from '../style-documents/main-screen-styling';
 
 export default function MapDisplay({ mapMarkers, navigation, venueReferenceObject, isLoading }) {
   console.log(mapMarkers)
-
   if(isLoading) return(
     <View style={mainScreenStyles.mapDisplayContainer}>
       <MapView provider={PROVIDER_GOOGLE}
@@ -60,6 +59,9 @@ export default function MapDisplay({ mapMarkers, navigation, venueReferenceObjec
             longitudeDelta: 0.0421
           }}>
           {mapMarkers.map(event => {
+            if (event.ticketmaster === true) {
+              console.log("TICKETMASTER EVENT")
+            } else {
             return (
             <Marker
                 key={event['_id']} 
@@ -76,6 +78,7 @@ export default function MapDisplay({ mapMarkers, navigation, venueReferenceObjec
                 </Callout>
               </Marker>
             );
+              }
           })}
       </MapView>
     </View>
