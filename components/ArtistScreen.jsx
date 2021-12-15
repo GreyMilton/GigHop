@@ -18,6 +18,8 @@ export default function ArtistScreen(props) {
     })).then((res) => {
       setArtists(res);
       setIsLoading(false);
+    }).catch((err) => {
+      console.log(err)
     })
   }, []);
 

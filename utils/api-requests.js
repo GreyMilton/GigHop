@@ -18,7 +18,6 @@ export const getVenues = () => {
     .get("/venues")
     .then(res => {
       return res.data;
-      // console.log(res.data[0].venue_name);
     })
     .catch(err => {
       console.log(err);
