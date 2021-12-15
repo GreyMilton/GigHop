@@ -12,9 +12,9 @@ export default function UserStackNavigator() {
 
   const { currentUser, setCurrentUser } = useContext(UserContext);
 
-  const Stack = createStackNavigator();
+  const UserStack = createStackNavigator();
   return (
-    <Stack.Navigator screenOptions={{
+    <UserStack.Navigator screenOptions={{
       headerStyle: {
       },
       headerTintColor: '#000',
@@ -23,16 +23,14 @@ export default function UserStackNavigator() {
       },
       headerTitleAlign: 'left',
     }}>
-      <Stack.Screen
+      <UserStack.Screen
         name="UserScreen"
         component={UserScreen}
         options={{ title: `${currentUser._id}` }}
       />
-      <Stack.Screen name="EditEventScreen" component={EditEventScreen} />
-      <Stack.Screen name="UsersEventsScreen" component={UsersEventsScreen} />
-      <Stack.Screen name="ConfirmationScreen" component={ConfirmationScreen} />
-      {/* <Stack.Screen name="Log In" component={LogInScreen} /> */}
-      {/* <Stack.Screen name="Tabs" component={MainTabNavigator} /> */}
-    </Stack.Navigator>
+      <UserStack.Screen name="EditEventScreen" component={EditEventScreen} />
+      <UserStack.Screen name="UsersEventsScreen" component={UsersEventsScreen} />
+      <UserStack.Screen name="ConfirmationScreen" component={ConfirmationScreen} />
+    </UserStack.Navigator>
   );
 }

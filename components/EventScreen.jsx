@@ -42,7 +42,7 @@ export default function EventScreen(props) {
           title="Artist Details"
           onPress={() =>
             props.navigation.navigate('ArtistScreen', {
-              artist_id: currentEvent[0].artists_ids[0].artist_id
+              artists_ids: currentEvent[0].artists_ids, eventName: props.route.params.eventName
             })
           }
         >
