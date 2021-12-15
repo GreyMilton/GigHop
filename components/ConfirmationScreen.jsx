@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
+
 import { Text, View, Button, ScrollView, Pressable } from 'react-native';
 import { UserContext } from '../contexts/UserContext';
 import { getArtistById, getEventById, patchConfirmEvent, getVenueById } from '../utils/api-requests';
 import dateModifier from '../utils/date-modifier';
 import {handleDeleteEvent} from '../utils/deleteButton'
+
 
 export default function ConfirmationScreen() {
 
@@ -30,19 +32,6 @@ export default function ConfirmationScreen() {
         )
         return Promise.all(events).then((res)=> {
           return res
-        })
-      })
-        .then((res) => {
-          setAssociatedEvents(res.flat())
-      })
-      .catch((err)=> {
-        console.log(err)
-      })
-    } else if(currentUser.venue) {
-      return getVenueById(currentUser.venue)
-      .then((res) => {
-          const upcomingEvents = res.upcoming_events.map(event => {
-            return event.event_id;
         })
         return upcomingEvents
       })
@@ -115,16 +104,20 @@ export default function ConfirmationScreen() {
   confirm = event.authorised.venue ? 'Unconfirm' : 'Confirm'
  }
 
+
     return (
       <View key={event.event_name}>
+        <View key={event._id}>
         <Text>{event.event_name}</Text>
         <Text>{event.venue_info[0].venue_name}</Text>
+
         <Text>{dateModifier(event.time_start)}</Text>
         <Text>{dateModifier(event.time_end)}</Text>
         <Text>{artistAuth}</Text>
         <Text>{venueAuth}</Text>
         <Pressable onPress={handleClick}><Text>{confirm}</Text></Pressable>
         <Pressable onPress={handleDeletePress}><Text>Delete</Text></Pressable>
+
       </View>
     )
   })
