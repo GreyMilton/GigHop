@@ -60,7 +60,7 @@ export default function UsersEventsScreen({ navigation }) {
               <Text>{event.event_name}</Text>
               <Button
                 title="Edit an event"
-                onPress={() => navigation.navigate("EditEventScreen")}
+                onPress={() => navigation.navigate("EditEventScreen", { event: event })}
               />
             </View>
           );
