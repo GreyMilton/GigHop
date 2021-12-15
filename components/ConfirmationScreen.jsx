@@ -14,7 +14,6 @@ export default function ConfirmationScreen() {
   const [reload, setReload] = useState(true)
 
 
-
   useEffect(() => {
     setAssociatedEvents([]);
     if (currentUser.artist) {
@@ -24,16 +23,7 @@ export default function ConfirmationScreen() {
             return event.event_id;
         })
         return upcomingEvents
-      })
-      .then((res) =>  {
-        let events = res.map(async (eventId) => {
-          return await getEventById(eventId)
-          }
-        )
-        return Promise.all(events).then((res)=> {
-          return res
-        })
-        return upcomingEvents
+
       })
       .then((res) =>  {
         let events = res.map(async (eventId) => {
@@ -45,7 +35,30 @@ export default function ConfirmationScreen() {
         })
       })
         .then((res) => {
-          console.log(res)
+          setAssociatedEvents(res.flat())
+      })
+      .catch((err)=> {
+        console.log(err)
+      })
+    } else if (currentUser.venue) {
+      return getVenueById(currentUser.venue)
+      .then((res) => {
+          const upcomingEvents = res.upcoming_events.map(event => {
+            return event.event_id;
+        })
+        return upcomingEvents
+
+      })
+      .then((res) =>  {
+        let events = res.map(async (eventId) => {
+          return await getEventById(eventId)
+          }
+        )
+        return Promise.all(events).then((res)=> {
+          return res
+        })
+      })
+        .then((res) => {
           setAssociatedEvents(res.flat())
       })
       .catch((err)=> {
@@ -54,7 +67,6 @@ export default function ConfirmationScreen() {
     }
   }, [reload])
 
-  // console.log(artistInfo)
 
   console.log('***************************');
 
@@ -110,14 +122,13 @@ export default function ConfirmationScreen() {
         <View key={event._id}>
         <Text>{event.event_name}</Text>
         <Text>{event.venue_info[0].venue_name}</Text>
-
         <Text>{dateModifier(event.time_start)}</Text>
         <Text>{dateModifier(event.time_end)}</Text>
         <Text>{artistAuth}</Text>
         <Text>{venueAuth}</Text>
         <Pressable onPress={handleClick}><Text>{confirm}</Text></Pressable>
         <Pressable onPress={handleDeletePress}><Text>Delete</Text></Pressable>
-
+      </View>
       </View>
     )
   })
