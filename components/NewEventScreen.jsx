@@ -89,7 +89,7 @@ export default function NewEventScreen({ navigation }) {
       description: description,
       venue_id: venue,
       user_id: currentUser._id,
-      artists_ids: [artist],
+      artists_ids: [{artist_id: artist}],
       authorised: {artist: false, venue: false},
       time_start: time_start,
       time_end: time_end,
@@ -124,6 +124,7 @@ export default function NewEventScreen({ navigation }) {
     pickers = (
       <View style={formsStyles.dropdownsContainer}>
         <PickerIOS
+        isRequired
     selectedValue={artist}
     style={formsStyles.dropdown}
     onValueChange={(itemValue) => setArtist(itemValue)}
@@ -135,7 +136,8 @@ export default function NewEventScreen({ navigation }) {
         );
         })}
   </PickerIOS>
-        <PickerIOS
+        <PickerIOS 
+        isRequired
         selectedValue={venue}
         style={formsStyles.dropdown}
         onValueChange={(itemValue) => setVenue(itemValue)}
@@ -151,6 +153,7 @@ export default function NewEventScreen({ navigation }) {
     pickers = (
       <View style={formsStyles.dropdownsContainer}>
     <Picker
+    isRequired
     selectedValue={artist}
     style={formsStyles.dropdown}
     onValueChange={(itemValue, itemIndex) => setArtist(itemValue)}
@@ -163,6 +166,7 @@ export default function NewEventScreen({ navigation }) {
         })}
   </Picker>
         <Picker
+        isRequired
         selectedValue={venue}
         style={formsStyles.dropdown}
         onValueChange={(itemValue, itemIndex) => setVenue(itemValue)}
@@ -197,6 +201,7 @@ export default function NewEventScreen({ navigation }) {
           <View>
           {showStart && (
             <DateTimePicker
+            isRequired
               testID="dateTimePickerStart"
               value={startTime}
               mode={modeStart}
@@ -221,6 +226,7 @@ export default function NewEventScreen({ navigation }) {
           <View>
             {showEnd && (
               <DateTimePicker
+              isRequired
                 testID="dateTimePickerEnd"
                 value={endTime}
                 mode={modeEnd}
@@ -232,10 +238,10 @@ export default function NewEventScreen({ navigation }) {
           </View>
             <View style={formsStyles.entryFeeContainer}>
               <Text style={formsStyles.entryFeeLabel} >Entry fee</Text>
-              <CurrencyInput style={formsStyles.entryFeeInput} prefix="£" separator="." label='Event price' value={price} onChangeValue={(price) => setPrice(price)}/>
+              <CurrencyInput isRequired style={formsStyles.entryFeeInput} prefix="£" separator="." label='Event price' value={price} onChangeValue={(price) => setPrice(price)}/>
             </View>
             <View style={formsStyles.formItemContainer}>
-              <FormItem label='Gig description' labelStyle={formsStyles.label} textInputStyle={formsStyles.input} value={description} onChangeText={(description) => setDescription(description)}/> 
+              <FormItem isRequired label='Gig description' labelStyle={formsStyles.label} textInputStyle={formsStyles.input} value={description} onChangeText={(description) => setDescription(description)}/> 
             </View>
             <View style={formsStyles.formItemContainer}>
               <FormItem label='Gig picture (url)' labelStyle={formsStyles.label} textInputStyle={formsStyles.input} value={picture} onChangeText={(picture) => setPicture(picture)}/>

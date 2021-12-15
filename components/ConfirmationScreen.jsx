@@ -66,26 +66,13 @@ export default function ConfirmationScreen() {
       })
     }
   }, [reload])
-
-
-  console.log('***************************');
-
-
-
-
   
-
   let eventList = associatedEvents.map((event) => {
     const handleDeletePress = () => {
       handleDeleteEvent(event._id, event.artists_ids[0], event.venue_id, event.user_id)
       setReload(!reload)
     }
-
-
     const handleClick = () => {
-
-      console.log(currentUser)
-    
     let artist = event.authorised.artist;
     let venue = event.authorised.venue;
     if (currentUser.artist !== '') {
@@ -96,11 +83,8 @@ export default function ConfirmationScreen() {
       let data = {authorised: {artist: artist, venue: !venue}}
       patchConfirmEvent(data, event._id)
       setReload(!reload)
-    }
-    
+    }  
  }
-
- 
  let confirm;
  let venueAuth;
  let artistAuth;
