@@ -112,9 +112,21 @@ export default function NewUserScreen({ navigation }) {
             }
             patchUserIsArtist(isVenue, username)
         }
-
+        setUsername('');
+        setArtistDescription('');
+        setArtistName('');
+        setArtistPicture('');
+        setCheckedArtist(false);
+        setCheckedVenue(false);
+        setGenre('');
+        setLatitude('');
+        setLongitude('');
+        setVenueAddress('');
+        setVenueDescription('');
+        setVenuePicture('');
+        setProfilePicture('');
+        setVenueName('');
         navigation.navigate('Log In');
-
     }
 
     return (
