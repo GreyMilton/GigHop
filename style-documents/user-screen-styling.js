@@ -35,7 +35,7 @@ const userScreenStyles = StyleSheet.create({
 		borderRadius: 4,
 		margin: 2,
 		elevation: 3,
-		backgroundColor: "black",
+		// backgroundColor: "black",
   },
 	UserScreenLogOutButtonAndroid: {
 		flex: 1,

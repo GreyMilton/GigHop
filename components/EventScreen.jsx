@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, StatusBar, Image, ScrollView, Pressable} from 'react-native';
 import { getEventById } from '../utils/api-requests';
 import eventScreenStyles from '../style-documents/event-screen-styling.js';
+import { eventScreenButton } from '../style-documents/pressable-functions';
 
 export default function EventScreen(props) {
   const eventId = props.route.params.eventId;
@@ -38,7 +39,7 @@ export default function EventScreen(props) {
         { currentEvent[0].picture ?
         <Image style={eventScreenStyles.eventScreenImage} source={{ uri: currentEvent[0].picture}}/>
         : null}
-        <Pressable style={eventScreenStyles.eventScreenButtonAndroid}
+        <Pressable style={eventScreenButton}
           title="Artist Details"
           onPress={() =>
             props.navigation.navigate('ArtistScreen', {

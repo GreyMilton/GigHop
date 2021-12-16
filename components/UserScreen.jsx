@@ -5,6 +5,7 @@ import { UserContext } from '../contexts/UserContext';
 import { getAllUsers } from "../utils/api-requests";
 import userScreenStyles from '../style-documents/user-screen-styling';
 import { ScrollView } from 'react-native-gesture-handler';
+import { userScreenButtonAndroid } from "../style-documents/pressable-functions";
 
 export default function UserScreen({ route, navigation }) {
   const { currentUser, setCurrentUser } = useContext(UserContext);
@@ -32,14 +33,14 @@ export default function UserScreen({ route, navigation }) {
           source={{ uri: currentUser.picture}}
         />
         <View style={userScreenStyles.recycledTabNavButtonsContainer} >
-          <Pressable style={userScreenStyles.UserScreenButtonAndroid}
+          <Pressable style={userScreenButtonAndroid}
             onPress={() =>
               navigation.navigate('Find gigs')
             }
           >
             <Text style={userScreenStyles.UserScreenButtonTextAndroid}>Find Gigs</Text>
           </Pressable>
-          <Pressable style={userScreenStyles.UserScreenButtonAndroid}
+          <Pressable style={userScreenButtonAndroid}
             onPress={() =>
               navigation.navigate('Add gig')
             }
@@ -48,7 +49,7 @@ export default function UserScreen({ route, navigation }) {
           </Pressable>
         </View>
         <View style={userScreenStyles.userScreenButtonsContainer}>
-          <Pressable style={userScreenStyles.UserScreenButtonAndroid}
+          <Pressable style={userScreenButtonAndroid}
             onPress={() =>
               navigation.navigate('UsersEventsScreen')
             }
@@ -57,7 +58,7 @@ export default function UserScreen({ route, navigation }) {
           </Pressable>
           {artistOrVenue ? <>
             <Text style={userScreenStyles.userScreenPrompt} >View the gigs I have submitted to Gig Hop</Text>
-          <Pressable style={userScreenStyles.UserScreenButtonAndroid}
+          <Pressable style={userScreenButtonAndroid}
             onPress={() => {
               navigation.navigate("ConfirmationScreen")
             }}

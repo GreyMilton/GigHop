@@ -7,6 +7,7 @@ import CurrencyInput from "react-native-currency-input";
 import {Picker, PickerIOS} from '@react-native-picker/picker'
 import { UserContext } from "../contexts/UserContext";
 import formsStyles from "../style-documents/forms-styling";
+import { datePickerButtonAndroid, timePickerButtonAndroid } from '../style-documents/pressable-functions';
 
 export default function NewEventScreen({ navigation }) {
   const {currentUser} = useContext(UserContext);
@@ -190,10 +191,10 @@ export default function NewEventScreen({ navigation }) {
           <View style={formsStyles.timeAndDateInputContainer}>
             <Text style={formsStyles.timeAndDateInputLabel}>Start time</Text>
             <View style={formsStyles.timeAndDateButtonContainer}>
-              <Pressable style={formsStyles.datePickerButtonAndroid} onPress={showDatePickerStart} >
+              <Pressable style={datePickerButtonAndroid} onPress={showDatePickerStart} >
                 <Text style={formsStyles.timeOrDatePickerButtonTextAndroid}>{startTime.toDateString()}</Text>
               </Pressable>
-              <Pressable style={formsStyles.timePickerButtonAndroid} onPress={showTimePickerStart} >
+              <Pressable style={timePickerButtonAndroid} onPress={showTimePickerStart} >
                 <Text style={formsStyles.timeOrDatePickerButtonTextAndroid}>{startTime.toTimeString().substring(0, 5)}</Text>
               </Pressable>
             </View>
@@ -215,10 +216,10 @@ export default function NewEventScreen({ navigation }) {
           <View style={formsStyles.timeAndDateInputContainer}>
             <Text style={formsStyles.timeAndDateInputLabel}>End time</Text>
             <View style={formsStyles.timeAndDateButtonContainer}>
-              <Pressable style={formsStyles.datePickerButtonAndroid} onPress={showDatePickerEnd} title=" Show End Date" >
+              <Pressable style={datePickerButtonAndroid} onPress={showDatePickerEnd} title=" Show End Date" >
                 <Text style={formsStyles.timeOrDatePickerButtonTextAndroid}>{endTime.toDateString()}</Text>
               </Pressable>
-              <Pressable style={formsStyles.timePickerButtonAndroid} onPress={showTimePickerEnd} title="Show End Time" >
+              <Pressable style={timePickerButtonAndroid} onPress={showTimePickerEnd} title="Show End Time" >
                 <Text style={formsStyles.timeOrDatePickerButtonTextAndroid}>{endTime.toTimeString().substring(0, 5)}</Text>
               </Pressable>         
             </View>

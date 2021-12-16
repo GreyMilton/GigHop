@@ -71,7 +71,7 @@ const confirmationScreenStyles = StyleSheet.create({
 		borderRadius: 4,
 		margin: 2,
 		elevation: 3,
-		backgroundColor: "black",
+		// backgroundColor: "black",
     width: 250,
   },
 	pressableButtonsText: {
@@ -89,7 +89,7 @@ const confirmationScreenStyles = StyleSheet.create({
 		margin: 2,
 		elevation: 3,
     width: 110,
-		backgroundColor: '#64002d',
+		// backgroundColor: '#64002d',
   },
   borderLineContainer: {
     marginTop: 16,

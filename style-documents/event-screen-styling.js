@@ -64,7 +64,6 @@ const eventScreenStyles = StyleSheet.create({
 		borderRadius: 4,
 		margin: 2,
 		elevation: 3,
-		backgroundColor: "black",
   },
 	eventScreenButtonTextAndroid: {
 		fontSize: 14,

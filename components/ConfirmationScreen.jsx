@@ -5,6 +5,7 @@ import { getArtistById, getEventById, patchConfirmEvent, getVenueById } from '..
 import dateModifier from '../utils/date-modifier';
 import {handleDeleteEvent} from '../utils/deleteButton';
 import confirmationScreenStyles from '../style-documents/confirmation-screen-styling';
+import { confirmationScreenButton, confirmationScreenDeleteButton } from "../style-documents/pressable-functions";
 
 export default function ConfirmationScreen() {
 
@@ -135,10 +136,10 @@ export default function ConfirmationScreen() {
             </View>
           </View>
           <View style={confirmationScreenStyles.buttonsContainer}>
-            <Pressable style={confirmationScreenStyles.pressableButtons} onPress={handleClick}>
+            <Pressable style={confirmationScreenButton} onPress={handleClick}>
               <Text style={confirmationScreenStyles.pressableButtonsText}>{confirm} Gig</Text>
             </Pressable>
-            <Pressable style={confirmationScreenStyles.pressableDeleteButtons} onPress={handleDeletePress}>
+            <Pressable style={confirmationScreenDeleteButton} onPress={handleDeletePress}>
               <Text style={confirmationScreenStyles.pressableButtonsText}>Delete Gig</Text>
             </Pressable>
           </View>
