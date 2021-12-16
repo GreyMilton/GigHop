@@ -112,8 +112,6 @@ export default function NewUserScreen({ navigation }) {
             }
             patchUserIsArtist(isVenue, username)
         }
-
-        navigation.navigate('Log In');
         setUsername('');
         setArtistDescription('');
         setArtistName('');
@@ -127,9 +125,8 @@ export default function NewUserScreen({ navigation }) {
         setVenueDescription('');
         setVenuePicture('');
         setProfilePicture('');
-        setVenueName('')
-
-
+        setVenueName('');
+        navigation.navigate('Log In');
     }
 
     return (
