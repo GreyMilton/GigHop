@@ -107,6 +107,13 @@ export default function EditEventScreen(props) {
     setPicture(null);
   }
 
+  let showPrice;
+  if (typeof event.entry_price === 'object') {
+    showPrice = event.entry_price.$numberDecimal;
+  } else {
+    showPrice = event.entry_price;
+  }
+
   // Maybe have all form items prefilled with the current details?
   
   return (
@@ -211,7 +218,7 @@ export default function EditEventScreen(props) {
           </View>
           <View style={formsStyles.editEventScreenTextContainer}>
             <Text style={formsStyles.editEventScreenTextLabel}>Current Entry Fee: </Text>
-            <Text style={formsStyles.editEventScreenText}> £{event.entry_price}</Text>
+            <Text style={formsStyles.editEventScreenText}> £{showPrice}</Text>
           </View>
           <View style={formsStyles.entryFeeContainer}>
               <Text style={formsStyles.entryFeeLabel} >New Entry Fee</Text>
