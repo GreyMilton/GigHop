@@ -8,58 +8,6 @@ import mainScreenStyles from '../style-documents/main-screen-styling';
 import { createNewVenueReferenceObject } from '../utils/main-screen-utils';
 
 export default function MainScreen({ navigation }) {
-  const venueArr = [
-    {
-      "_id": "61ae26cb8d70b95db023dbe6",
-      "entry_price": 4.99,
-      "description": "test",
-      "venue_id": "61ae068dcff5425db378629e",
-      "user_id": "61ae0411e399a088552170ba",
-      "artists_ids": [
-        {
-          "artist_id": "61ae0411e399a088552170ba"
-        },
-        {
-          "artist_id": "testing"
-        },
-        {
-          "event_id": "testing"
-        }
-      ],
-      "authorised": {
-        "artist": true,
-        "venue": true
-      },
-      "time_end": "2021-12-10T22:00:00.000Z",
-      "time_start": "2021-12-10T18:30:00.000Z",
-      "picture": "https://upload.wikimedia.org/wikipedia/commons/e/ef/The_Wiggles_live_in_Sydney_2018.jpg",
-      "event_name": "Grey and the Wiggles",
-      "venue_info": [
-        {
-          "_id": "61ae068dcff5425db378629e",
-          "venue_name": "The Three Crowns",
-          "coordinates": {
-            "latitude": {
-              "$numberDecimal": "50.36835"
-            },
-            "longitude": {
-              "$numberDecimal": "-4.13577"
-            }
-          },
-          "description": "pub with live music",
-          "pin_colour": "cyan",
-          "address": "11 The Parade, Plymouth PL1 2JL",
-          "picture": "https://i2-prod.plymouthherald.co.uk/incoming/article579474.ece/ALTERNATES/s615/0_929382JPG.jpg",
-          "upcoming_events": [
-            {
-              "event_id": "61ae26cb8d70b95db023dbe6"
-            }
-          ],
-          "owner_id": "61ae22d28d70b95db023dbdd"
-        }
-      ]
-    },
-  ];
   const [mapIsDisplaying, setMapIsDisplaying] = useState(true);
   const [fetchedEvents, setFetchedEvents] = useState([]);
   const [venuesInCurrentViewWithGigs, setVenuesInCurrentViewWithGigs] = useState([]);

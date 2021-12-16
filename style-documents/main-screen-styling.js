@@ -46,7 +46,7 @@ const mainScreenStyles = StyleSheet.create({
 		marginHorizontal: 2,
 		borderRadius: 4,
 		elevation: 3,
-		backgroundColor: "black",
+		// backgroundColor: "black",
 	},
 	timeAndDatePressableButtonsTextAndroid: {
 		fontSize: 13,

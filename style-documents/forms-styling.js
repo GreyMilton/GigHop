@@ -109,7 +109,7 @@ const formsStyles = StyleSheet.create({
 		borderRadius: 4,
 		margin: 2,
 		elevation: 3,
-		backgroundColor: "black",
+		// backgroundColor: "black",
   },
   timePickerButtonAndroid: {
 		flex: 1,
@@ -120,7 +120,7 @@ const formsStyles = StyleSheet.create({
 		borderRadius: 4,
 		margin: 2,
 		elevation: 3,
-		backgroundColor: "black",
+		// backgroundColor: "black",
   },
 	timeOrDatePickerButtonTextAndroid: {
 		fontSize: 13,
@@ -155,7 +155,7 @@ const formsStyles = StyleSheet.create({
 		marginBottom: 20,
 		borderRadius: 4,
 		elevation: 3,
-		backgroundColor: "black",
+		backgroundColor: "#01232d",
   },
   submitButtonText:{
 		fontSize: 16,
@@ -192,7 +192,7 @@ const formsStyles = StyleSheet.create({
 		borderRadius: 4,
 		margin: 2,
 		elevation: 3,
-		backgroundColor: "black",
+		// backgroundColor: "black",
   },
 	logInScreenSignUpButtonTextAndroid: {
 		fontSize: 15,

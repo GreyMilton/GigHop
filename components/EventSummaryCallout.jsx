@@ -10,7 +10,7 @@ export default function EventSummaryCallout({ event, venueReferenceObject }) {
         <Text style={mainScreenStyles.EventSummaryCalloutHeader} >{event['event_name']}</Text>
         <Text>at {event['venue_info'][0]['venue_name']} { (venueReferenceObject && (venueReferenceObject[event["venue_id"]].length > 1)) ? ((findIndexOfEvent(event["_id"], venueReferenceObject[event["venue_id"]]) + 1) + '/' + venueReferenceObject[event["venue_id"]].length) : null}</Text>
         <Text>{event['time_start'].substring(11,16)} - {event['time_end'].substring(11,16)}</Text>
-        <Text>{event['entry_price']["$numberDecimal"] === 0 ? 'Free entry' : "£" + event['entry_price']["$numberDecimal"] }</Text>
+        <Text>{(event['entry_price']["$numberDecimal"] === 0 || event['entry_price']["$numberDecimal"] === undefined || event['entry_price']["$numberDecimal"] === "0") ? 'Free entry' : "£" + event['entry_price']["$numberDecimal"] }</Text>
       </>
     </View>
   );

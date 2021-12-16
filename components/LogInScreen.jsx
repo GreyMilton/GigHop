@@ -4,6 +4,7 @@ import { Form, FormItem } from 'react-native-form-component';
 import { UserContext } from '../contexts/UserContext';
 import { getAllUsers, getSingleUser } from '../utils/api-requests';
 import formsStyles from '../style-documents/forms-styling';
+import { signUpOnLogInScreenButton } from '../style-documents/pressable-functions'
 
 export default function LogInScreen({ navigation }) {
 
@@ -53,7 +54,7 @@ export default function LogInScreen({ navigation }) {
       <View style={formsStyles.logInScreenSignUpContainer}>
         <Text style={formsStyles.logInScreenSignUpSuggestion}>Don't yet have an account?</Text>
         <Text style={formsStyles.logInScreenSignUpSuggestion}>Create an account to add, edit, and confirm new gigs.</Text>
-        <Pressable onPress={() => { navigation.navigate('Sign Up') }}style={formsStyles.logInScreenSignUpButtonAndroid} >
+        <Pressable onPress={() => { navigation.navigate('Sign Up') }}style={signUpOnLogInScreenButton} >
           <Text style={formsStyles.logInScreenSignUpButtonTextAndroid}>Sign Up Now</Text>
         </Pressable>
         <Text style={formsStyles.logInScreenSignUpSuggestion}>Soon you'll be able to save and track fave gigs, receive gig suggestions, and more!</Text>

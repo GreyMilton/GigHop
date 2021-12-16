@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, StatusBar, Image, ScrollView, Pressable} from 'react-native';
 import { getEventById } from '../utils/api-requests';
 import eventScreenStyles from '../style-documents/event-screen-styling.js';
+import { eventScreenButton } from '../style-documents/pressable-functions';
 
 export default function EventScreen(props) {
   const eventId = props.route.params.eventId;
@@ -18,7 +19,7 @@ export default function EventScreen(props) {
 
   if (isLoading) return (
     <View style={styles.LoadingContainer}>
-      <Text style={styles.LoadingText}>Loading Event...</Text>
+      <Text style={styles.LoadingText}>Loading Gig...</Text>
     </View>
   )
   return (
@@ -28,7 +29,7 @@ export default function EventScreen(props) {
         <View style={eventScreenStyles.eventDetailsContainer}>
           <View style={eventScreenStyles.eventScreenTextContainer}>
             <Text style={eventScreenStyles.eventScreenTextLabel}>Entry: </Text>
-            <Text style={eventScreenStyles.eventScreenText}>£{currentEvent[0].entry_price["$numberDecimal"]}</Text>
+            <Text style={eventScreenStyles.eventScreenText}>{(currentEvent[0]['entry_price']["$numberDecimal"] === 0 || currentEvent[0]['entry_price']["$numberDecimal"] === undefined || currentEvent[0]['entry_price']["$numberDecimal"] === "0") ? 'Free' : "£" + currentEvent[0]['entry_price']["$numberDecimal"] }</Text>
           </View>
           <View style={eventScreenStyles.eventScreenTextContainer}>
             <Text style={eventScreenStyles.eventScreenTextLabel}>About: </Text>
@@ -38,7 +39,7 @@ export default function EventScreen(props) {
         { currentEvent[0].picture ?
         <Image style={eventScreenStyles.eventScreenImage} source={{ uri: currentEvent[0].picture}}/>
         : null}
-        <Pressable style={eventScreenStyles.eventScreenButtonAndroid}
+        <Pressable style={eventScreenButton}
           title="Artist Details"
           onPress={() =>
             props.navigation.navigate('ArtistScreen', {
