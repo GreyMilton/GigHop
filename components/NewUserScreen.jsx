@@ -114,6 +114,21 @@ export default function NewUserScreen({ navigation }) {
         }
 
         navigation.navigate('Log In');
+        setUsername('');
+        setArtistDescription('');
+        setArtistName('');
+        setArtistPicture('');
+        setCheckedArtist(false);
+        setCheckedVenue(false);
+        setGenre('');
+        setLatitude('');
+        setLongitude('');
+        setVenueAddress('');
+        setVenueDescription('');
+        setVenuePicture('');
+        setProfilePicture('');
+        setVenueName('')
+
 
     }
 
