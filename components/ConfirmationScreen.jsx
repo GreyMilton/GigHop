@@ -16,7 +16,7 @@ export default function ConfirmationScreen() {
 
   useEffect(() => {
     setAssociatedEvents([]);
-    if (currentUser.artist && !currentUser.venue) {
+    if (currentUser.artist && currentUser.venue === '') {
       return getArtistById(currentUser.artist)
       .then((res) => {
           const upcomingEvents = res.upcoming_events.map(event => {
@@ -40,7 +40,7 @@ export default function ConfirmationScreen() {
       .catch((err)=> {
         console.log(err)
       })
-    } else if (currentUser.venue && currentUser.artist) {
+    } else if (currentUser.venue && currentUser.artist === '') {
       return getVenueById(currentUser.venue)
       .then((res) => {
           const upcomingEvents = res.upcoming_events.map(event => {
